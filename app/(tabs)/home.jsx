@@ -1,0 +1,171 @@
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  Platform,
+  ScrollView,
+  View,
+  Text,
+} from "react-native";
+import { useState } from "react";
+import { TinderCard } from "rn-tinder-card";
+import { HelloWave } from "@/components/HelloWave";
+import ParallaxScrollView from "@/components/ParallaxScrollView";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+
+import TinderCardComponent from "../../components/TinderCard";
+
+const data = [
+  "https://images.unsplash.com/photo-1681896616404-6568bf13b022?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1335&q=80",
+  "https://images.unsplash.com/photo-1681871197336-0250ed2fe23d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+  "https://images.unsplash.com/photo-1681238091934-10fbb34b497a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1282&q=80",
+];
+
+const profiles = [
+  {
+    id: 1,
+    name: "Restaurant A",
+    description: "Best food in town at Restautant A",
+    images: [
+      "https://images.unsplash.com/photo-1681896616404-6568bf13b022?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1335&q=80",
+      "https://images.unsplash.com/photo-1681871197336-0250ed2fe23d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+      "https://images.unsplash.com/photo-1681238091934-10fbb34b497a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1282&q=80",
+    ],
+  },
+  {
+    id: 2,
+    name: "Restaurant B",
+    description: "Best food in town at Restautant B",
+    images: [
+      "https://png.pngtree.com/png-vector/20231016/ourmid/pngtree-burger-food-png-free-download-png-image_10199386.png",
+    ],
+  },
+];
+
+// TEMPORARY FOR DEVELOPMENT PURPOSES
+
+export default function HomeScreen() {
+  const reversedProfiles = [...profiles].reverse(); // Create a reversed copy
+  const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isExpaned, setIsExpanded] = useState(false);
+
+  const handleTapLeft = () => {
+    setCurrentImageIndex(currentImageIndex == 0 ? 0 : currentImageIndex - 1);
+    console.log("Tapped left ", currentImageIndex);
+  };
+
+  const handleTapRight = () => {
+    setCurrentImageIndex(
+      (currentImageIndex + 1) %
+        reversedProfiles[currentProfileIndex].images.length
+    );
+    console.log(
+      "Tapped right ",
+      currentImageIndex,
+      reversedProfiles[currentProfileIndex].images.length
+    );
+  };
+
+  const handleTapBottom = () => {
+    console.log("Tap that bottom !");
+  };
+
+  const handleSwipeLeft = () => {
+    setCurrentProfileIndex(currentProfileIndex + 1);
+    console.log("Swiped left ", currentProfileIndex);
+  };
+  const handleSwipeRight = () => {
+    setCurrentProfileIndex(currentProfileIndex + 1);
+    console.log("Swiped right ", currentProfileIndex);
+  };
+
+  const OverlayRight = () => {
+    return (
+      <View
+        style={[
+          styles.overlayLabelContainer,
+          {
+            backgroundColor: "green",
+          },
+        ]}
+      >
+        <Text style={styles.overlayLabelText}>Like</Text>
+      </View>
+    );
+  };
+
+  return (
+    // <ScrollView>
+    <View style={styles.container}>
+      {profiles.map((profile, index) => {
+        return (
+          <View
+            style={styles.cardContainer}
+            pointerEvents="box-none"
+            key={profile.id}
+          >
+            <TinderCardComponent
+              onSwipedLeft={() => handleSwipeLeft()}
+              onSwipedRight={() => handleSwipeRight()}
+              onTapLeft={() => handleTapLeft()}
+              onTapRight={() => handleTapRight()}
+              onTapBottom={() => handleTapBottom()}
+              cardWidth={380}
+              cardHeight={730}
+              OverlayLabelRight={OverlayRight}
+              imageUri={profile.images[currentImageIndex]}
+              title={profile.name}
+              description={profile.description}
+            ></TinderCardComponent>
+          </View>
+        );
+      })}
+    </View>
+    // </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  cardContainer: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  card: {
+    borderRadius: 48,
+  },
+  container: {
+    flex: 1, // Take up the entire screen
+    justifyContent: "center", // Center content vertically
+    alignItems: "center", // Center content horizontally
+  },
+  imageContainer: {
+    width: 300,
+    height: 300,
+  },
+  image: {
+    width: "100%", // Make the image take up the entire width of the container
+    height: "100%", // Make the image take up the entire height of the container
+    resizeMode: "cover", // Adjust image scaling (use 'contain', 'cover', etc. as needed)
+  },
+  // image: {
+  //   width: 300, // Set your desired width
+  //   height: 300, // Set your desired height
+  //   resizeMode: "contain", // Optional: Adjust how the image should be resized
+  // },
+
+  reactLogo: {
+    height: 178,
+    width: 290,
+    bottom: 0,
+    left: 0,
+    position: "absolute",
+  },
+});

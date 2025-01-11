@@ -1,26 +1,114 @@
+export const Colors = {
+  light: {
+    primary: "rgb(185, 24, 56)",
+    onPrimary: "rgb(255, 255, 255)",
+    primaryContainer: "rgb(255, 218, 218)",
+    onPrimaryContainer: "rgb(64, 0, 12)",
+    secondary: "rgb(177, 44, 30)",
+    onSecondary: "rgb(255, 255, 255)",
+    secondaryContainer: "rgb(255, 218, 212)",
+    onSecondaryContainer: "rgb(65, 0, 0)",
+    tertiary: "rgb(156, 65, 64)",
+    onTertiary: "rgb(255, 255, 255)",
+    tertiaryContainer: "rgb(255, 218, 215)",
+    onTertiaryContainer: "rgb(65, 0, 5)",
+    error: "rgb(186, 26, 26)",
+    onError: "rgb(255, 255, 255)",
+    errorContainer: "rgb(255, 218, 214)",
+    onErrorContainer: "rgb(65, 0, 2)",
+    background: "rgb(255, 251, 255)",
+    onBackground: "rgb(32, 26, 26)",
+    surface: "rgb(255, 251, 255)",
+    onSurface: "rgb(32, 26, 26)",
+    surfaceVariant: "rgb(244, 221, 221)",
+    onSurfaceVariant: "rgb(82, 67, 67)",
+    outline: "rgb(133, 115, 115)",
+    outlineVariant: "rgb(215, 193, 193)",
+    shadow: "rgb(0, 0, 0)",
+    scrim: "rgb(0, 0, 0)",
+    inverseSurface: "rgb(54, 47, 47)",
+    inverseOnSurface: "rgb(251, 238, 237)",
+    inversePrimary: "rgb(255, 179, 181)",
+    elevation: {
+      level0: "transparent",
+      level1: "rgb(252, 240, 245)",
+      level2: "rgb(249, 233, 239)",
+      level3: "rgb(247, 226, 233)",
+      level4: "rgb(247, 224, 231)",
+      level5: "rgb(245, 219, 227)",
+    },
+    surfaceDisabled: "rgba(32, 26, 26, 0.12)",
+    onSurfaceDisabled: "rgba(32, 26, 26, 0.38)",
+    backdrop: "rgba(59, 45, 45, 0.4)",
+  },
+
+  dark: {
+    primary: "rgb(255, 179, 181)",
+    onPrimary: "rgb(104, 0, 24)",
+    primaryContainer: "rgb(146, 0, 38)",
+    onPrimaryContainer: "rgb(255, 218, 218)",
+    secondary: "rgb(255, 180, 168)",
+    onSecondary: "rgb(105, 0, 0)",
+    secondaryContainer: "rgb(143, 16, 8)",
+    onSecondaryContainer: "rgb(255, 218, 212)",
+    tertiary: "rgb(255, 179, 175)",
+    onTertiary: "rgb(95, 19, 22)",
+    tertiaryContainer: "rgb(126, 42, 42)",
+    onTertiaryContainer: "rgb(255, 218, 215)",
+    error: "rgb(255, 180, 171)",
+    onError: "rgb(105, 0, 5)",
+    errorContainer: "rgb(147, 0, 10)",
+    onErrorContainer: "rgb(255, 180, 171)",
+    background: "rgb(32, 26, 26)",
+    onBackground: "rgb(236, 224, 223)",
+    surface: "rgb(32, 26, 26)",
+    onSurface: "rgb(236, 224, 223)",
+    surfaceVariant: "rgb(82, 67, 67)",
+    onSurfaceVariant: "rgb(215, 193, 193)",
+    outline: "rgb(159, 140, 140)",
+    outlineVariant: "rgb(82, 67, 67)",
+    shadow: "rgb(0, 0, 0)",
+    scrim: "rgb(0, 0, 0)",
+    inverseSurface: "rgb(236, 224, 223)",
+    inverseOnSurface: "rgb(54, 47, 47)",
+    inversePrimary: "rgb(185, 24, 56)",
+    elevation: {
+      level0: "transparent",
+      level1: "rgb(43, 34, 34)",
+      level2: "rgb(50, 38, 38)",
+      level3: "rgb(57, 43, 43)",
+      level4: "rgb(59, 44, 45)",
+      level5: "rgb(63, 47, 48)",
+    },
+    surfaceDisabled: "rgba(236, 224, 223, 0.12)",
+    onSurfaceDisabled: "rgba(236, 224, 223, 0.38)",
+    backdrop: "rgba(59, 45, 45, 0.4)",
+  },
+};
+
 /**
  * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
  * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
  */
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+// const tintColorLight = '#0a7ea4';
+// const tintColorDark = '#fff';
 
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
-};
+// export const Colors = {
+//   light: {
+//     text: '#11181C',
+//     background: '#fff',
+//     tint: tintColorLight,
+//     icon: '#687076',
+//     tabIconDefault: '#687076',
+//     tabIconSelected: tintColorLight,
+//   },
+//   dark: {
+//     text: '#ECEDEE',
+//     background: '#151718',
+//     tint: tintColorDark,
+//     icon: '#9BA1A6',
+//     tabIconDefault: '#9BA1A6',
+//     tabIconSelected: tintColorDark,
+//   },
+// };
