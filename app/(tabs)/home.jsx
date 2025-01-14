@@ -3,9 +3,12 @@ import {
   Image,
   StyleSheet,
   Platform,
-  ScrollView,
   View,
   Text,
+  Modal,
+  Animated,
+  TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import { useState } from "react";
 import { TinderCard } from "rn-tinder-card";
@@ -14,7 +17,11 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
+// import { Button, Text } from "react-native-paper";
+import { Button } from "react-native";
+
 import TinderCardComponent from "../../components/TinderCard";
+import ExpandedCard from "../../components/ExpandedCard";
 
 const data = [
   "https://images.unsplash.com/photo-1681896616404-6568bf13b022?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1335&q=80",
@@ -49,13 +56,12 @@ export default function HomeScreen() {
   const reversedProfiles = [...profiles].reverse(); // Create a reversed copy
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isExpaned, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const handleTapLeft = () => {
     setCurrentImageIndex(currentImageIndex == 0 ? 0 : currentImageIndex - 1);
     console.log("Tapped left ", currentImageIndex);
   };
-
   const handleTapRight = () => {
     setCurrentImageIndex(
       (currentImageIndex + 1) %
@@ -67,9 +73,9 @@ export default function HomeScreen() {
       reversedProfiles[currentProfileIndex].images.length
     );
   };
-
   const handleTapBottom = () => {
-    console.log("Tap that bottom !");
+    console.log("Enter detailed mode!");
+    setIsExpanded(true);
   };
 
   const handleSwipeLeft = () => {
@@ -81,6 +87,9 @@ export default function HomeScreen() {
     console.log("Swiped right ", currentProfileIndex);
   };
 
+  const handleClose = () => {
+    setIsExpanded(false);
+  };
   const OverlayRight = () => {
     return (
       <View
@@ -97,7 +106,7 @@ export default function HomeScreen() {
   };
 
   return (
-    // <ScrollView>
+    // <View style={{ flex: 1 }} justifyContent="center" alignItems="center">
     <View style={styles.container}>
       {profiles.map((profile, index) => {
         return (
@@ -111,7 +120,7 @@ export default function HomeScreen() {
               onSwipedRight={() => handleSwipeRight()}
               onTapLeft={() => handleTapLeft()}
               onTapRight={() => handleTapRight()}
-              onTapBottom={() => handleTapBottom()}
+              onToggleExpand={() => handleTapBottom()}
               cardWidth={380}
               cardHeight={730}
               OverlayLabelRight={OverlayRight}
@@ -122,8 +131,31 @@ export default function HomeScreen() {
           </View>
         );
       })}
+      <Modal
+        visible={isExpanded}
+        animationType="slide"
+        onRequestClose={handleClose}
+      >
+        {isExpanded && (
+          <ExpandedCard
+            title="Sample Title"
+            description="Hey hey hey description"
+            onClose={handleClose}
+          ></ExpandedCard>
+        )}
+        {/* <View
+          backgroundColor="blue"
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
+          <Button
+            title="Close"
+            backgroundColor="black"
+            onPress={() => setIsExpanded(false)}
+          />
+        </View> */}
+      </Modal>
     </View>
-    // </ScrollView>
+    // </View>
   );
 }
 

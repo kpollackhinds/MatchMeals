@@ -23,7 +23,7 @@ const TinderCardComponent = ({
   onSwipedTop,
   onTapLeft,
   onTapRight,
-  onTapBottom,
+  onToggleExpand,
 }) => {
   return (
     <TinderCard
@@ -50,7 +50,7 @@ const TinderCardComponent = ({
                 <View style={styles.rightTouchable}></View>
               </TouchableWithoutFeedback>
             </View>
-            <TouchableWithoutFeedback onPress={onTapBottom}>
+            <TouchableWithoutFeedback onPress={onToggleExpand}>
               <View style={styles.bottomTouchable}></View>
             </TouchableWithoutFeedback>
           </View>
