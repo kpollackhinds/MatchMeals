@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between", // Ensures image is at the top and text at the bottom
   },
   imageContainer: {
-    flex: 2,
+    flex: 3,
     // flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -94,6 +94,25 @@ const styles = StyleSheet.create({
     height: "100%",
     resizeMode: "cover",
     borderRadius: 20,
+  },
+  textContainer: {
+    flex: 1,
+    padding: 10,
+    justifyContent: "center",
+    backgroundColor: "#f8f8f8",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
+    textAlign: "center",
+  },
+  description: {
+    fontSize: 14,
+    color: "#666",
+    textAlign: "center",
   },
   touchableContainerMain: {
     position: "absolute",
@@ -130,25 +149,6 @@ const styles = StyleSheet.create({
     height: "20%",
     backgroundColor: "rgba(0, 255, 0, 0.3)",
     // backgroundColor: "transparent",
-  },
-  textContainer: {
-    flex: 1,
-    padding: 10,
-    justifyContent: "center",
-    backgroundColor: "#f8f8f8",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-    textAlign: "center",
-  },
-  description: {
-    fontSize: 14,
-    color: "#666",
-    textAlign: "center",
   },
 });
 

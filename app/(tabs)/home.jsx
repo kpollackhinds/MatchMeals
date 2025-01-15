@@ -4,11 +4,11 @@ import {
   StyleSheet,
   Platform,
   View,
-  Text,
   Modal,
   Animated,
   TouchableOpacity,
   ScrollView,
+  SafeAreaView,
 } from "react-native";
 import { useState } from "react";
 import { TinderCard } from "rn-tinder-card";
@@ -17,8 +17,7 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
-// import { Button, Text } from "react-native-paper";
-import { Button } from "react-native";
+import { Button, Text } from "react-native-paper";
 
 import TinderCardComponent from "../../components/TinderCard";
 import ExpandedCard from "../../components/ExpandedCard";
@@ -107,43 +106,62 @@ export default function HomeScreen() {
 
   return (
     // <View style={{ flex: 1 }} justifyContent="center" alignItems="center">
-    <View style={styles.container}>
-      {profiles.map((profile, index) => {
-        return (
-          <View
-            style={styles.cardContainer}
-            pointerEvents="box-none"
-            key={profile.id}
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <View style={styles.cardStack}>
+          {profiles.map((profile, index) => {
+            return (
+              <View
+                style={styles.cardContainer}
+                pointerEvents="box-none"
+                key={profile.id}
+              >
+                <TinderCardComponent
+                  onSwipedLeft={() => handleSwipeLeft()}
+                  onSwipedRight={() => handleSwipeRight()}
+                  onTapLeft={() => handleTapLeft()}
+                  onTapRight={() => handleTapRight()}
+                  onToggleExpand={() => handleTapBottom()}
+                  cardWidth={380}
+                  cardHeight={730}
+                  OverlayLabelRight={OverlayRight}
+                  imageUri={profile.images[currentImageIndex]}
+                  title={profile.name}
+                  description={profile.description}
+                ></TinderCardComponent>
+              </View>
+            );
+          })}
+        </View>
+        <View style={styles.likeButtons}>
+          <Button
+            icon="thumb-down"
+            mode="contained"
+            onPress={() => handleSwipeLeft()}
           >
-            <TinderCardComponent
-              onSwipedLeft={() => handleSwipeLeft()}
-              onSwipedRight={() => handleSwipeRight()}
-              onTapLeft={() => handleTapLeft()}
-              onTapRight={() => handleTapRight()}
-              onToggleExpand={() => handleTapBottom()}
-              cardWidth={380}
-              cardHeight={730}
-              OverlayLabelRight={OverlayRight}
-              imageUri={profile.images[currentImageIndex]}
-              title={profile.name}
-              description={profile.description}
-            ></TinderCardComponent>
-          </View>
-        );
-      })}
-      <Modal
-        visible={isExpanded}
-        animationType="slide"
-        onRequestClose={handleClose}
-      >
-        {isExpanded && (
-          <ExpandedCard
-            title="Sample Title"
-            description="Hey hey hey description"
-            onClose={handleClose}
-          ></ExpandedCard>
-        )}
-        {/* <View
+            Dislike
+          </Button>
+          <Button
+            icon="thumb-up"
+            mode="contained"
+            onPress={() => handleSwipeRight()}
+          >
+            Like
+          </Button>
+        </View>
+        <Modal
+          visible={isExpanded}
+          animationType="slide"
+          onRequestClose={handleClose}
+        >
+          {isExpanded && (
+            <ExpandedCard
+              title="Sample Title"
+              description="Hey hey hey description"
+              onClose={handleClose}
+            ></ExpandedCard>
+          )}
+          {/* <View
           backgroundColor="blue"
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
@@ -153,31 +171,41 @@ export default function HomeScreen() {
             onPress={() => setIsExpanded(false)}
           />
         </View> */}
-      </Modal>
-    </View>
+        </Modal>
+      </View>
+    </SafeAreaView>
     // </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1, // Take up the entire screen
+    // justifyContent: "center", // Center content vertically
+    // alignItems: "center", // Center content horizontally
+    flexDirection: "column",
+  },
+  cardStack: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   titleContainer: {
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
   },
   cardContainer: {
-    ...StyleSheet.absoluteFillObject,
+    // ...StyleSheet.absoluteFillObject,
+    position: "absolute",
+    // flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
   card: {
     borderRadius: 48,
   },
-  container: {
-    flex: 1, // Take up the entire screen
-    justifyContent: "center", // Center content vertically
-    alignItems: "center", // Center content horizontally
-  },
+
   imageContainer: {
     width: 300,
     height: 300,
@@ -187,17 +215,12 @@ const styles = StyleSheet.create({
     height: "100%", // Make the image take up the entire height of the container
     resizeMode: "cover", // Adjust image scaling (use 'contain', 'cover', etc. as needed)
   },
-  // image: {
-  //   width: 300, // Set your desired width
-  //   height: 300, // Set your desired height
-  //   resizeMode: "contain", // Optional: Adjust how the image should be resized
-  // },
-
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
+  likeButtons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    // width: "100%",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
 });
