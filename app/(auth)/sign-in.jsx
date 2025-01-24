@@ -9,7 +9,7 @@ import { TextInput, useTheme, Text } from "react-native-paper";
 import FormField from "../../components/FormField";
 import SignInButton from "../../components/CustomButton";
 import { handleNavigation } from "../../utils/naviagtionUtils";
-// import { signInUser } from "../../services/authService";
+import { signInUser } from "../../services/authService";
 
 const SignIn = () => {
   const theme = useTheme();
@@ -27,17 +27,17 @@ const SignIn = () => {
 
   const handleSignIn = () => {
     // Add your sign-in logic here
-    // setIsLoading(true);
-    // signInUser(form.email, form.password)
-    //   .then(() => {
-    //     setIsLoading(false);
-    //     handleNavigation(router, "/home");
-    //   })
-    //   .catch((error) => {
-    //     setIsLoading(false);
-    //     setEmailError(error.message);
-    //   });
-    // setIsLoading(false);
+    setIsLoading(true);
+    signInUser(form.email, form.password)
+      .then(() => {
+        setIsLoading(false);
+        handleNavigation(router, "/home");
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setEmailError(error.message);
+      });
+    setIsLoading(false);
   };
 
   const handleForgotPassword = () => {
