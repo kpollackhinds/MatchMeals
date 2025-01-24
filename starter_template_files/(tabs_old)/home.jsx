@@ -10,7 +10,6 @@ import {
   ScrollView,
   SafeAreaView,
   Text,
-  Button,
 } from "react-native";
 import { useState } from "react";
 import { TinderCard } from "rn-tinder-card";
@@ -19,7 +18,7 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
-// import { Button } from "react-native-paper";
+import { Button } from "react-native-paper";
 
 import TinderCardComponent from "../../components/TinderCard";
 import ExpandedCard from "../../components/ExpandedCard";
@@ -40,9 +39,6 @@ const profiles = [
       "https://images.unsplash.com/photo-1681871197336-0250ed2fe23d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
       "https://images.unsplash.com/photo-1681238091934-10fbb34b497a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1282&q=80",
     ],
-    details: {
-      distance: "3 miles",
-    },
   },
   {
     id: 2,
@@ -51,9 +47,6 @@ const profiles = [
     images: [
       "https://png.pngtree.com/png-vector/20231016/ourmid/pngtree-burger-food-png-free-download-png-image_10199386.png",
     ],
-    details: {
-      distance: "5 miles",
-    },
   },
 ];
 
@@ -136,13 +129,12 @@ export default function HomeScreen() {
                   imageUri={profile.images[currentImageIndex]}
                   title={profile.name}
                   description={profile.description}
-                  details={profile.details}
                 ></TinderCardComponent>
               </View>
             );
           })}
         </View>
-        {/* <View style={styles.likeButtons}>
+        <View style={styles.likeButtons}>
           <Button
             icon="thumb-down"
             mode="contained"
@@ -157,7 +149,7 @@ export default function HomeScreen() {
           >
             Like
           </Button>
-        </View> */}
+        </View>
         <Modal
           visible={isExpanded}
           animationType="slide"

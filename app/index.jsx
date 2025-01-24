@@ -64,7 +64,7 @@ const LandingScreen = () => {
           ></AuthButton>
         </View>
 
-        <TouchableOpacity onPress={() => handleNavigation(router, "/index2")}>
+        <TouchableOpacity onPress={() => handleNavigation(router, "/home")}>
           <Text style={styles.skipText}>Skip for now</Text>
         </TouchableOpacity>
       </View>

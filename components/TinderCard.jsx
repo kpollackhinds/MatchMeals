@@ -5,8 +5,8 @@ import {
   StyleSheet,
   View,
   TouchableWithoutFeedback,
+  Text,
 } from "react-native";
-import { Text } from "react-native-paper";
 import { TinderCard } from "rn-tinder-card";
 
 const TinderCardComponent = ({
@@ -18,6 +18,7 @@ const TinderCardComponent = ({
   imageUri,
   title,
   description,
+  details,
   onSwipedRight,
   onSwipedLeft,
   onSwipedTop,
@@ -58,7 +59,10 @@ const TinderCardComponent = ({
 
         {/* Text Section */}
         <View style={styles.textContainer}>
-          <Text style={styles.title}>{title}</Text>
+          <View style={styles.titleRow}>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.distance}>{details.distance}</Text>
+          </View>
           <Text style={styles.description}>{description}</Text>
         </View>
       </View>
@@ -98,21 +102,32 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
     padding: 10,
-    justifyContent: "center",
+    // justifyContent: "center",
     backgroundColor: "#f8f8f8",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
+  titleRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "baseline",
+    marginBottom: 20,
+  },
   title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-    textAlign: "center",
+    fontSize: 33,
+    fontWeight: "800",
+    // marginBottom: 20,
+    // textAlign: "center",
   },
   description: {
     fontSize: 14,
     color: "#666",
-    textAlign: "center",
+    // textAlign: "center",
+  },
+  distance: {
+    fontSize: 14,
+    color: "#666",
+    // textAlign: "center
   },
   touchableContainerMain: {
     position: "absolute",
