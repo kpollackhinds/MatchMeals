@@ -11,6 +11,13 @@ import SignInButton from "../../components/CustomButton";
 import { handleNavigation } from "../../utils/naviagtionUtils";
 import { signInUser } from "../../services/authService";
 
+// Open items:
+// 5. Error handling for insufficient credentials
+// 3. Input validation
+// 1. Add a logo to the login page
+// 2. Add a forgot password link
+// 4. Add a loading indicator
+
 const SignIn = () => {
   const theme = useTheme();
   const [form, setForm] = useState({
@@ -73,7 +80,6 @@ const SignIn = () => {
               />
             }
           />
-          {emailError && <Text style={styles.errorText}>{emailError}</Text>}
 
           <View style={{ marginBottom: 30 }}>
             <FormField
@@ -103,6 +109,12 @@ const SignIn = () => {
                 />
               }
             />
+            {emailError && (
+              <Text style={styles.errorText}>
+                {"Incorrect email or password"}
+              </Text>
+            )}
+
             <TouchableOpacity onPress={handleForgotPassword}>
               <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
             </TouchableOpacity>

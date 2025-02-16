@@ -23,6 +23,7 @@ import { ThemedView } from "@/components/ThemedView";
 
 import TinderCardComponent from "../../components/TinderCard";
 import ExpandedCard from "../../components/ExpandedCard";
+import { Response, PlacePhotoResponse } from "../../constants/TestResponse";
 
 const data = [
   "https://images.unsplash.com/photo-1681896616404-6568bf13b022?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1335&q=80",
@@ -60,7 +61,7 @@ const profiles = [
 // TEMPORARY FOR DEVELOPMENT PURPOSES
 
 export default function HomeScreen() {
-  const reversedProfiles = [...profiles].reverse(); // Create a reversed copy
+  const reversedProfiles = [...Response.places].reverse(); // Create a reversed copy
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -117,7 +118,7 @@ export default function HomeScreen() {
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.cardStack}>
-          {profiles.map((profile, index) => {
+          {Response.places.map((profile, index) => {
             return (
               <View
                 style={styles.cardContainer}
@@ -133,10 +134,13 @@ export default function HomeScreen() {
                   cardWidth={380}
                   cardHeight={730}
                   OverlayLabelRight={OverlayRight}
-                  imageUri={profile.images[currentImageIndex]}
-                  title={profile.name}
-                  description={profile.description}
-                  details={profile.details}
+                  imageUri={profile.photos[currentImageIndex].googleMapsUri}
+                  RestaurantName={profile.displayName.text}
+                  description={profile.generativeSummary.overview.text}
+                  rating={profile.rating}
+                  priceLevel={profile.priceLevel}
+                  distance={"3 miles"}
+                  // details={profile.details}
                 ></TinderCardComponent>
               </View>
             );

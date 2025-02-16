@@ -9,8 +9,14 @@ import { TextInput, useTheme, Text } from "react-native-paper";
 import FormField from "../../components/FormField";
 import SignInButton from "../../components/CustomButton";
 import { handleNavigation } from "../../utils/naviagtionUtils";
-import { signInUser } from "../../services/authService";
+import { signUpUser } from "../../services/authService";
 
+// Open items:
+// 5. Error handling for insufficient credentials ✓
+// 3. Input validation ✓
+// 1. Add a logo to the login page
+// 2. Add a forgot password link
+// 4. Add a loading indicator
 const SignUp = () => {
   const theme = useTheme();
   const [form, setForm] = useState({
@@ -25,8 +31,21 @@ const SignUp = () => {
 
   const router = useRouter();
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSignUp = () => {
     // Add your sign-up logic here
+    if (!validateEmail(form.email)) {
+      setEmailError("Invalid email address");
+      return;
+    }
+    if (form.password.length < 6) {
+      setPasswordError("Password must be at least 6 characters long");
+      return;
+    }
     setIsLoading(true);
     signUpUser(form.email, form.password)
       .then((user) => {
@@ -100,6 +119,9 @@ const SignUp = () => {
                 />
               }
             />
+            {passwordError && (
+              <Text style={styles.errorText}>{passwordError}</Text>
+            )}
           </View>
 
           <View style={{ alignItems: "center" }}>

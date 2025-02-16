@@ -8,6 +8,8 @@ import {
   Text,
 } from "react-native";
 import { TinderCard } from "rn-tinder-card";
+import renderStars from "../utils/renderStars";
+import PriceLevelComponent from "../utils/renderPrice";
 
 const TinderCardComponent = ({
   cardWidth,
@@ -16,9 +18,12 @@ const TinderCardComponent = ({
   OverlayLabelLeft,
   OverlayLabelTop,
   imageUri,
-  title,
+  RestaurantName,
   description,
+  rating,
+  priceLevel,
   details,
+  distance,
   onSwipedRight,
   onSwipedLeft,
   onSwipedTop,
@@ -26,6 +31,7 @@ const TinderCardComponent = ({
   onTapRight,
   onToggleExpand,
 }) => {
+  console.log(priceLevel);
   return (
     <TinderCard
       cardHeight={cardHeight}
@@ -60,8 +66,15 @@ const TinderCardComponent = ({
         {/* Text Section */}
         <View style={styles.textContainer}>
           <View style={styles.titleRow}>
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.distance}>{details.distance}</Text>
+            <Text style={styles.title}>{RestaurantName}</Text>
+            {/* Need to find out how to get distance to restaurant below. Another API call? */}
+            <Text style={styles.distance}>{distance}</Text>
+          </View>
+          <View style={styles.ratingRow}>
+            {/* Insert star based reting */}
+            {renderStars(rating)}
+            {/* Insert dollar sign based price enum */}
+            <PriceLevelComponent priceLevel={priceLevel} />
           </View>
           <Text style={styles.description}>{description}</Text>
         </View>
@@ -111,10 +124,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "baseline",
-    marginBottom: 20,
+    marginBottom: 11,
+  },
+  ratingRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "baseline",
+    marginBottom: 30,
   },
   title: {
-    fontSize: 33,
+    fontSize: 31,
     fontWeight: "800",
     // marginBottom: 20,
     // textAlign: "center",
