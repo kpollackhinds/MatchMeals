@@ -9,7 +9,8 @@ import {
 } from "react-native";
 import { TinderCard } from "rn-tinder-card";
 import renderStars from "../utils/renderStars";
-import PriceLevelComponent from "../utils/renderPrice";
+import { PriceLevelComponent } from "../utils/renderPrice";
+import { parseRestaurantType } from "../utils/parsing";
 
 const TinderCardComponent = ({
   cardWidth,
@@ -21,6 +22,7 @@ const TinderCardComponent = ({
   RestaurantName,
   description,
   rating,
+  category,
   priceLevel,
   details,
   distance,
@@ -65,18 +67,33 @@ const TinderCardComponent = ({
 
         {/* Text Section */}
         <View style={styles.textContainer}>
+          {/* Title Row */}
           <View style={styles.titleRow}>
             <Text style={styles.title}>{RestaurantName}</Text>
-            {/* Need to find out how to get distance to restaurant below. Another API call? */}
+          </View>
+
+          {/* Category and distance row */}
+          <View style={styles.categoryRow}>
+            <Text style={styles.category}>{parseRestaurantType(category)}</Text>
+
             <Text style={styles.distance}>{distance}</Text>
           </View>
+
+          {/* Rating, and price row */}
           <View style={styles.ratingRow}>
             {/* Insert star based reting */}
             {renderStars(rating)}
             {/* Insert dollar sign based price enum */}
             <PriceLevelComponent priceLevel={priceLevel} />
           </View>
-          <Text style={styles.description}>{description}</Text>
+
+          <Text
+            style={styles.description}
+            numberOfLines={3}
+            ellipsizeMode="tail"
+          >
+            {description}
+          </Text>
         </View>
       </View>
     </TinderCard>
@@ -124,29 +141,35 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "baseline",
-    marginBottom: 11,
+    marginBottom: 6,
+  },
+  categoryRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "baseline",
+    marginBottom: 6,
   },
   ratingRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "baseline",
-    marginBottom: 30,
+    marginBottom: 24,
   },
   title: {
     fontSize: 31,
     fontWeight: "800",
-    // marginBottom: 20,
-    // textAlign: "center",
   },
   description: {
+    fontSize: 15,
+    color: "#000000",
+  },
+  category: {
     fontSize: 14,
     color: "#666",
-    // textAlign: "center",
   },
   distance: {
     fontSize: 14,
     color: "#666",
-    // textAlign: "center
   },
   touchableContainerMain: {
     position: "absolute",
@@ -186,4 +209,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TinderCardComponent;
+export { TinderCardComponent };

@@ -12,7 +12,7 @@ import {
   Text,
   Button,
 } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TinderCard } from "rn-tinder-card";
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
@@ -21,7 +21,7 @@ import { ThemedView } from "@/components/ThemedView";
 
 // import { Button } from "react-native-paper";
 
-import TinderCardComponent from "../../components/TinderCard";
+import { TinderCardComponent } from "../../components/TinderCard";
 import ExpandedCard from "../../components/ExpandedCard";
 import { Response, PlacePhotoResponse } from "../../constants/TestResponse";
 
@@ -62,9 +62,29 @@ const profiles = [
 
 export default function HomeScreen() {
   const reversedProfiles = [...Response.places].reverse(); // Create a reversed copy
-  const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
+  const [profiles, setProfiles] = useState(Response.places);
+  const [loading, setLoading] = useState(false);
+  // const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
+  const [currentProfile, setCurrentProfile] = useState(
+    Response.places[Response.places.length - 1]
+  );
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
+
+  // useEffect(() => {
+  //   const fetchProfiles = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const response = await fetch("google api url");
+  //       const data = await response.json();
+  //       setProfiles(data.Places);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //     setLoading(false);
+  //   };
+  // });
 
   const handleTapLeft = () => {
     setCurrentImageIndex(currentImageIndex == 0 ? 0 : currentImageIndex - 1);
@@ -81,8 +101,9 @@ export default function HomeScreen() {
       reversedProfiles[currentProfileIndex].images.length
     );
   };
-  const handleTapBottom = () => {
+  const handleTapBottom = (profile) => {
     console.log("Enter detailed mode!");
+    setCurrentProfile(profile);
     setIsExpanded(true);
   };
 
@@ -130,15 +151,19 @@ export default function HomeScreen() {
                   onSwipedRight={() => handleSwipeRight()}
                   onTapLeft={() => handleTapLeft()}
                   onTapRight={() => handleTapRight()}
-                  onToggleExpand={() => handleTapBottom()}
+                  onToggleExpand={() => handleTapBottom(profile)}
                   cardWidth={380}
                   cardHeight={730}
                   OverlayLabelRight={OverlayRight}
-                  imageUri={profile.photos[currentImageIndex].googleMapsUri}
+                  imageUri={
+                    "https://lh3.googleusercontent.com/places/ANXAkqHkWUeM003sUtseVALF2CQyjp1aQ_gVclWrPC0fm9gpfvgcd29uf9UIMtuBWgdXW2paUlAbBta2XSyNu5wVcD5Lgke7fF1PiqA=s4800-w4800-h3196"
+                  }
+                  // imageUri={profile.photos[currentImageIndex].googleMapsUri}
                   RestaurantName={profile.displayName.text}
                   description={profile.generativeSummary.overview.text}
                   rating={profile.rating}
                   priceLevel={profile.priceLevel}
+                  category={profile.types[0]}
                   distance={"3 miles"}
                   // details={profile.details}
                 ></TinderCardComponent>
@@ -146,44 +171,44 @@ export default function HomeScreen() {
             );
           })}
         </View>
-        {/* <View style={styles.likeButtons}>
-          <Button
-            icon="thumb-down"
-            mode="contained"
-            onPress={() => handleSwipeLeft()}
-          >
-            Dislike
-          </Button>
-          <Button
-            icon="thumb-up"
-            mode="contained"
-            onPress={() => handleSwipeRight()}
-          >
-            Like
-          </Button>
-        </View> */}
         <Modal
           visible={isExpanded}
           animationType="slide"
           onRequestClose={handleClose}
         >
-          {isExpanded && (
-            <ExpandedCard
-              title="Sample Title"
-              description="Hey hey hey description"
-              onClose={handleClose}
-            ></ExpandedCard>
-          )}
-          {/* <View
-          backgroundColor="blue"
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        >
-          <Button
-            title="Close"
-            backgroundColor="black"
-            onPress={() => setIsExpanded(false)}
-          />
-        </View> */}
+          <SafeAreaView>
+            {isExpanded && (
+              <ExpandedCard
+                title="Sample Title"
+                onClose={handleClose}
+                RestaurantName={currentProfile.displayName.text}
+                imageUri={
+                  "https://lh3.googleusercontent.com/places/ANXAkqHkWUeM003sUtseVALF2CQyjp1aQ_gVclWrPC0fm9gpfvgcd29uf9UIMtuBWgdXW2paUlAbBta2XSyNu5wVcD5Lgke7fF1PiqA=s4800-w4800-h3196"
+                }
+                description={currentProfile.generativeSummary.overview.text}
+                rating={currentProfile.rating}
+                priceLevel={currentProfile.priceLevel}
+                category={currentProfile.types[0]}
+                distance={"3 miles"}
+                website={currentProfile.websiteUri}
+                address={currentProfile.formattedAddress}
+                // priceRange={currentProfile.priceRange}
+                // Mock for now
+                priceRange={{
+                  startPrice: {
+                    currencyCode: "USD",
+                    units: 10,
+                    nanos: 0,
+                  },
+                  endPrice: {
+                    currencyCode: "USD",
+                    units: 50,
+                    nanos: 0,
+                  },
+                }}
+              ></ExpandedCard>
+            )}
+          </SafeAreaView>
         </Modal>
       </View>
     </SafeAreaView>
@@ -209,9 +234,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   cardContainer: {
-    // ...StyleSheet.absoluteFillObject,
     position: "absolute",
-    // flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
