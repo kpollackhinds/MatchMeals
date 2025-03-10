@@ -33,7 +33,6 @@ const TinderCardComponent = ({
   onTapRight,
   onToggleExpand,
 }) => {
-  console.log(priceLevel);
   return (
     <TinderCard
       cardHeight={cardHeight}
@@ -153,7 +152,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "baseline",
-    marginBottom: 24,
+    marginBottom: 12,
   },
   title: {
     fontSize: 31,

@@ -12,6 +12,6 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "app/(tabs)/settings.jsx",
-    "app/(tabs)/home.jsx"
+    "app/(tabs)/home/session.jsx"
   ]
 }

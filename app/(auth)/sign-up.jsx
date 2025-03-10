@@ -7,7 +7,7 @@ import { TextInput, useTheme, Text } from "react-native-paper";
 
 // import { Colors } from "../../constants/colors";
 import FormField from "../../components/FormField";
-import SignInButton from "../../components/CustomButton";
+import { AuthButton as SignInButton } from "../../components/CustomButton";
 import { handleNavigation } from "../../utils/naviagtionUtils";
 import { signUpUser } from "../../services/authService";
 
@@ -50,7 +50,7 @@ const SignUp = () => {
     signUpUser(form.email, form.password)
       .then((user) => {
         setIsLoading(false);
-        handleNavigation(router, "/home");
+        handleNavigation(router, "/onboarding");
       })
       .catch((error) => {
         setIsLoading(false);
@@ -72,6 +72,12 @@ const SignUp = () => {
           <Text variant={"displayMedium"} style={styles.headerText}>
             Sign Up for Match Meals!
           </Text>
+
+          <TouchableOpacity
+            onPress={() => handleNavigation(router, "/onboarding")}
+          >
+            <Text>skip to onboarding</Text>
+          </TouchableOpacity>
 
           <FormField
             title="Email"

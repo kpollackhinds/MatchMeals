@@ -1,5 +1,13 @@
 import React from "react";
-import { View, StyleSheet, Image, Text, Linking } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  Linking,
+  TouchableOpacity,
+} from "react-native";
+import { Button } from "react-native-paper";
 import { SCREEN_WIDTH as sw, SCREEN_HEIGHT as sh } from "../utils/dimensions";
 import renderStars from "../utils/renderStars";
 import { PriceRangeComponent } from "../utils/renderPrice";
@@ -7,12 +15,16 @@ import { parseRestaurantType, getDomain } from "../utils/parsing";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 import CurrencySymbols from "../constants/CurrencyEnum";
+import OpenHoursComponent from "../components/OpenHoursComponent";
+import ExpandableText from "../components/ExpandableText";
+import { LikeButton, DislikeButton } from "../components/CustomButton";
 
 const ExpandedCard = ({
   title,
   imageUri,
   RestaurantName,
   description,
+  extendedDescription,
   rating,
   category,
   priceLevel,
@@ -22,6 +34,10 @@ const ExpandedCard = ({
   onClose,
   website,
   address,
+  phoneNumber,
+  openHours,
+  onLike,
+  onSkip,
 }) => {
   return (
     <View style={styles.card}>
@@ -48,28 +64,49 @@ const ExpandedCard = ({
           <PriceRangeComponent priceRange={priceRange} />
         </View>
 
-        <Text style={styles.description}>{description}</Text>
+        <View style={styles.hoursRow}>
+          <OpenHoursComponent openHours={openHours} />
+        </View>
 
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "baseline",
-            gap: 15,
-            marginBottom: 10,
-          }}
-        >
-          <Icon name="map-marker" size={22} />
-          <Text style={styles.address}>{address}</Text>
+        <ExpandableText
+          text={extendedDescription}
+          style={{ marginBottom: 15 }}
+        />
+        {/* <Text style={styles.description}>{extendedDescription}</Text> */}
+
+        <View style={styles.addressRow}>
+          <View style={styles.addressContainer}>
+            <Icon name="map-marker" size={22} color={"rgb(185, 24, 56)"} />
+            <Text numberOfLines={2} style={styles.address}>
+              {address}
+            </Text>
+          </View>
+          <Text style={styles.separator}> • </Text>
+
+          <View style={styles.phoneContainer}>
+            <Icon name="phone" size={22} color="rgb(185, 24, 56)" />
+            <Text
+              onPress={() => Linking.openURL(`tel:${phoneNumber}`)}
+              style={[styles.address]}
+            >
+              {phoneNumber}
+            </Text>
+          </View>
         </View>
 
         <View style={styles.websiteRow}>
-          <Icon name="globe" size={22} />
+          <Icon name="globe" size={22} color="rgb(185, 24, 56)" />
           <Text
             style={styles.websiteText}
             onPress={() => Linking.openURL(website)}
           >
             {getDomain(website)}
           </Text>
+        </View>
+
+        <View style={styles.likeDislike}>
+          <DislikeButton onPress={() => console.log("Disliked")} />
+          <LikeButton onPress={() => console.log("Liked")} />
         </View>
 
         <Text onPress={onClose} style={styles.closeButton}>
@@ -104,14 +141,42 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "baseline",
-    marginBottom: 30,
+    marginBottom: 6,
+  },
+  addressRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 15,
+    marginBottom: 20,
+  },
+  addressContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
+    // minWidth: "50%", // Ensures it doesn't shrink too much
+    maxWidth: "50%", // Prevents it from taking over the row
+  },
+  phoneContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
+    // minWidth: "50%", // Ensures it doesn't shrink too much
+    maxWidth: "50%", // Prevents it from taking over the row
+  },
+  hoursRow: {
+    flexDirection: "row",
   },
   websiteRow: {
     flexDirection: "row",
     // justifyContent: "space-between",
     alignItems: "baseline",
     gap: 15,
-    marginBottom: 10,
+    marginBottom: 20,
+  },
+  likeDislike: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 
   websiteText: {

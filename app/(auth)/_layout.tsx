@@ -10,10 +10,10 @@ const AuthLayout = () => {
     <Stack>
       <Stack.Screen name="sign-in" options={{ headerShown: false }} />
       <Stack.Screen name="sign-up" options={{ headerShown: false }} />
+      <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
     </Stack>
     // </PaperProvider>
   );
 };
 
-console.log("Rendering AuthLayout");
 export default AuthLayout;

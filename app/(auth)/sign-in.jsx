@@ -7,7 +7,7 @@ import { TextInput, useTheme, Text } from "react-native-paper";
 
 // import { Colors } from "../../constants/colors";
 import FormField from "../../components/FormField";
-import SignInButton from "../../components/CustomButton";
+import { AuthButton as SignInButton } from "../../components/CustomButton";
 import { handleNavigation } from "../../utils/naviagtionUtils";
 import { signInUser } from "../../services/authService";
 

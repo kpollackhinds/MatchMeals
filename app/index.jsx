@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import { useTheme, Text } from "react-native-paper";
 
-import AuthButton from "../components/CustomButton";
+import { AuthButton } from "../components/CustomButton";
 import { handleNavigation } from "../utils/naviagtionUtils";
 import { Colors } from "../constants/Colors";
 
@@ -64,7 +64,9 @@ const LandingScreen = () => {
           ></AuthButton>
         </View>
 
-        <TouchableOpacity onPress={() => handleNavigation(router, "/home")}>
+        <TouchableOpacity
+          onPress={() => handleNavigation(router, "/home/session")}
+        >
           <Text style={styles.skipText}>Skip for now</Text>
         </TouchableOpacity>
       </View>

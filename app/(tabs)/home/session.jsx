@@ -13,17 +13,16 @@ import {
   Button,
 } from "react-native";
 import { useState, useEffect } from "react";
-import { TinderCard } from "rn-tinder-card";
-import { HelloWave } from "@/components/HelloWave";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
+import { useRouter } from "expo-router";
 
-// import { Button } from "react-native-paper";
+import { handleLike } from "@/utils/cardOperations";
+import { handleNavigation } from "@/utils/naviagtionUtils";
 
-import { TinderCardComponent } from "../../components/TinderCard";
-import ExpandedCard from "../../components/ExpandedCard";
-import { Response, PlacePhotoResponse } from "../../constants/TestResponse";
+import { TinderCardComponent } from "../../../components/TinderCard";
+import ExpandedCard from "../../../components/ExpandedCard";
+import { Response, PlacePhotoResponse } from "../../../constants/TestResponse";
+import { SCREEN_HEIGHT as sh, SCREEN_WIDTH as sw } from "@/utils/dimensions";
+import { Colors } from "@/constants/Colors";
 
 const data = [
   "https://images.unsplash.com/photo-1681896616404-6568bf13b022?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1335&q=80",
@@ -60,7 +59,8 @@ const profiles = [
 
 // TEMPORARY FOR DEVELOPMENT PURPOSES
 
-export default function HomeScreen() {
+export default function SessionScreen() {
+  const router = useRouter();
   const reversedProfiles = [...Response.places].reverse(); // Create a reversed copy
   const [profiles, setProfiles] = useState(Response.places);
   const [loading, setLoading] = useState(false);
@@ -113,11 +113,18 @@ export default function HomeScreen() {
   };
   const handleSwipeRight = () => {
     setCurrentProfileIndex(currentProfileIndex + 1);
+    handleLike();
     console.log("Swiped right ", currentProfileIndex);
   };
 
   const handleClose = () => {
     setIsExpanded(false);
+  };
+
+  const handleEndSession = () => {
+    // Implement later, navigate to home screen
+    console.log("End session");
+    handleNavigation(router, "/home");
   };
   const OverlayRight = () => {
     return (
@@ -136,8 +143,13 @@ export default function HomeScreen() {
 
   return (
     // <View style={{ flex: 1 }} justifyContent="center" alignItems="center">
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={styles.container}>
+        <View style={styles.exitSessionContainer}>
+          <TouchableOpacity onPress={() => handleEndSession()}>
+            <Text style={styles.exitSession}>End Session</Text>
+          </TouchableOpacity>
+        </View>
         <View style={styles.cardStack}>
           {Response.places.map((profile, index) => {
             return (
@@ -152,8 +164,8 @@ export default function HomeScreen() {
                   onTapLeft={() => handleTapLeft()}
                   onTapRight={() => handleTapRight()}
                   onToggleExpand={() => handleTapBottom(profile)}
-                  cardWidth={380}
-                  cardHeight={730}
+                  cardWidth={sw * 0.88}
+                  cardHeight={sh * 0.75}
                   OverlayLabelRight={OverlayRight}
                   imageUri={
                     "https://lh3.googleusercontent.com/places/ANXAkqHkWUeM003sUtseVALF2CQyjp1aQ_gVclWrPC0fm9gpfvgcd29uf9UIMtuBWgdXW2paUlAbBta2XSyNu5wVcD5Lgke7fF1PiqA=s4800-w4800-h3196"
@@ -176,38 +188,47 @@ export default function HomeScreen() {
           animationType="slide"
           onRequestClose={handleClose}
         >
-          <SafeAreaView>
-            {isExpanded && (
-              <ExpandedCard
-                title="Sample Title"
-                onClose={handleClose}
-                RestaurantName={currentProfile.displayName.text}
-                imageUri={
-                  "https://lh3.googleusercontent.com/places/ANXAkqHkWUeM003sUtseVALF2CQyjp1aQ_gVclWrPC0fm9gpfvgcd29uf9UIMtuBWgdXW2paUlAbBta2XSyNu5wVcD5Lgke7fF1PiqA=s4800-w4800-h3196"
-                }
-                description={currentProfile.generativeSummary.overview.text}
-                rating={currentProfile.rating}
-                priceLevel={currentProfile.priceLevel}
-                category={currentProfile.types[0]}
-                distance={"3 miles"}
-                website={currentProfile.websiteUri}
-                address={currentProfile.formattedAddress}
-                // priceRange={currentProfile.priceRange}
-                // Mock for now
-                priceRange={{
-                  startPrice: {
-                    currencyCode: "USD",
-                    units: 10,
-                    nanos: 0,
-                  },
-                  endPrice: {
-                    currencyCode: "USD",
-                    units: 50,
-                    nanos: 0,
-                  },
-                }}
-              ></ExpandedCard>
-            )}
+          <SafeAreaView style={{ flex: 1 }}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+              {isExpanded && (
+                <ExpandedCard
+                  title="Sample Title"
+                  onClose={handleClose}
+                  onLike={handleLike}
+                  onSkip={handleSwipeLeft}
+                  RestaurantName={currentProfile.displayName.text}
+                  imageUri={
+                    "https://lh3.googleusercontent.com/places/ANXAkqHkWUeM003sUtseVALF2CQyjp1aQ_gVclWrPC0fm9gpfvgcd29uf9UIMtuBWgdXW2paUlAbBta2XSyNu5wVcD5Lgke7fF1PiqA=s4800-w4800-h3196"
+                  }
+                  description={currentProfile.generativeSummary.overview.text}
+                  rating={currentProfile.rating}
+                  priceLevel={currentProfile.priceLevel}
+                  category={currentProfile.types[0]}
+                  distance={"3 miles"}
+                  website={currentProfile.websiteUri}
+                  address={currentProfile.formattedAddress}
+                  openHours={currentProfile.currentOpeningHours}
+                  extendedDescription={
+                    currentProfile.generativeSummary.description.text
+                  }
+                  phoneNumber={currentProfile.nationalPhoneNumber}
+                  // priceRange={currentProfile.priceRange}
+                  // Mock for now
+                  priceRange={{
+                    startPrice: {
+                      currencyCode: "USD",
+                      units: 10,
+                      nanos: 0,
+                    },
+                    endPrice: {
+                      currencyCode: "USD",
+                      units: 50,
+                      nanos: 0,
+                    },
+                  }}
+                ></ExpandedCard>
+              )}
+            </ScrollView>
           </SafeAreaView>
         </Modal>
       </View>
@@ -222,6 +243,16 @@ const styles = StyleSheet.create({
     // justifyContent: "center", // Center content vertically
     // alignItems: "center", // Center content horizontally
     flexDirection: "column",
+  },
+  exitSessionContainer: {
+    padding: 20,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  },
+  exitSession: {
+    fontSize: sh * 0.018,
+    fontWeight: "600",
+    color: Colors.light.primary,
   },
   cardStack: {
     flex: 1,
