@@ -1,50 +1,37 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useRouter } from "expo-router";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+
 import { Colors } from "../constants/Colors";
 import { handleNavigation } from "../utils/naviagtionUtils";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { useRouter } from "expo-router";
-import { useNavigation } from "@react-navigation/native";
 import { SCREEN_HEIGHT as sh, SCREEN_WIDTH as sw } from "../utils/dimensions";
-import { BrowseButton, GroupSessionButton } from "../components/CustomButton";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { Ionicons } from "@expo/vector-icons";
-import { FontAwesome6 } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { SessionButtons } from "../components/CustomButton";
 
 export default function HomeScreen() {
   const router = useRouter();
+
   return (
-    <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
-      <View>
-        <View style={styles.profileRow}>
-          <Ionicons name="person-sharp" size={32} color="gray" />
-          <Ionicons name="menu" size={32} color="gray" />
-        </View>
-        <View style={styles.titleRow}>
-          <Text style={styles.titleText}>Start Matching!</Text>
-          {/* <FontAwesome6 name="down-long" size={50} color="black" /> */}
-          <MaterialCommunityIcons
-            name="arrow-down-thick"
-            size={72}
-            color="black"
-          />
-        </View>
-
-        <TouchableOpacity
-          onPress={() => handleNavigation(router, "home/session")}
-        ></TouchableOpacity>
-
-        <View style={styles.buttonsContainer}>
-          <BrowseButton
-            onPress={() => handleNavigation(router, "home/session")}
-          />
-          <GroupSessionButton
-            onPress={() => handleNavigation(router, "home/session")}
-          />
-        </View>
+    <SafeAreaView style={styles.Container}>
+      {/* Header (Profile + Menu Icons) */}
+      <View style={styles.header}>
+        <Ionicons name="person-sharp" size={32} color="gray" />
+        <Ionicons name="menu" size={32} color="gray" />
       </View>
+
+      {/* Title + Arrow */}
+      <View style={styles.titleRow}>
+        <Text style={styles.title}>Start Matching!</Text>
+        {/* <FontAwesome6 name="down-long" size={50} color="black" /> */}
+        <MaterialCommunityIcons name="arrow-down-thick" size={72} color="#400396" />
+      </View>
+
+      {/* Navigation Buttons */}
+      <SessionButtons
+        onPressBrowse={() => handleNavigation(router, "home/session")}
+        onPressGroupSession={() => handleNavigation(router, "/home")}
+      />
     </SafeAreaView>
   );
 }
@@ -52,10 +39,9 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    backgroundColor: Colors.light.background,
-    justifyContent: "center",
+    backgroundColor: "white",
   },
-  profileRow: {
+  header: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: 20,
@@ -79,7 +65,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginTop: 20,
   },
-  titleText: {
+  title: {
     fontSize: 44,
     fontWeight: "800",
     color: "black",

@@ -9,7 +9,7 @@ import {
 import { SCREEN_WIDTH as sw } from "../../utils/dimensions";
 import { PrimaryButton } from "../CustomButton";
 
-export default function EnterPhoneScreen({ onNext, onSkip }) {
+export default function EnterPhoneScreen({ onNext }) {
   const [phone, setPhone] = useState("");
 
   return (
@@ -24,7 +24,7 @@ export default function EnterPhoneScreen({ onNext, onSkip }) {
         onChangeText={setPhone}
       />
       <PrimaryButton title="Next" onPress={() => phone && onNext()} />
-      <TouchableOpacity onPress={onSkip}>
+      <TouchableOpacity onPress={onNext}>
         <Text style={styles.skipText}>Skip for now</Text>
       </TouchableOpacity>
     </View>

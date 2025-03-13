@@ -1,16 +1,20 @@
 import React, { useRef, useState } from "react";
 import { View, FlatList, Dimensions, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
 import { DotIndicator } from "../../../components/DotIndicator";
 import EnterNameScreen from "../../../components/screens/EnterNameScreen";
 import EnterPhoneScreen from "../../../components/screens/EnterPhoneScreen";
 import SetupPreferencesScreen from "../../../components/screens/SetupPreferencesScreen";
-// import FindFriendsScreen from "../../../components/screens/FindFriendsScreen";
+import SearchPreferencesScreen from "../../../components/screens/SearchPreferencesScreen";
+import FindFriendsScreen from "../../../components/screens/FindFriendsScreen";
+import { handleNavigation } from "../../../utils/naviagtionUtils";
 
 const { width } = Dimensions.get("window");
 
 export default function OnboardingScreen() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef(null);
+  const router = useRouter();
 
   const handleScroll = (event) => {
     const index = Math.round(event.nativeEvent.contentOffset.x / width);
@@ -30,11 +34,16 @@ export default function OnboardingScreen() {
     }
   };
 
+  const goHome = () => {
+    handleNavigation(router, "/home");
+  };
+
   const steps = [
     { component: <EnterNameScreen onNext={goToNextScreen} /> },
     { component: <EnterPhoneScreen onNext={goToNextScreen} /> },
     { component: <SetupPreferencesScreen onNext={goToNextScreen} /> },
-    // {component: <FindFriendsScreen onNext={goToNextScreen} /> },
+    { component: <SearchPreferencesScreen onNext={goToNextScreen} /> },
+    { component: <FindFriendsScreen onNext={goHome} /> },
   ];
 
   return (

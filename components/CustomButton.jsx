@@ -63,13 +63,7 @@ const LikeButton = ({ onPress }) => {
         paddingVertical: 3,
       }}
       textColor="black" // Ensures text color remains black
-      icon={() => (
-        <MaterialCommunityIcons
-          name="heart-circle-outline"
-          size={sh * 0.05}
-          color="grey"
-        />
-      )}
+      icon={() => <MaterialCommunityIcons name="heart-circle-outline" size={sh * 0.05} color="grey" />}
     >
       Like
     </Button>
@@ -136,18 +130,40 @@ const GroupSessionButton = ({ onPress }) => {
   );
 };
 
+const SessionButtons = ({ onPressBrowse, onPressGroupSession }) => {
+  return (
+    <View style={styles.buttonContainer}>
+      <BrowseButton onPress={onPressBrowse} />
+      <GroupSessionButton onPress={onPressGroupSession} />
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
+  buttonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    // justifyContent: "space-between",
+    gap: sw * 0.0333,
+  },
   button: {
-    width: 180,
-    height: 250,
-    backgroundColor: "rgb(185, 24, 56)",
-    // backgroundColor: "rgb(0, 0, 0)", // Black background
-    borderColor: "white",
+    width: sw * 0.45,
+    height: sw * 0.45,
+    // backgroundColor: "rgb(185, 24, 56)",
+    backgroundColor: "rgb(0, 0, 0)", // Black background
+    // borderColor: "white",
     borderRadius: 20, // Rounded corners
     borderWidth: 2, // Add a border
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column", // Stack icon and text
+
+    shadowColor: "#400396", // Shadow matches accent color
+    shadowOffset: { width: 0, height: 4 }, // Moves shadow down
+    shadowOpacity: 0.2, // Opacity for soft shadow
+    shadowRadius: 5, // Blur radius (higher = softer)
+    elevation: 6, // For Android shadow
   },
 
   button_x: {
@@ -178,11 +194,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export {
-  AuthButton,
-  LikeButton,
-  DislikeButton,
-  PrimaryButton,
-  BrowseButton,
-  GroupSessionButton,
-};
+export { AuthButton, LikeButton, DislikeButton, PrimaryButton, SessionButtons };
