@@ -1,17 +1,7 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  FlatList,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Text, TextInput, FlatList, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Icons for add/checkmark
-import {
-  SCREEN_WIDTH as sw,
-  SCREEN_HEIGHT as sh,
-} from "../../utils/dimensions";
+import { SCREEN_WIDTH as sw, SCREEN_HEIGHT as sh } from "../../utils/dimensions";
 import { PrimaryButton } from "../CustomButton";
 
 const dummyContacts = [
@@ -30,14 +20,13 @@ const dummyContacts = [
   },
 ];
 
-export default function FindFriendsScreen({ onNext }) {
+export default function FindFriendsScreen({ onNext, next }) {
   const [search, setSearch] = useState("");
   const [addedFriends, setAddedFriends] = useState([]);
 
   // Placeholder functions for backend logic
   const addFriend = (id) => setAddedFriends([...addedFriends, id]);
-  const removeFriend = (id) =>
-    setAddedFriends(addedFriends.filter((friendId) => friendId !== id));
+  const removeFriend = (id) => setAddedFriends(addedFriends.filter((friendId) => friendId !== id));
 
   // Filter contacts based on search input
   const filteredContacts = search
@@ -54,12 +43,7 @@ export default function FindFriendsScreen({ onNext }) {
       <Text style={styles.title}>Find Friends</Text>
 
       {/* Search Bar */}
-      <TextInput
-        style={styles.input}
-        placeholder="Search by phone or email"
-        value={search}
-        onChangeText={setSearch}
-      />
+      <TextInput style={styles.input} placeholder="Search by phone or email" value={search} onChangeText={setSearch} />
 
       {/* Suggested Contacts */}
       <FlatList
@@ -72,22 +56,16 @@ export default function FindFriendsScreen({ onNext }) {
               <Text style={styles.contactText}>{item.name}</Text>
               <TouchableOpacity
                 style={styles.iconButton}
-                onPress={() =>
-                  isAdded ? removeFriend(item.id) : addFriend(item.id)
-                }
+                onPress={() => (isAdded ? removeFriend(item.id) : addFriend(item.id))}
               >
-                <Ionicons
-                  name={isAdded ? "checkmark-circle" : "person-add"}
-                  size={sw * 0.06}
-                  color="black"
-                />
+                <Ionicons name={isAdded ? "checkmark-circle" : "person-add"} size={sw * 0.06} color="black" />
               </TouchableOpacity>
             </View>
           );
         }}
       />
 
-      <PrimaryButton title="Done" onPress={onNext} />
+      <PrimaryButton title="Done" onPress={() => (onNext(addedFriends), next())} />
     </View>
   );
 }

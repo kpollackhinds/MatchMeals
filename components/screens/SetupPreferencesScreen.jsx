@@ -3,15 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { SCREEN_WIDTH as sw } from "../../utils/dimensions";
 import { PrimaryButton } from "../CustomButton";
 
-export default function SetupPreferencesScreen({ onNext }) {
+export default function SetupPreferencesScreen({ onNext, next }) {
   const [selected, setSelected] = useState([]);
 
   const togglePreference = (preference) => {
-    setSelected((prev) =>
-      prev.includes(preference)
-        ? prev.filter((p) => p !== preference)
-        : [...prev, preference]
-    );
+    setSelected((prev) => (prev.includes(preference) ? prev.filter((p) => p !== preference) : [...prev, preference]));
   };
 
   const preferences = ["Vegan", "Vegetarian", "Halal", "Gluten-Free", "Keto"];
@@ -19,33 +15,21 @@ export default function SetupPreferencesScreen({ onNext }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Choose your preferences</Text>
-      <Text style={styles.subtitle}>
-        You can change this later in settings.
-      </Text>
+      <Text style={styles.subtitle}>You can change this later in settings.</Text>
 
       <View style={styles.optionsContainer}>
         {preferences.map((pref) => (
           <TouchableOpacity
             key={pref}
-            style={[
-              styles.option,
-              selected.includes(pref) && styles.selectedOption,
-            ]}
+            style={[styles.option, selected.includes(pref) && styles.selectedOption]}
             onPress={() => togglePreference(pref)}
           >
-            <Text
-              style={[
-                styles.optionText,
-                selected.includes(pref) && styles.selectedText,
-              ]}
-            >
-              {pref}
-            </Text>
+            <Text style={[styles.optionText, selected.includes(pref) && styles.selectedText]}>{pref}</Text>
           </TouchableOpacity>
         ))}
       </View>
 
-      <PrimaryButton title="Next" onPress={onNext} />
+      <PrimaryButton title="Next" onPress={() => (onNext("foodType", selected), next())} />
     </View>
   );
 }

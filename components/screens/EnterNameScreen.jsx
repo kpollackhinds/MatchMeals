@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet } from "react-native";
 import { SCREEN_WIDTH as sw } from "../../utils/dimensions";
 import { PrimaryButton } from "../CustomButton";
 
-export default function EnterNameScreen({ onNext }) {
+export default function EnterNameScreen({ onNext, next }) {
   const [name, setName] = useState("");
 
   return (
@@ -16,7 +16,7 @@ export default function EnterNameScreen({ onNext }) {
         value={name}
         onChangeText={setName}
       />
-      <PrimaryButton title="Next" onPress={() => name && onNext()} />
+      <PrimaryButton title="Next" onPress={() => name && (onNext("name", name), next())} />
     </View>
   );
 }

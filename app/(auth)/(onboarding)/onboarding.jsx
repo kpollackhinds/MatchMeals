@@ -8,13 +8,43 @@ import SetupPreferencesScreen from "../../../components/screens/SetupPreferences
 import SearchPreferencesScreen from "../../../components/screens/SearchPreferencesScreen";
 import FindFriendsScreen from "../../../components/screens/FindFriendsScreen";
 import { handleNavigation } from "../../../utils/naviagtionUtils";
+import { saveOnBoardingData } from "../../../services/dbService";
 
 const { width } = Dimensions.get("window");
 
 export default function OnboardingScreen() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [onboardingData, setOnboardingData] = useState({
+    info: {
+      name: "",
+      phone: "",
+    },
+    preferences: {
+      radius: 0,
+      openOnly: false,
+      foodType: [],
+    },
+    friends: [],
+  });
   const flatListRef = useRef(null);
   const router = useRouter();
+
+  const updateInfo = (key, value) => {
+    setOnboardingData((prev) => ({ ...prev, info: { ...prev.info, [key]: value } }));
+  };
+  const updatePreferences = (key, value) => {
+    setOnboardingData((prev) => ({ ...prev, preferences: { ...prev.preferences, [key]: value } }));
+  };
+  const updateSearchPreferences = (preferences) => {
+    setOnboardingData((prev) => ({ ...prev, preferences: { ...prev.preferences, radius: preferences.radius } }));
+    setOnboardingData((prev) => ({
+      ...prev,
+      preferences: { ...prev.preferences, openOnly: preferences.openOnly },
+    }));
+  };
+  const updateFriends = (friends) => {
+    setOnboardingData((prev) => ({ ...prev, friends }));
+  };
 
   const handleScroll = (event) => {
     const index = Math.round(event.nativeEvent.contentOffset.x / width);
@@ -34,16 +64,18 @@ export default function OnboardingScreen() {
     }
   };
 
-  const goHome = () => {
+  const saveAndGoHome = () => {
+    // Do I have to await the thing below??
+    saveOnBoardingData(onboardingData);
     handleNavigation(router, "/home");
   };
 
   const steps = [
-    { component: <EnterNameScreen onNext={goToNextScreen} /> },
-    { component: <EnterPhoneScreen onNext={goToNextScreen} /> },
-    { component: <SetupPreferencesScreen onNext={goToNextScreen} /> },
-    { component: <SearchPreferencesScreen onNext={goToNextScreen} /> },
-    { component: <FindFriendsScreen onNext={goHome} /> },
+    { component: <EnterNameScreen onNext={updateInfo} next={goToNextScreen} /> },
+    { component: <EnterPhoneScreen onNext={updateInfo} next={goToNextScreen} /> },
+    { component: <SetupPreferencesScreen onNext={updatePreferences} next={goToNextScreen} /> },
+    { component: <SearchPreferencesScreen onNext={updateSearchPreferences} next={goToNextScreen} /> },
+    { component: <FindFriendsScreen onNext={updateFriends} next={saveAndGoHome} /> },
   ];
 
   return (
@@ -56,9 +88,7 @@ export default function OnboardingScreen() {
         scrollEnabled={false}
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.page}>{item.component}</View>
-        )}
+        renderItem={({ item }) => <View style={styles.page}>{item.component}</View>}
         extraData={currentIndex}
         // onScroll={handleScroll}
         // scrollEventThrottle={16}

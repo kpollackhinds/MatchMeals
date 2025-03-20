@@ -4,7 +4,7 @@ import Slider from "@react-native-community/slider";
 import { PrimaryButton } from "../CustomButton";
 import { SCREEN_WIDTH as sw } from "../../utils/dimensions";
 
-export default function SearchSettingsScreen({ onNext }) {
+export default function SearchSettingsScreen({ onNext, next }) {
   const [radius, setRadius] = useState(10); // Default to 10 miles
   const [openNow, setOpenNow] = useState(false);
 
@@ -36,7 +36,7 @@ export default function SearchSettingsScreen({ onNext }) {
         />
       </View>
 
-      <PrimaryButton title="Next" onPress={onNext} />
+      <PrimaryButton title="Next" onPress={() => (onNext({ radius: radius, openOnly: openNow }), next())} />
     </View>
   );
 }

@@ -7,7 +7,7 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "../constants/Colors";
 import { handleNavigation } from "../utils/naviagtionUtils";
 import { SCREEN_HEIGHT as sh, SCREEN_WIDTH as sw } from "../utils/dimensions";
-import { SessionButtons } from "../components/CustomButton";
+import { SessionButtons, PrimaryButton } from "../components/CustomButton";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -18,6 +18,12 @@ export default function HomeScreen() {
       <View style={styles.header}>
         <Ionicons name="person-sharp" size={32} color="gray" />
         <Ionicons name="menu" size={32} color="gray" />
+      </View>
+
+      {/* Data test buttons */}
+      <View style={{ flexDirection: "row", justifyContent: "space-between", marginHorizontal: 20, marginTop: 20 }}>
+        <PrimaryButton text="Add Data" onPress={() => handleNavigation(router, "home/testdata")} />
+        <PrimaryButton text="Fetch Data" onPress={() => handleNavigation(router, "home/testdata")} />
       </View>
 
       {/* Title + Arrow */}

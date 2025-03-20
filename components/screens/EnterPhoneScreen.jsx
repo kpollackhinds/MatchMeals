@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { SCREEN_WIDTH as sw } from "../../utils/dimensions";
 import { PrimaryButton } from "../CustomButton";
 
-export default function EnterPhoneScreen({ onNext }) {
+export default function EnterPhoneScreen({ onNext, next }) {
   const [phone, setPhone] = useState("");
 
   return (
@@ -23,8 +17,8 @@ export default function EnterPhoneScreen({ onNext }) {
         value={phone}
         onChangeText={setPhone}
       />
-      <PrimaryButton title="Next" onPress={() => phone && onNext()} />
-      <TouchableOpacity onPress={onNext}>
+      <PrimaryButton title="Next" onPress={() => phone && (onNext("phone", phone), next())} />
+      <TouchableOpacity onPress={next}>
         <Text style={styles.skipText}>Skip for now</Text>
       </TouchableOpacity>
     </View>
