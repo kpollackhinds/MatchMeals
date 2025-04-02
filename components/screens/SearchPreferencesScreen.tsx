@@ -4,7 +4,12 @@ import Slider from "@react-native-community/slider";
 import { PrimaryButton } from "../CustomButton";
 import { SCREEN_WIDTH as sw } from "../../utils/dimensions";
 
-export default function SearchSettingsScreen({ onNext, next }) {
+interface SearchSettingsScreenProps {
+  onNext: (settings: { radius: number; openOnly: boolean }) => void;
+  next: () => void;
+}
+
+export default function SearchSettingsScreen({ onNext, next }: SearchSettingsScreenProps) {
   const [radius, setRadius] = useState(10); // Default to 10 miles
   const [openNow, setOpenNow] = useState(false);
 

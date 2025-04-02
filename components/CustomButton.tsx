@@ -1,51 +1,49 @@
 // CustomButton.jsx
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
 import React from "react";
 import { Button } from "react-native-paper";
-import { TouchableOpacity, StyleSheet } from "react-native";
-import Svg, { path } from "react-native-svg";
+// import Svg, { path } from "react-native-svg";
 import { Colors } from "@/constants/Colors";
-import Icon from "react-native-vector-icons/FontAwesome"; // Ensure you're using the correct icon library
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"; // Import the correct icon set
-import Feather from "react-native-vector-icons/Feather"; // Import from Feather
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Feather from "react-native-vector-icons/Feather";
 import { SCREEN_HEIGHT as sh, SCREEN_WIDTH as sw } from "@/utils/dimensions";
+import { ButtonProps } from "@/interfaces/buttonTypes";
+import { isLoading } from "expo-font";
 
-const AuthButton = ({
-  text = "Click me",
-  mode = "contained",
-  // buttonColor = Colors.light.background,
-  // textColor = Colors.light.primary,
-  onPress = () => {},
-  labelStyle = {},
-  style = {},
-  ...props
-}) => {
-  return (
-    // <View style={[style, { opacity: props.isLoading ? 0.5 : 1 }]}>
-    <Button
-      mode={mode}
-      // buttonColor={buttonColor}
-      // textColor={textColor}
-      onPress={onPress}
-      loading={props.isLoading}
-      style={[style]}
-      labelStyle={[
-        {
-          fontSize: 16,
-          // fontFamily: "Montserrat-Bold",
-          fontWeight: "bold",
-        },
-        labelStyle,
-      ]}
-      {...props}
-    >
-      {text}
-    </Button>
-    // </View>
-  );
-};
+// const AuthButton = ({
+//   text = "Click me",
+//   mode = "contained",
+//   // buttonColor = Colors.light.background,
+//   // textColor = Colors.light.primary,
+//   onPress = () => {},
+//   labelStyle = {},
+//   style = {},
+//   ...props
+// }) => {
+//   return (
+//     <Button
+//       mode={mode}
+//       // buttonColor={buttonColor}
+//       // textColor={textColor}
+//       onPress={onPress}
+//       loading={props.isLoading}
+//       style={[style]}
+//       labelStyle={[
+//         {
+//           fontSize: 16,
+//           // fontFamily: "Montserrat-Bold",
+//           fontWeight: "bold",
+//         },
+//         labelStyle,
+//       ]}
+//       {...props}
+//     >
+//       {text}
+//     </Button>
+//   );
+// };
 
-const LikeButton = ({ onPress }) => {
+const LikeButton: React.FC<ButtonProps> = ({ onPress }) => {
   return (
     <Button
       mode="text" // Creates an outlined button with a solid background
@@ -70,7 +68,7 @@ const LikeButton = ({ onPress }) => {
   );
 };
 
-const DislikeButton = ({ onPress }) => {
+const DislikeButton: React.FC<ButtonProps> = ({ onPress }) => {
   return (
     <Button
       mode="text" // Creates an outlined button with a solid background
@@ -95,20 +93,20 @@ const DislikeButton = ({ onPress }) => {
   );
 };
 
-const PrimaryButton = ({ title, onPress, disabled = false }) => {
+const PrimaryButton: React.FC<ButtonProps> = ({ title, onPress, disabled = false, isLoading = false, style }) => {
   return (
     <TouchableOpacity
-      style={[styles.button_x, disabled && styles.disabledButton]}
+      style={[styles.button_x, disabled && styles.disabledButton, style]}
       onPress={onPress}
       activeOpacity={0.7}
-      disabled={disabled}
+      disabled={disabled || isLoading}
     >
-      <Text style={styles.buttonText}>{title}</Text>
+      {isLoading ? <ActivityIndicator color={"#fff"} /> : <Text style={styles.buttonText}>{title}</Text>}
     </TouchableOpacity>
   );
 };
 
-const BrowseButton = ({ onPress }) => {
+const BrowseButton: React.FC<ButtonProps> = ({ onPress }) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       {/* SVG Icon */}
@@ -119,7 +117,7 @@ const BrowseButton = ({ onPress }) => {
   );
 };
 
-const GroupSessionButton = ({ onPress }) => {
+const GroupSessionButton: React.FC<ButtonProps> = ({ onPress }) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       {/* SVG Icon */}
@@ -130,14 +128,14 @@ const GroupSessionButton = ({ onPress }) => {
   );
 };
 
-const SessionButtons = ({ onPressBrowse, onPressGroupSession }) => {
-  return (
-    <View style={styles.buttonContainer}>
-      <BrowseButton onPress={onPressBrowse} />
-      <GroupSessionButton onPress={onPressGroupSession} />
-    </View>
-  );
-};
+// const SessionButtons = ({ onPressBrowse, onPressGroupSession }) => {
+//   return (
+//     <View style={styles.buttonContainer}>
+//       <BrowseButton onPress={onPressBrowse} />
+//       <GroupSessionButton onPress={onPressGroupSession} />
+//     </View>
+//   );
+// };
 
 const styles = StyleSheet.create({
   buttonContainer: {
@@ -194,4 +192,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { AuthButton, LikeButton, DislikeButton, PrimaryButton, SessionButtons };
+export { /*AuthButton*/ LikeButton, DislikeButton, PrimaryButton, BrowseButton, GroupSessionButton };

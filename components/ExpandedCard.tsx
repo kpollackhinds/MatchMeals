@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Image,
-  Text,
-  Linking,
-  TouchableOpacity,
-} from "react-native";
+import { View, StyleSheet, Image, Text, Linking, TouchableOpacity } from "react-native";
 import { Button } from "react-native-paper";
 import { SCREEN_WIDTH as sw, SCREEN_HEIGHT as sh } from "../utils/dimensions";
 import renderStars from "../utils/renderStars";
@@ -14,12 +7,13 @@ import { PriceRangeComponent } from "../utils/renderPrice";
 import { parseRestaurantType, getDomain } from "../utils/parsing";
 import Icon from "react-native-vector-icons/FontAwesome";
 
+import { ExtendedCardProps } from "@/interfaces/tinderCardInterfaces";
 import CurrencySymbols from "../constants/CurrencyEnum";
 import OpenHoursComponent from "../components/OpenHoursComponent";
 import ExpandableText from "../components/ExpandableText";
-import { LikeButton, DislikeButton } from "../components/CustomButton";
+import { LikeButton, DislikeButton } from "./CustomButton";
 
-const ExpandedCard = ({
+const ExpandedCard: React.FC<ExtendedCardProps> = ({
   title,
   imageUri,
   RestaurantName,
@@ -68,38 +62,27 @@ const ExpandedCard = ({
           <OpenHoursComponent openHours={openHours} />
         </View>
 
-        <ExpandableText
-          text={extendedDescription}
-          style={{ marginBottom: 15 }}
-        />
+        <ExpandableText text={extendedDescription} style={{ marginBottom: 15 }} />
         {/* <Text style={styles.description}>{extendedDescription}</Text> */}
 
         <View style={styles.addressRow}>
           <View style={styles.addressContainer}>
             <Icon name="map-marker" size={22} color={"rgb(185, 24, 56)"} />
-            <Text numberOfLines={2} style={styles.address}>
-              {address}
-            </Text>
+            {/* <Text numberOfLines={2} style={styles.address}> */}
+            <Text numberOfLines={2}>{address}</Text>
           </View>
-          <Text style={styles.separator}> • </Text>
+          <Text> • </Text>
 
           <View style={styles.phoneContainer}>
             <Icon name="phone" size={22} color="rgb(185, 24, 56)" />
-            <Text
-              onPress={() => Linking.openURL(`tel:${phoneNumber}`)}
-              style={[styles.address]}
-            >
-              {phoneNumber}
-            </Text>
+            {/* <Text onPress={() => Linking.openURL(`tel:${phoneNumber}`)} style={[styles.address]}> */}
+            <Text onPress={() => Linking.openURL(`tel:${phoneNumber}`)}>{phoneNumber}</Text>
           </View>
         </View>
 
         <View style={styles.websiteRow}>
           <Icon name="globe" size={22} color="rgb(185, 24, 56)" />
-          <Text
-            style={styles.websiteText}
-            onPress={() => Linking.openURL(website)}
-          >
+          <Text style={styles.websiteText} onPress={() => Linking.openURL(website)}>
             {getDomain(website)}
           </Text>
         </View>
@@ -109,9 +92,7 @@ const ExpandedCard = ({
           <LikeButton onPress={() => console.log("Liked")} />
         </View>
 
-        <Text onPress={onClose} style={styles.closeButton}>
-          Close
-        </Text>
+        <Text onPress={onClose}>Close</Text>
       </View>
     </View>
   );

@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-const renderStars = (rating, size = 20) => {
+const renderStars = (rating: number, size = 20) => {
   let fullStars = Math.floor(rating);
   let remainder = rating % 1;
   let halfStar = false;

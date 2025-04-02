@@ -20,6 +20,7 @@ import { handleNavigation } from "@/utils/naviagtionUtils";
 
 import { TinderCardComponent } from "../../../components/TinderCard";
 import ExpandedCard from "../../../components/ExpandedCard";
+import { formatOpenHours } from "@/utils/parsing";
 import { Response, PlacePhotoResponse } from "../../../constants/TestResponse";
 import { SCREEN_HEIGHT as sh, SCREEN_WIDTH as sw } from "@/utils/dimensions";
 import { Colors } from "@/constants/Colors";
@@ -64,10 +65,8 @@ export default function SessionScreen() {
   const reversedProfiles = [...Response.places].reverse(); // Create a reversed copy
   const [profiles, setProfiles] = useState(Response.places);
   const [loading, setLoading] = useState(false);
-  // const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
-  const [currentProfile, setCurrentProfile] = useState(
-    Response.places[Response.places.length - 1]
-  );
+  const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
+  const [currentProfile, setCurrentProfile] = useState(Response.places[Response.places.length - 1]);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -91,17 +90,21 @@ export default function SessionScreen() {
     console.log("Tapped left ", currentImageIndex);
   };
   const handleTapRight = () => {
-    setCurrentImageIndex(
-      (currentImageIndex + 1) %
-        reversedProfiles[currentProfileIndex].images.length
-    );
-    console.log(
-      "Tapped right ",
-      currentImageIndex,
-      reversedProfiles[currentProfileIndex].images.length
-    );
+    // FIX AFTER CONVERSIONS TO TS
+    // setCurrentImageIndex(
+    //   (currentImageIndex + 1) %
+    //     reversedProfiles[currentProfileIndex].images.length
+    // );
+    // console.log(
+    //   "Tapped right ",
+    //   currentImageIndex,
+    //   reversedProfiles[currentProfileIndex].images.length
+    // );
   };
-  const handleTapBottom = (profile) => {
+
+  // FIX AFTER CONVERSION TO TS AND INCORPORATION OF ACTUAL API CALLS
+  // PROFILE PROBABLY SHOULDNT BE ANY
+  const handleTapBottom = (profile: any) => {
     console.log("Enter detailed mode!");
     setCurrentProfile(profile);
     setIsExpanded(true);
@@ -126,19 +129,21 @@ export default function SessionScreen() {
     console.log("End session");
     handleNavigation(router, "/home");
   };
+
+  // FIX LATER IF REQUIRED AFTER TS CONVERSION
   const OverlayRight = () => {
-    return (
-      <View
-        style={[
-          styles.overlayLabelContainer,
-          {
-            backgroundColor: "green",
-          },
-        ]}
-      >
-        <Text style={styles.overlayLabelText}>Like</Text>
-      </View>
-    );
+    // return (
+    // <View
+    //   style={[
+    //     styles.overlayLabelContainer,
+    //     {
+    //       backgroundColor: "green",
+    //     },
+    //   ]}
+    // >
+    //   <Text style={styles.overlayLabelText}>Like</Text>
+    // </View>
+    // );
   };
 
   return (
@@ -153,11 +158,7 @@ export default function SessionScreen() {
         <View style={styles.cardStack}>
           {Response.places.map((profile, index) => {
             return (
-              <View
-                style={styles.cardContainer}
-                pointerEvents="box-none"
-                key={profile.id}
-              >
+              <View style={styles.cardContainer} pointerEvents="box-none" key={profile.id}>
                 <TinderCardComponent
                   onSwipedLeft={() => handleSwipeLeft()}
                   onSwipedRight={() => handleSwipeRight()}
@@ -166,7 +167,7 @@ export default function SessionScreen() {
                   onToggleExpand={() => handleTapBottom(profile)}
                   cardWidth={sw * 0.88}
                   cardHeight={sh * 0.75}
-                  OverlayLabelRight={OverlayRight}
+                  // OverlayLabelRight={OverlayRight}
                   imageUri={
                     "https://lh3.googleusercontent.com/places/ANXAkqHkWUeM003sUtseVALF2CQyjp1aQ_gVclWrPC0fm9gpfvgcd29uf9UIMtuBWgdXW2paUlAbBta2XSyNu5wVcD5Lgke7fF1PiqA=s4800-w4800-h3196"
                   }
@@ -183,11 +184,7 @@ export default function SessionScreen() {
             );
           })}
         </View>
-        <Modal
-          visible={isExpanded}
-          animationType="slide"
-          onRequestClose={handleClose}
-        >
+        <Modal visible={isExpanded} animationType="slide" onRequestClose={handleClose}>
           <SafeAreaView style={{ flex: 1 }}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
               {isExpanded && (
@@ -207,10 +204,8 @@ export default function SessionScreen() {
                   distance={"3 miles"}
                   website={currentProfile.websiteUri}
                   address={currentProfile.formattedAddress}
-                  openHours={currentProfile.currentOpeningHours}
-                  extendedDescription={
-                    currentProfile.generativeSummary.description.text
-                  }
+                  openHours={formatOpenHours(currentProfile.currentOpeningHours)}
+                  extendedDescription={currentProfile.generativeSummary.description.text}
                   phoneNumber={currentProfile.nationalPhoneNumber}
                   // priceRange={currentProfile.priceRange}
                   // Mock for now

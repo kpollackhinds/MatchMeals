@@ -1,18 +1,12 @@
 import React from "react";
-import {
-  Alert,
-  Image,
-  StyleSheet,
-  View,
-  TouchableWithoutFeedback,
-  Text,
-} from "react-native";
+import { Alert, Image, StyleSheet, View, TouchableWithoutFeedback, Text } from "react-native";
 import { TinderCard } from "rn-tinder-card";
 import renderStars from "../utils/renderStars";
 import { PriceLevelComponent } from "../utils/renderPrice";
 import { parseRestaurantType } from "../utils/parsing";
+import { RestaurantCardProps } from "../interfaces/tinderCardInterfaces";
 
-const TinderCardComponent = ({
+const TinderCardComponent: React.FC<RestaurantCardProps> = ({
   cardWidth,
   cardHeight,
   OverlayLabelRight,
@@ -24,7 +18,6 @@ const TinderCardComponent = ({
   rating,
   category,
   priceLevel,
-  details,
   distance,
   onSwipedRight,
   onSwipedLeft,
@@ -37,7 +30,7 @@ const TinderCardComponent = ({
     <TinderCard
       cardHeight={cardHeight}
       cardWidth={cardWidth}
-      OverlayLabelRight={OverlayLabelRight}
+      // OverlayLabelRight={OverlayLabelRight}
       // OverlayLabelLeft={OverlayLabelLeft}
       // OverlayLabelTop={OverlayLabelTop}
       cardStyle={styles.card}
@@ -83,14 +76,10 @@ const TinderCardComponent = ({
             {/* Insert star based reting */}
             {renderStars(rating)}
             {/* Insert dollar sign based price enum */}
-            <PriceLevelComponent priceLevel={priceLevel} />
+            {/* <PriceLevelComponent priceLevel={priceLevel} /> */}
           </View>
 
-          <Text
-            style={styles.description}
-            numberOfLines={3}
-            ellipsizeMode="tail"
-          >
+          <Text style={styles.description} numberOfLines={3} ellipsizeMode="tail">
             {description}
           </Text>
         </View>

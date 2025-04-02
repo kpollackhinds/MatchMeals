@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { SCREEN_WIDTH as sw } from "../../utils/dimensions";
 import { PrimaryButton } from "../CustomButton";
+import { OnboardingScreenProps } from "@/interfaces/onboardingScreenInterfaces";
 
-export default function SetupPreferencesScreen({ onNext, next }) {
-  const [selected, setSelected] = useState([]);
+export default function SetupPreferencesScreen({ onNext, next }: OnboardingScreenProps) {
+  const [selected, setSelected] = useState<string[]>([]);
 
-  const togglePreference = (preference) => {
+  const togglePreference = (preference: string) => {
     setSelected((prev) => (prev.includes(preference) ? prev.filter((p) => p !== preference) : [...prev, preference]));
   };
 

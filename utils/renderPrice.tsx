@@ -11,7 +11,7 @@ const priceLevelMapping = {
   PRICE_LEVEL_VERY_EXPENSIVE: "$$$$",
 };
 
-const PriceLevelComponent = ({ priceLevel }) => {
+const PriceLevelComponent = ({ priceLevel }: { priceLevel: keyof typeof priceLevelMapping }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{priceLevelMapping[priceLevel]}</Text>
@@ -19,18 +19,19 @@ const PriceLevelComponent = ({ priceLevel }) => {
   );
 };
 
-const PriceRangeComponent = ({ priceRange }) => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>
-        {CurrencySymbols[priceRange.startPrice.currencyCode]}
-        {priceRange.startPrice.units} -{" "}
-        {CurrencySymbols[priceRange.endPrice.currencyCode]}
-        {priceRange.endPrice.units}
-      </Text>
-    </View>
-  );
-};
+/////FIX LATER///
+// const PriceRangeComponent = ({ priceRange }: { startPrice: any; endPrice: any }) => {
+//   return (
+//     <View style={styles.container}>
+//       <Text style={styles.text}>
+//         {CurrencySymbols[priceRange.startPrice.currencyCode]}
+//         {priceRange.startPrice.units} -{" "}
+//         {CurrencySymbols[priceRange.endPrice.currencyCode]}
+//         {priceRange.endPrice.units}
+//       </Text>
+//     </View>
+//   );
+// };
 
 const styles = StyleSheet.create({
   container: {
@@ -43,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { PriceLevelComponent, PriceRangeComponent };
+export { PriceLevelComponent /* PriceRangeComponent */ };

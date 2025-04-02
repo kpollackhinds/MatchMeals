@@ -3,6 +3,7 @@ import { View, Text, TextInput, FlatList, TouchableOpacity, StyleSheet } from "r
 import { Ionicons } from "@expo/vector-icons"; // Icons for add/checkmark
 import { SCREEN_WIDTH as sw, SCREEN_HEIGHT as sh } from "../../utils/dimensions";
 import { PrimaryButton } from "../CustomButton";
+import { OnboardingScreenProps } from "@/interfaces/onboardingScreenInterfaces";
 
 const dummyContacts = [
   {
@@ -20,13 +21,18 @@ const dummyContacts = [
   },
 ];
 
-export default function FindFriendsScreen({ onNext, next }) {
+interface FindFriendsScreenProps {
+  onNext: (friends: string[]) => void;
+  next: () => void;
+}
+
+export default function FindFriendsScreen({ onNext, next }: FindFriendsScreenProps) {
   const [search, setSearch] = useState("");
-  const [addedFriends, setAddedFriends] = useState([]);
+  const [addedFriends, setAddedFriends] = useState<string[]>([]);
 
   // Placeholder functions for backend logic
-  const addFriend = (id) => setAddedFriends([...addedFriends, id]);
-  const removeFriend = (id) => setAddedFriends(addedFriends.filter((friendId) => friendId !== id));
+  const addFriend = (id: string) => setAddedFriends([...addedFriends, id]);
+  const removeFriend = (id: string) => setAddedFriends(addedFriends.filter((friendId) => friendId !== id));
 
   // Filter contacts based on search input
   const filteredContacts = search

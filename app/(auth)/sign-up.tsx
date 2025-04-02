@@ -7,7 +7,7 @@ import { TextInput, useTheme, Text } from "react-native-paper";
 
 // import { Colors } from "../../constants/colors";
 import FormField from "../../components/FormField";
-import { AuthButton as SignInButton } from "../../components/CustomButton";
+import { PrimaryButton } from "../../components/CustomButton";
 import { handleNavigation } from "../../utils/naviagtionUtils";
 import { signUpUser } from "../../services/authService";
 
@@ -27,17 +27,16 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
 
   const router = useRouter();
 
-  const validateEmail = (email) => {
+  const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
   const handleSignUp = () => {
-    // Add your sign-up logic here
     if (!validateEmail(form.email)) {
       setEmailError("Invalid email address");
       return;
@@ -55,7 +54,7 @@ const SignUp = () => {
       .catch((error) => {
         setIsLoading(false);
         if (error.code === "auth/email-already-in-use") {
-          setEmailError(true);
+          setEmailError("Email already in use");
           alert("Email already in use");
         }
         console.log(error);
@@ -63,9 +62,7 @@ const SignUp = () => {
   };
 
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.colors.background }]}
-    >
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <ScrollView>
         <View style={styles.formContainer}>
           {/* <Text style={styles.logoText}>Logo will be here</Text> */}
@@ -73,43 +70,38 @@ const SignUp = () => {
             Sign Up for Match Meals!
           </Text>
 
-          <TouchableOpacity
-            onPress={() => handleNavigation(router, "/onboarding")}
-          >
+          <TouchableOpacity onPress={() => handleNavigation(router, "/onboarding")}>
             <Text>skip to onboarding</Text>
           </TouchableOpacity>
 
           <FormField
             title="Email"
             value={form.email}
-            changeHandler={(e) => setForm({ ...form, email: e })}
+            changeHandler={(e: string) => setForm({ ...form, email: e })}
             keyboardType="email-address"
             left={
               <TextInput.Icon
                 icon="email"
                 color={(isTextInputFocused) =>
-                  isTextInputFocused
-                    ? theme.colors.primary
-                    : theme.colors.onSurfaceDisabled
+                  isTextInputFocused ? theme.colors.primary : theme.colors.onSurfaceDisabled
                 }
               />
             }
           />
-          {emailError && <Text style={styles.errorText}>{emailError}</Text>}
+          {emailError !== "" && <Text style={styles.errorText}>{emailError}</Text>}
 
           <View style={{ marginBottom: 30 }}>
             <FormField
               title="Password"
               value={form.password}
-              changeHandler={(p) => setForm({ ...form, password: p })}
+              changeHandler={(p: string) => setForm({ ...form, password: p })}
               secureTextEntry={showPassword}
+              keyboardType={"default"}
               left={
                 <TextInput.Icon
                   icon="lock"
                   color={(isTextInputFocused) =>
-                    isTextInputFocused
-                      ? theme.colors.primary
-                      : theme.colors.onSurfaceDisabled
+                    isTextInputFocused ? theme.colors.primary : theme.colors.onSurfaceDisabled
                   }
                 />
               }
@@ -118,33 +110,28 @@ const SignUp = () => {
                   onPress={() => setShowPassword(!showPassword)}
                   icon={showPassword ? "eye-off" : "eye"}
                   color={(isTextInputFocused) =>
-                    isTextInputFocused
-                      ? theme.colors.primary
-                      : theme.colors.onSurfaceDisabled
+                    isTextInputFocused ? theme.colors.primary : theme.colors.onSurfaceDisabled
                   }
                 />
               }
             />
-            {passwordError && (
-              <Text style={styles.errorText}>{passwordError}</Text>
-            )}
+            {passwordError && <Text style={styles.errorText}>{passwordError}</Text>}
           </View>
 
           <View style={{ alignItems: "center" }}>
-            <SignInButton
+            {/* NEED TO ADD LOADING */}
+            <PrimaryButton title="Sign Up" onPress={handleSignUp}></PrimaryButton>
+            {/* <SignInButton
               text="Sign Up"
               onPress={handleSignUp}
               isLoading={isLoading}
               contentStyle={{ height: 60, width: 350 }}
-            />
+            /> */}
           </View>
 
           <View style={styles.signUpContainer}>
             <Text>Already have an account? </Text>
-            <Link
-              href="/sign-in"
-              style={[styles.signUpLink, { color: theme.colors.primary }]}
-            >
+            <Link href="/sign-in" style={[styles.signUpLink, { color: theme.colors.primary }]}>
               Sign in here!
             </Link>
           </View>

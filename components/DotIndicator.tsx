@@ -1,17 +1,11 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-export function DotIndicator({ total, currentIndex }) {
+export function DotIndicator({ total, currentIndex }: { total: number; currentIndex: number }) {
   return (
     <View style={styles.container}>
       {Array.from({ length: total }).map((_, index) => (
-        <View
-          key={index}
-          style={[
-            styles.dot,
-            currentIndex === index ? styles.activeDot : styles.inactiveDot,
-          ]}
-        />
+        <View key={index} style={[styles.dot, currentIndex === index ? styles.activeDot : styles.inactiveDot]} />
       ))}
     </View>
   );

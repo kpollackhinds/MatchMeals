@@ -7,7 +7,7 @@ import { TextInput, useTheme, Text } from "react-native-paper";
 
 // import { Colors } from "../../constants/colors";
 import FormField from "../../components/FormField";
-import { AuthButton as SignInButton } from "../../components/CustomButton";
+import { PrimaryButton } from "../../components/CustomButton";
 import { handleNavigation } from "../../utils/naviagtionUtils";
 import { signInUser } from "../../services/authService";
 
@@ -54,9 +54,7 @@ const SignIn = () => {
   };
 
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.colors.background }]}
-    >
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.formContainer}>
           {/* <Text style={styles.logoText}>Logo will be here</Text> */}
@@ -73,9 +71,7 @@ const SignIn = () => {
               <TextInput.Icon
                 icon="email"
                 color={(isTextInputFocused) =>
-                  isTextInputFocused
-                    ? theme.colors.primary
-                    : theme.colors.onSurfaceDisabled
+                  isTextInputFocused ? theme.colors.primary : theme.colors.onSurfaceDisabled
                 }
               />
             }
@@ -91,9 +87,7 @@ const SignIn = () => {
                 <TextInput.Icon
                   icon="lock"
                   color={(isTextInputFocused) =>
-                    isTextInputFocused
-                      ? theme.colors.primary
-                      : theme.colors.onSurfaceDisabled
+                    isTextInputFocused ? theme.colors.primary : theme.colors.onSurfaceDisabled
                   }
                 />
               }
@@ -102,18 +96,12 @@ const SignIn = () => {
                   onPress={() => setShowPassword(!showPassword)}
                   icon={showPassword ? "eye-off" : "eye"}
                   color={(isTextInputFocused) =>
-                    isTextInputFocused
-                      ? theme.colors.primary
-                      : theme.colors.onSurfaceDisabled
+                    isTextInputFocused ? theme.colors.primary : theme.colors.onSurfaceDisabled
                   }
                 />
               }
             />
-            {emailError && (
-              <Text style={styles.errorText}>
-                {"Incorrect email or password"}
-              </Text>
-            )}
+            {emailError && <Text style={styles.errorText}>{"Incorrect email or password"}</Text>}
 
             <TouchableOpacity onPress={handleForgotPassword}>
               <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
@@ -121,20 +109,18 @@ const SignIn = () => {
           </View>
 
           <View style={{ alignItems: "center" }}>
-            <SignInButton
+            <PrimaryButton title="Sign In" onPress={handleSignIn}></PrimaryButton>
+            {/* <SignInButton
               text="Sign In"
               onPress={handleSignIn}
               isLoading={isLoading}
               contentStyle={{ height: 60, width: 350 }}
-            />
+            /> */}
           </View>
 
           <View style={styles.signInContainer}>
             <Text>Don't have an account? </Text>
-            <Link
-              href="/sign-up"
-              style={[styles.signInLink, { color: theme.colors.primary }]}
-            >
+            <Link href="/sign-up" style={[styles.signInLink, { color: theme.colors.primary }]}>
               Sign up here!
             </Link>
           </View>

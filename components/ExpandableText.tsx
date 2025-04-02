@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Text, TouchableOpacity, StyleSheet, View } from "react-native";
+import { Text, TouchableOpacity, StyleSheet, View, StyleProp, ViewStyle } from "react-native";
 
-const ExpandableText = ({ text, style }) => {
+const ExpandableText = ({ text, style }: { text: string; style: StyleProp<ViewStyle> }) => {
   const [expanded, setExpanded] = useState(false);
 
   // Function to extract the first sentence

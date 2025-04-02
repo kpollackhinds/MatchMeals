@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { SCREEN_WIDTH as sw } from "../../utils/dimensions";
 import { PrimaryButton } from "../CustomButton";
+import { OnboardingScreenProps } from "@/interfaces/onboardingScreenInterfaces";
 
-export default function EnterNameScreen({ onNext, next }) {
+export default function EnterNameScreen({ onNext, next }: OnboardingScreenProps) {
   const [name, setName] = useState("");
 
   return (

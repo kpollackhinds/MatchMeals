@@ -11,7 +11,11 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "app/(tabs)/settings.jsx",
-    "app/(tabs)/home/session.jsx"
-  ]
+    "app/(tabs)/settings.tsx",
+    "app/(tabs)/home/session.tsx"
+  ],
+  "allowJs": true,
+  "skipLibCheck": true,
+  "resolveJsonModule": true,
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js"]
 }

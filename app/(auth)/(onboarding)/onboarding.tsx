@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { View, FlatList, Dimensions, StyleSheet } from "react-native";
+import { View, FlatList, Dimensions, StyleSheet, NativeScrollEvent, NativeSyntheticEvent } from "react-native";
 import { useRouter } from "expo-router";
 import { DotIndicator } from "../../../components/DotIndicator";
 import EnterNameScreen from "../../../components/screens/EnterNameScreen";
@@ -11,10 +11,22 @@ import { handleNavigation } from "../../../utils/naviagtionUtils";
 import { saveOnBoardingData } from "../../../services/dbService";
 
 const { width } = Dimensions.get("window");
-
+type OnboardingData = {
+  info: {
+    name: string;
+    phone: string;
+  };
+  preferences: {
+    radius: number;
+    openOnly: boolean;
+    foodType: string[];
+  };
+  // In the future this may be an array of friend objects, or references to friends (uids or something)
+  friends: string[];
+};
 export default function OnboardingScreen() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [onboardingData, setOnboardingData] = useState({
+  const [onboardingData, setOnboardingData] = useState<OnboardingData>({
     info: {
       name: "",
       phone: "",
@@ -26,41 +38,41 @@ export default function OnboardingScreen() {
     },
     friends: [],
   });
-  const flatListRef = useRef(null);
+  const flatListRef = useRef<FlatList<any>>(null);
   const router = useRouter();
 
-  const updateInfo = (key, value) => {
+  const updateInfo = (key: string, value: string) => {
     setOnboardingData((prev) => ({ ...prev, info: { ...prev.info, [key]: value } }));
   };
-  const updatePreferences = (key, value) => {
+  const updatePreferences = (key: string, value: string) => {
     setOnboardingData((prev) => ({ ...prev, preferences: { ...prev.preferences, [key]: value } }));
   };
-  const updateSearchPreferences = (preferences) => {
+  const updateSearchPreferences = (preferences: { radius: number; openOnly: boolean }) => {
     setOnboardingData((prev) => ({ ...prev, preferences: { ...prev.preferences, radius: preferences.radius } }));
     setOnboardingData((prev) => ({
       ...prev,
       preferences: { ...prev.preferences, openOnly: preferences.openOnly },
     }));
   };
-  const updateFriends = (friends) => {
+  const updateFriends = (friends: string[]) => {
     setOnboardingData((prev) => ({ ...prev, friends }));
   };
 
-  const handleScroll = (event) => {
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const index = Math.round(event.nativeEvent.contentOffset.x / width);
     setCurrentIndex(index);
   };
 
   const nextStep = () => {
     if (currentIndex < steps.length - 1) {
-      flatListRef.current.scrollToIndex({ index: currentIndex + 1 });
+      flatListRef.current?.scrollToIndex({ index: currentIndex + 1 });
     }
   };
 
   const goToNextScreen = () => {
     if (currentIndex < steps.length - 1) {
       setCurrentIndex((prev) => prev + 1);
-      flatListRef.current.scrollToIndex({ index: currentIndex + 1 });
+      flatListRef.current?.scrollToIndex({ index: currentIndex + 1 });
     }
   };
 

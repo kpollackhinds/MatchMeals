@@ -7,7 +7,7 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "../constants/Colors";
 import { handleNavigation } from "../utils/naviagtionUtils";
 import { SCREEN_HEIGHT as sh, SCREEN_WIDTH as sw } from "../utils/dimensions";
-import { SessionButtons, PrimaryButton } from "../components/CustomButton";
+import { PrimaryButton, BrowseButton, GroupSessionButton } from "../components/CustomButton";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -22,8 +22,16 @@ export default function HomeScreen() {
 
       {/* Data test buttons */}
       <View style={{ flexDirection: "row", justifyContent: "space-between", marginHorizontal: 20, marginTop: 20 }}>
-        <PrimaryButton text="Add Data" onPress={() => handleNavigation(router, "home/testdata")} />
-        <PrimaryButton text="Fetch Data" onPress={() => handleNavigation(router, "home/testdata")} />
+        <PrimaryButton
+          title="Add Data"
+          onPress={() => handleNavigation(router, "home/testdata")}
+          style={{ width: 100 }}
+        />
+        <PrimaryButton
+          title="Fetch Data"
+          onPress={() => handleNavigation(router, "home/testdata")}
+          style={{ width: 100 }}
+        />
       </View>
 
       {/* Title + Arrow */}
@@ -34,10 +42,10 @@ export default function HomeScreen() {
       </View>
 
       {/* Navigation Buttons */}
-      <SessionButtons
-        onPressBrowse={() => handleNavigation(router, "home/session")}
-        onPressGroupSession={() => handleNavigation(router, "/home")}
-      />
+      <View style={styles.buttonsContainer}>
+        <BrowseButton onPress={() => handleNavigation(router, "home/session")} />
+        <GroupSessionButton onPress={() => handleNavigation(router, "/home")} />
+      </View>
     </SafeAreaView>
   );
 }

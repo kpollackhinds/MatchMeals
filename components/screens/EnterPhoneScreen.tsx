@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { SCREEN_WIDTH as sw } from "../../utils/dimensions";
 import { PrimaryButton } from "../CustomButton";
+import { OnboardingScreenProps } from "@/interfaces/onboardingScreenInterfaces";
 
-export default function EnterPhoneScreen({ onNext, next }) {
+export default function EnterPhoneScreen({ onNext, next }: OnboardingScreenProps) {
   const [phone, setPhone] = useState("");
 
   return (

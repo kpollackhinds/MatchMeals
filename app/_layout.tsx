@@ -7,7 +7,7 @@ import { ActivityIndicator, View } from "react-native";
 import "react-native-reanimated";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { auth } from "../firebase/firebaseConfig";
-
+import { User } from "firebase/auth";
 import { handleNavigation } from "../utils/naviagtionUtils";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { LightTheme, DarkTheme } from "@/constants/theme";
@@ -20,7 +20,7 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 

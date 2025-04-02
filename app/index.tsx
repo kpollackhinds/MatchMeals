@@ -1,17 +1,12 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-  Dimensions,
-} from "react-native";
+import { View, StyleSheet, TouchableOpacity, SafeAreaView, Dimensions } from "react-native";
 import { Title } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import { useTheme, Text } from "react-native-paper";
 
-import { AuthButton } from "../components/CustomButton";
+// import { AuthButton } from "../components/CustomButton";
+import { PrimaryButton } from "@/components/CustomButton";
 import { handleNavigation } from "../utils/naviagtionUtils";
 import { Colors } from "../constants/Colors";
 
@@ -24,16 +19,14 @@ const LandingScreen = () => {
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.light.primary }}>
       <View style={styles.container}>
         <View style={styles.titleContainer}>
-          <Text
-            variant="displayLarge"
-            style={[styles.title, { color: Colors.light.onPrimary }]}
-          >
+          <Text variant="displayLarge" style={[styles.title, { color: Colors.light.onPrimary }]}>
             Match Meals
           </Text>
         </View>
 
         <View style={{ alignItems: "center" }}>
-          <AuthButton
+          <PrimaryButton title="Sign In" onPress={() => handleNavigation(router, "/sign-in")}></PrimaryButton>
+          {/* <AuthButton
             text="Sign In"
             style={[
               styles.button,
@@ -47,9 +40,9 @@ const LandingScreen = () => {
               width: 0.81 * width,
             }}
             textColor={Colors.light.primary}
-          ></AuthButton>
-
-          <AuthButton
+          ></AuthButton> */}
+          <PrimaryButton title="Sign Up" onPress={() => handleNavigation(router, "/sign-up")}></PrimaryButton>
+          {/* <AuthButton
             text="Sign Up"
             style={[
               styles.button,
@@ -61,12 +54,10 @@ const LandingScreen = () => {
               width: 0.81 * width,
             }}
             textColor={Colors.light.primary}
-          ></AuthButton>
+          ></AuthButton> */}
         </View>
 
-        <TouchableOpacity
-          onPress={() => handleNavigation(router, "/home/session")}
-        >
+        <TouchableOpacity onPress={() => handleNavigation(router, "/home/session")}>
           <Text style={styles.skipText}>Skip for now</Text>
         </TouchableOpacity>
       </View>
