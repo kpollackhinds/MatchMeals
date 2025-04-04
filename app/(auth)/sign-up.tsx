@@ -10,6 +10,7 @@ import FormField from "../../components/FormField";
 import { PrimaryButton } from "../../components/CustomButton";
 import { handleNavigation } from "../../utils/naviagtionUtils";
 import { signUpUser } from "../../services/authService";
+import { UserService } from "@/services/UserService";
 
 // Open items:
 // 5. Error handling for insufficient credentials ✓
@@ -29,6 +30,7 @@ const SignUp = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  const userService = new UserService();
   const router = useRouter();
 
   const validateEmail = (email: string) => {
@@ -48,6 +50,10 @@ const SignUp = () => {
     setIsLoading(true);
     signUpUser(form.email, form.password)
       .then((user) => {
+        userService.createUser(user.user.uid, { email: form.email });
+        // handleNavigation(router, "/onboarding");
+      })
+      .then(() => {
         setIsLoading(false);
         handleNavigation(router, "/onboarding");
       })

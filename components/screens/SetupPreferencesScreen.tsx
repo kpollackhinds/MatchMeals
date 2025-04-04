@@ -30,7 +30,7 @@ export default function SetupPreferencesScreen({ onNext, next }: OnboardingScree
         ))}
       </View>
 
-      <PrimaryButton title="Next" onPress={() => (onNext("foodType", selected), next())} />
+      <PrimaryButton title="Next" onPress={() => (onNext("food_categories", selected), next())} />
     </View>
   );
 }

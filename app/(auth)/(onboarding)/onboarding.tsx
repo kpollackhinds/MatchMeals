@@ -8,22 +8,14 @@ import SetupPreferencesScreen from "../../../components/screens/SetupPreferences
 import SearchPreferencesScreen from "../../../components/screens/SearchPreferencesScreen";
 import FindFriendsScreen from "../../../components/screens/FindFriendsScreen";
 import { handleNavigation } from "../../../utils/naviagtionUtils";
-import { saveOnBoardingData } from "../../../services/dbService";
+import { UserService } from "@/services/UserService";
+import User from "@/models/User";
+// import { saveOnBoardingData } from "../../../services/dbService";
 
 const { width } = Dimensions.get("window");
-type OnboardingData = {
-  info: {
-    name: string;
-    phone: string;
-  };
-  preferences: {
-    radius: number;
-    openOnly: boolean;
-    foodType: string[];
-  };
-  // In the future this may be an array of friend objects, or references to friends (uids or something)
-  friends: string[];
-};
+type OnboardingData = Omit<User, "id" | "createdAt" | "updatedAt" | "email">;
+const userService = new UserService();
+
 export default function OnboardingScreen() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [onboardingData, setOnboardingData] = useState<OnboardingData>({
@@ -34,7 +26,7 @@ export default function OnboardingScreen() {
     preferences: {
       radius: 0,
       openOnly: false,
-      foodType: [],
+      food_categories: [],
     },
     friends: [],
   });
@@ -47,11 +39,14 @@ export default function OnboardingScreen() {
   const updatePreferences = (key: string, value: string) => {
     setOnboardingData((prev) => ({ ...prev, preferences: { ...prev.preferences, [key]: value } }));
   };
-  const updateSearchPreferences = (preferences: { radius: number; openOnly: boolean }) => {
-    setOnboardingData((prev) => ({ ...prev, preferences: { ...prev.preferences, radius: preferences.radius } }));
+  const updateSearchPreferences = (selected_preferences: { radius: number; openOnly: boolean }) => {
     setOnboardingData((prev) => ({
       ...prev,
-      preferences: { ...prev.preferences, openOnly: preferences.openOnly },
+      preferences: { ...prev.preferences, radius: selected_preferences.radius },
+    }));
+    setOnboardingData((prev) => ({
+      ...prev,
+      preferences: { ...prev.preferences, openOnly: selected_preferences.openOnly },
     }));
   };
   const updateFriends = (friends: string[]) => {
@@ -76,9 +71,9 @@ export default function OnboardingScreen() {
     }
   };
 
-  const saveAndGoHome = () => {
+  const saveAndGoHome = async () => {
     // Do I have to await the thing below??
-    saveOnBoardingData(onboardingData);
+    await userService.updateUser(onboardingData);
     handleNavigation(router, "/home");
   };
 
