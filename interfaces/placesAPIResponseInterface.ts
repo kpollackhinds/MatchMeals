@@ -6,7 +6,7 @@ interface Place {
   rating: number;
   googleMapsUri: string;
   websiteUri: string;
-  businessStatus: "OPERATIONAL" | "CLOSED_TEMPORARILY" | "CLOSED_PERMANENTLY";
+  businessStatus: "OPERATIONAL" | "CLOSED_TEMPORARILY" | "CLOSED_PERMANENTLY" | "BUSINESS_STATUS_UNSPECIFIED";
   priceLevel:
     | "PRICE_LEVEL_UNSPECIFIED"
     | "PRICE_LEVEL_FREE"
@@ -14,6 +14,7 @@ interface Place {
     | "PRICE_LEVEL_MODERATE"
     | "PRICE_LEVEL_EXPENSIVE"
     | "PRICE_LEVEL_VERY_EXPENSIVE";
+  userRatingsCount: number;
   displayName: LocalizedText;
   primaryTypeDisplayName: LocalizedText;
   takeout: boolean;
@@ -26,6 +27,7 @@ interface Place {
   allowsDogs: boolean;
   accessibilityOptions: AccessibilityOptions;
   generativeSummary: GenerativeSummary;
+  priceRange: PriceRange;
 }
 
 interface LocalizedText {
@@ -33,16 +35,38 @@ interface LocalizedText {
   languageCode: string;
 }
 
-interface OpeningHours {
-  openNow: boolean;
-  periods: OpeningPeriod[];
-  weekdayDescriptions: string[];
-  nextOpenTime: string;
+interface PriceRange {
+  startPrice: Money;
+  endPrice: Money;
 }
 
-interface OpeningPeriod {
-  open: OpeningTime;
-  close: OpeningTime;
+interface Money {
+  currencyCode: string;
+  units: string;
+  nanos: number;
+}
+
+interface OpeningHours {
+  openNow: boolean;
+  periods: Period[];
+  weekdayDescriptions: string[];
+  nextOpenTime: string;
+  secondaryHoursType: SecondaryHoursType;
+  specialDays: SpecialDay[];
+  nextCloseTime: string;
+}
+
+interface Period {
+  open: Point;
+  close: Point;
+}
+
+interface Point {
+  date: Date;
+  truncated: boolean;
+  day: number;
+  hour: number;
+  minute: number;
 }
 
 interface OpeningTime {
@@ -54,6 +78,27 @@ interface OpeningTime {
     month: number;
     day: number;
   };
+}
+
+interface SpecialDay {
+  date: Date;
+}
+
+enum SecondaryHoursType {
+  UNSPECIFIED = "SECONDARY_HOURS_TYPE_UNSPECIFIED",
+  DRIVE_THROUGH = "DRIVE_THROUGH",
+  HAPPY_HOUR = "HAPPY_HOUR",
+  DELIVERY = "DELIVERY",
+  TAKEOUT = "TAKEOUT",
+  KITCHEN = "KITCHEN",
+  BREAKFAST = "BREAKFAST",
+  LUNCH = "LUNCH",
+  DINNER = "DINNER",
+  BRUNCH = "BRUNCH",
+  PICKUP = "PICKUP",
+  ACCESS = "ACCESS",
+  SENIOR_HOURS = "SENIOR_HOURS",
+  ONLINE_SERVICE_HOURS = "ONLINE_SERVICE_HOURS",
 }
 
 interface Photo {

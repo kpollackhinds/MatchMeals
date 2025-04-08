@@ -2,13 +2,7 @@ const Response = {
   places: [
     {
       id: "ChIJYWfnkHhewokRJg65MA20rGA",
-      types: [
-        "bar",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment",
-      ],
+      types: ["bar", "restaurant", "food", "point_of_interest", "establishment"],
       nationalPhoneNumber: "(718) 386-3014",
       formattedAddress: "69-46 Myrtle Ave, Glendale, NY 11385, USA",
       rating: 4.7,
@@ -16,6 +10,7 @@ const Response = {
       websiteUri: "http://www.zumstammtisch.com/",
       businessStatus: "OPERATIONAL",
       priceLevel: "PRICE_LEVEL_MODERATE",
+      userRatingCount: 2347,
       displayName: {
         text: "Zum Stammtisch",
         languageCode: "en",
@@ -29,7 +24,7 @@ const Response = {
       dineIn: true,
       servesVegetarianFood: false,
       currentOpeningHours: {
-        openNow: false,
+        openNow: true,
         periods: [
           {
             open: {
@@ -38,8 +33,8 @@ const Response = {
               minute: 0,
               date: {
                 year: 2025,
-                month: 2,
-                day: 9,
+                month: 4,
+                day: 6,
               },
             },
             close: {
@@ -48,64 +43,64 @@ const Response = {
               minute: 0,
               date: {
                 year: 2025,
-                month: 2,
+                month: 4,
+                day: 6,
+              },
+            },
+          },
+          {
+            open: {
+              day: 2,
+              hour: 12,
+              minute: 0,
+              date: {
+                year: 2025,
+                month: 4,
+                day: 8,
+              },
+            },
+            close: {
+              day: 2,
+              hour: 22,
+              minute: 0,
+              date: {
+                year: 2025,
+                month: 4,
+                day: 8,
+              },
+            },
+          },
+          {
+            open: {
+              day: 3,
+              hour: 12,
+              minute: 0,
+              date: {
+                year: 2025,
+                month: 4,
+                day: 9,
+              },
+            },
+            close: {
+              day: 3,
+              hour: 22,
+              minute: 0,
+              date: {
+                year: 2025,
+                month: 4,
                 day: 9,
               },
             },
           },
           {
             open: {
-              day: 2,
-              hour: 12,
-              minute: 0,
-              date: {
-                year: 2025,
-                month: 2,
-                day: 4,
-              },
-            },
-            close: {
-              day: 2,
-              hour: 22,
-              minute: 0,
-              date: {
-                year: 2025,
-                month: 2,
-                day: 4,
-              },
-            },
-          },
-          {
-            open: {
-              day: 3,
-              hour: 12,
-              minute: 0,
-              date: {
-                year: 2025,
-                month: 2,
-                day: 5,
-              },
-            },
-            close: {
-              day: 3,
-              hour: 22,
-              minute: 0,
-              date: {
-                year: 2025,
-                month: 2,
-                day: 5,
-              },
-            },
-          },
-          {
-            open: {
               day: 4,
               hour: 12,
               minute: 0,
               date: {
                 year: 2025,
-                month: 2,
-                day: 6,
+                month: 4,
+                day: 10,
               },
             },
             close: {
@@ -114,8 +109,8 @@ const Response = {
               minute: 0,
               date: {
                 year: 2025,
-                month: 2,
-                day: 6,
+                month: 4,
+                day: 10,
               },
             },
           },
@@ -126,8 +121,8 @@ const Response = {
               minute: 0,
               date: {
                 year: 2025,
-                month: 2,
-                day: 7,
+                month: 4,
+                day: 11,
               },
             },
             close: {
@@ -136,8 +131,8 @@ const Response = {
               minute: 0,
               date: {
                 year: 2025,
-                month: 2,
-                day: 7,
+                month: 4,
+                day: 11,
               },
             },
           },
@@ -148,8 +143,8 @@ const Response = {
               minute: 0,
               date: {
                 year: 2025,
-                month: 2,
-                day: 8,
+                month: 4,
+                day: 12,
               },
             },
             close: {
@@ -158,8 +153,8 @@ const Response = {
               minute: 0,
               date: {
                 year: 2025,
-                month: 2,
-                day: 8,
+                month: 4,
+                day: 12,
               },
             },
           },
@@ -173,12 +168,12 @@ const Response = {
           "Saturday: 12:00 – 10:00 PM",
           "Sunday: 12:00 – 10:00 PM",
         ],
-        nextOpenTime: "2025-02-05T17:00:00Z",
+        nextCloseTime: "2025-04-07T02:00:00Z",
       },
       primaryType: "restaurant",
       photos: [
         {
-          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AVzFdbn6ddZCxbErZeR7CluwnAPfbr2eb6paBA-5kU_JujS4Dxj3CrN8ynn2IY3wIgRly1m1TfquTRdD-F3Xvj3MHaco8EtsWnvVswUaHB261_pNlOAYYsFiDRPWSDWrdDK68WvxQg7hfDiNQDjbLAYrdo_bf2RZiPCIHEYp",
+          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AeeoHcKVMrx7QHA9JfWmpkE3LG-k2Myo2rlt3sEhkma7n51gGei5cZRPKrTkaQygc-usr1hhj1vIiqO9MLnNBwJJ2ljexvgtNld7O_uhLqSy8H0G3MtpW0zseV42U2Bh_fq5JqPcfcIiOGfkFeakfdchlMoMzDPMujtFWiXND0SRopAYpD3gk5lEBbx3eZW1U4ZtyikLHr0wP09AhMKBH81zTZQWEMk6fLjxItcZa95HWiQrgKXmKVuXfwAoRuJpvhFU6eLhAXOi5p-GKeBM9exDGecfs3KYQK6dr1mNCNjOct9-DQ-NRfPurr1TEd8hfgTdxz3b4KhEG86xiMrwN6bfqYVTiEmbHbxXiWK8CyD8UabOqdBo2JEWRPaA0t8no7UGIG8HeoI1r7u2oFje5tfFem4JtiExfQh0F7zpbM6rDf0gBgV_",
           widthPx: 4800,
           heightPx: 3196,
           authorAttributions: [
@@ -190,14 +185,14 @@ const Response = {
             },
           ],
           flagContentUri:
-            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sAF1QipNORARLVJkmiKui5rfm0uPJAX-U6A3HfkSdDLTJ&hl=en-US",
+            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIHM0ogKEICAgIDEja_44wE&hl=en-US",
           googleMapsUri:
-            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipNORARLVJkmiKui5rfm0uPJAX-U6A3HfkSdDLTJ!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
+            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIDEja_44wE!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
         },
         {
-          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AVzFdbnLmziaF890EylG3sQY5SfGja21x6U24qICnh37QRKaHwMwnAsREMB9a1aFlgYwYuLcdmk--ncYGz2hzvqtKp7JM9g1lk3x41Fup7V7Z6MaLq3QJrSnSu_Zi_1BZZ5PDN-jAsN0hDqxQlN4UbUeh27kq7bkHuDgioWg",
+          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AeeoHcJUfSTpOBarrxhxxSpua5C9Hdhvr9vN_OZA2Cxa7DTS4FdUtkv84-m72UM2eSW3OQOsYlUP6k-n3k0TkEsKVR0RonBUafuZ7pgtC9kATAT5ANu13xvHwOvTEBJH0WT_mzHvKNuR3RTr3QCmLgz0BUWzfEzFniM1aucNVrJIGybXMUO_KgR_kJs7wOZqdP-6urs01cKsKCJFayfqIy9MkFpMsqsYDIECv45fSm1ExoztrKPJ8QdY10dL9j8upfOyj_glEVtqkIxeplmYjC3TYBibyt0YqmIxmhnBozWeKGo-_QSgIelsOXUiwo719Hw8gOB8HlmttGGEXdDHTPao74JR9twyCpj-jocUrCfaCw-we4-8-0W_0K7nncDWMzL_gP4L4zoO7vZv1cyMvfIPhvtCJ9Nt-Qn0N4o5Ngj2jwqepXs",
           widthPx: 4800,
-          heightPx: 3196,
+          heightPx: 3195,
           authorAttributions: [
             {
               displayName: "Brian Cirillo",
@@ -207,29 +202,29 @@ const Response = {
             },
           ],
           flagContentUri:
-            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sAF1QipOODMFcaSDQmhmBfySIcWmCfDvaVe7heAoVQG2X&hl=en-US",
+            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIHM0ogKEICAgIDEjbi6lAE&hl=en-US",
           googleMapsUri:
-            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipOODMFcaSDQmhmBfySIcWmCfDvaVe7heAoVQG2X!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
+            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIDEjbi6lAE!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
         },
         {
-          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AVzFdbkTxhKBq4g_CEUPhVdJ7iC9HqNQTaO9uXsWh3_QB2tCvlAijEcgRj6wp7WOElvKCLlbOEWqOPPE9Wt_SYbpvx7yh9FoifD9C3Gk4yy3Fz3iqkySHh2sMjflEYJ4UlYk8BFcIk5MX3hGUfEz4vEHpeLBvnPndo-oT-yF",
-          widthPx: 3607,
-          heightPx: 1776,
+          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AeeoHcLebuefd9nRFFdsIXFvO_iG0t06C6b-NHmc39UrDvMrGmu3zd0GhkYWuLlgmbLjWjBwTm3EeC2GYDtst4CTuNa2Cx27EUkqmEwaBzZVSBB5Qwqijh739gUBKOeEJ14mc6NY-idhCjKxCCzu9893aooUCoz6xi_wz5BN5_hDd2hMfWAw3o62PymnfPhv-qm8z--8hMCMgCcWSmrJVH_tNOYUQyyTh6LkVqlXUapYF72GQmL4Z8LpVEYmNEKtD1fwy5a5fyJcasKiqYfxPAh1_6DqxRLkBLps8vPrdjyj6IWRO1Nf2-Mnm3wMM1O0FOQgvoJgn_BuCbYX1SPomgNEzjKv9AZHZtnp2erLFr8Wy7T9Zayy8XlJtZtSYR3p0KQEgbCjypFC8ofXZyUp7BQqEczmdv8PVMZZyUZP5-ORteuMC9wK",
+          widthPx: 4000,
+          heightPx: 3000,
           authorAttributions: [
             {
-              displayName: "Edyta Drozdzal",
-              uri: "https://maps.google.com/maps/contrib/102753144496059087347",
+              displayName: "Eric Helferich",
+              uri: "https://maps.google.com/maps/contrib/103044406618663302299",
               photoUri:
-                "https://lh3.googleusercontent.com/a/ACg8ocJV7tfG14dNGeqNgds2YQlM3LGGOJ_PstyqBgssNO-XOGa65g=s100-p-k-no-mo",
+                "https://lh3.googleusercontent.com/a/ACg8ocIzHISkYkHWptQoQ_ffRzvWyfhvQIdc4J5qLPV1e4htDAa91Q=s100-p-k-no-mo",
             },
           ],
           flagContentUri:
-            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sAF1QipOZDPefgW82WcH2_PiTCPK9E5-kSl3i7i_UrLo2&hl=en-US",
+            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIHM0ogKEICAgMDIiKuLugE&hl=en-US",
           googleMapsUri:
-            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipOZDPefgW82WcH2_PiTCPK9E5-kSl3i7i_UrLo2!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
+            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgMDIiKuLugE!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
         },
         {
-          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AVzFdbnOHfxVnMmqym52sL70_rvguXTtWnKHVB7YYpEJtyYpLpCJXOpNkFZnSgOvl5kBxvb3VQ9IiTk2lMZ_yofylPOUUu33pfRCzJekC6Y5vkqU3YzKbY1JmkRhGWYdQ29Bb9GLgsKPImauEBwsRBZ6ViDYcfZf41gmB4wb",
+          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AeeoHcJp-7BQ0WUZ3Ok5MNFDv65yrlkfZVNnYOkOFVNVMYNPJ8XDYiWy9bJ4QngceLg1sH7d4m_PAoxrZIqk1pbOQgUSV_3tRERpCR0bcM4vVvj9Oh40YeL45UDrP7FPmpMQ4uzfanohBKC4tuKnElyzuFHwce-ybWp17nmdX1XnO8qBtxvuSPAScxPconUSvG1X97IHYmRHXqM4--jwjpcbnSddOyDlMwQ2d41icGAHwPoqyDji5-ciFEDjbo8Ntt_coewbvJCu2Px52sR9sPMXf6pP1xAPHKugT0bpJranMgFd9Qp8DoauZPbxaq2y7_QEVHN5O4Owz06a-CZMmdu3uIcqKkRdUiSCKncS7-h3iccMvP9_lLZ97hEPwEqJ_Iv0g8rHWYJgvis2hGFmWZSLp0Hzk3U6YEa2p2Qd4Ot-WcZ7peg",
           widthPx: 3024,
           heightPx: 4032,
           authorAttributions: [
@@ -241,97 +236,29 @@ const Response = {
             },
           ],
           flagContentUri:
-            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sAF1QipOWOvv3YWTeB4CIBxVz4jjNYenxAUtUpN9sdHed&hl=en-US",
+            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIHM0ogKEICAgIC6kMT_iwE&hl=en-US",
           googleMapsUri:
-            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipOWOvv3YWTeB4CIBxVz4jjNYenxAUtUpN9sdHed!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
+            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIC6kMT_iwE!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
         },
         {
-          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AVzFdblQQaXQ9MLGK_jAx6CLZJ_9VCAwsIlQhXQ8qS7x0kKFj78-GrQSZQjZQADY9BlW0itFa0ZcSjKEYR-JAMEZWOdwcZMef5Eel-p-2WA7saEKskPfn-fBVrvi29Ob8LMElnRwatLpw_s0za_3gLxs5dg5kyKcYNu-03yh",
-          widthPx: 3000,
+          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AeeoHcJJnA94MPL0qL0NzGBDkQCykUqcaE4v8_bEh2Z2FXokf8_cYUMt0ru9ezyXma5gUTQlo2CguubAqLs38XaBH0IalJ4tqNUCOCOZ8fsudBRGSbqwarBoWZv8svPiYeoFx-gdwdzv0tIYqjCfAhQ7YMYstp8uQ3-8oDgZt-_sbk5pOYqGFZusCMI2zTw8hMHxgO-MXQKCnzy5LFC40lFuWxkUAt9OS3fQmzEW8s1sYK0OcU4yLwY0A2hOwjibQixX9fQsexGdPqrbpZ9FnjPQvKlCRRJ-2J2kGqnV6G1QeomPSE5KcSFa3s4_NfnH_c_gJqTLESzVTR6RoFkSonQAjxkLZXhXu4pxgdZTBTUGqIyG0JTXC36HRR-6t9JVDoAGVR2DQ73b883105mVDtLi3FfvPSctUsYNWLI2CDuKd1hxkP8",
+          widthPx: 4000,
           heightPx: 3000,
           authorAttributions: [
             {
-              displayName: "Flizzle Out",
-              uri: "https://maps.google.com/maps/contrib/105708921075446590729",
+              displayName: "Eric Helferich",
+              uri: "https://maps.google.com/maps/contrib/103044406618663302299",
               photoUri:
-                "https://lh3.googleusercontent.com/a/ACg8ocIAvRsvovynnLz7KAFnR5lnFFegTgWgiYlItN0NCkiqtglLRjM=s100-p-k-no-mo",
+                "https://lh3.googleusercontent.com/a/ACg8ocIzHISkYkHWptQoQ_ffRzvWyfhvQIdc4J5qLPV1e4htDAa91Q=s100-p-k-no-mo",
             },
           ],
           flagContentUri:
-            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sAF1QipM_0Qcry2ktXzpFWShtlOjjBRzJLGA3TSE6rKfu&hl=en-US",
+            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIHM0ogKEICAgMDIiKuL-gE&hl=en-US",
           googleMapsUri:
-            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipM_0Qcry2ktXzpFWShtlOjjBRzJLGA3TSE6rKfu!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
+            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgMDIiKuL-gE!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
         },
         {
-          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AVzFdbkZ0TxODowvtwXwpoOQkV-9-Y6Lxx2mvAfEIHbFEjWezWspwf_Liu7qvtdm36-wHrIZx9T8WC_iNKRL-7FXqN1OfPf1p2-iitmVJ6ZOZmBSlfdbxSq4qIZSztuQO8wzoykZHWe5g6245ILQ-1jMc80e-AtIGDZe0MC7",
-          widthPx: 4032,
-          heightPx: 3024,
-          authorAttributions: [
-            {
-              displayName: "Jin Lei",
-              uri: "https://maps.google.com/maps/contrib/104886491023883525161",
-              photoUri:
-                "https://lh3.googleusercontent.com/a/ACg8ocL4P_X6PIJDs7PIM9nfR2pU6epAukrnzsTEFcwsVBf09xD1GXA=s100-p-k-no-mo",
-            },
-          ],
-          flagContentUri:
-            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sAF1QipMruLN8i1WFpvCu0g-PAyiYGEYFJ5iygOMN65_9&hl=en-US",
-          googleMapsUri:
-            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipMruLN8i1WFpvCu0g-PAyiYGEYFJ5iygOMN65_9!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
-        },
-        {
-          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AVzFdbn2dNel5xs-vXU0yj-Rdmy5QV8CUz25ZAnDvLcasNtH9YCvmxb1pYTcXx8V4pYEna1wBPE9JvkdKq3smZ0B4HQaDRmcZgElHxifIGMYLNTMxlc5BFOTn1DlqsovhPB3kK135VoBZIyuOOGBLHPY0QqTfvVHzu6_eoyR",
-          widthPx: 4000,
-          heightPx: 2252,
-          authorAttributions: [
-            {
-              displayName: "Gand E Power",
-              uri: "https://maps.google.com/maps/contrib/101547889693767371722",
-              photoUri:
-                "https://lh3.googleusercontent.com/a-/ALV-UjVVDP2CkJf1eXh0DXuCMX60M5n7Dab_LWGMHbx-YB7AJTlMXLqb=s100-p-k-no-mo",
-            },
-          ],
-          flagContentUri:
-            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sAF1QipMZNnQtQrc4WKSGcXFTjdbTDtKB7ZbtWfvEQKNQ&hl=en-US",
-          googleMapsUri:
-            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipMZNnQtQrc4WKSGcXFTjdbTDtKB7ZbtWfvEQKNQ!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
-        },
-        {
-          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AVzFdbnvTrV5NBaEXXQJCt6sTVAVBVuSXkyGnHIFbKzBxmFlAtV84V9Z05-7Lx5i6RQSwFXcmCoykHNwDwh2z9FuDWq5_UJZlgLqWhVH-qZAL_6ma55pJLyUYVnL8roqG62XWabb66B0XV_U45NV78cM3cCtWKyoalL-3N6f",
-          widthPx: 3024,
-          heightPx: 4032,
-          authorAttributions: [
-            {
-              displayName: "Jin Lei",
-              uri: "https://maps.google.com/maps/contrib/104886491023883525161",
-              photoUri:
-                "https://lh3.googleusercontent.com/a/ACg8ocL4P_X6PIJDs7PIM9nfR2pU6epAukrnzsTEFcwsVBf09xD1GXA=s100-p-k-no-mo",
-            },
-          ],
-          flagContentUri:
-            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sAF1QipN9uRVMU9wJV14ItJeZMiiJ70SLXFhRAycsXl7Q&hl=en-US",
-          googleMapsUri:
-            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipN9uRVMU9wJV14ItJeZMiiJ70SLXFhRAycsXl7Q!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
-        },
-        {
-          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AVzFdbnerP9RueGw0Lmp3hU-2nUSXib8DVzBugoX_XAOdk-fO4gblj89WBqMnGYI0xrnc5c8_f0WiBV5UwrmBoexp0Q-ep6mDfRmBxgIPz2fQMKvVlOqI-4QfF0vOZSZelW2Ljgkr47d21dst4DwX8yjJFoO5D1Dr2t98iiy",
-          widthPx: 4032,
-          heightPx: 3024,
-          authorAttributions: [
-            {
-              displayName: "John Wong",
-              uri: "https://maps.google.com/maps/contrib/104588630328198853546",
-              photoUri:
-                "https://lh3.googleusercontent.com/a-/ALV-UjWFTHHkeH0_DyZ9j3Q28GN2PM-4pVhMHTPf-Xx0s4JaZGQfqZ5D=s100-p-k-no-mo",
-            },
-          ],
-          flagContentUri:
-            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sAF1QipMb4cGD8TPZEAVd1l4rzH0Cliwt1A1g_Gk2KCVm&hl=en-US",
-          googleMapsUri:
-            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipMb4cGD8TPZEAVd1l4rzH0Cliwt1A1g_Gk2KCVm!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
-        },
-        {
-          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AVzFdblnLBUmfsjKVT3DIUDYBli1_Kjwv9MCjYO98PyFq8IkE0dyHnoXHJSQYVImbbimqXwtXBXR-P_zwDBnkEYa7Cz3W1RXqyhHIsEwBkFC_YArTzGXNMM2J3gvfkz2t0f5JDeFRJobNQsfsniciQs9NyudQXSaUEWVAm3U",
+          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AeeoHcK0jMVRFPHKMsHlzuIkmIIVT3F6vjW7ylkxAAS4ji0IuULm3FuTTAsf6BhRcBfwVIGhcn2GeCsm_kfCdiTYlJ2jMfqpXdSElZVmyHqyh1-ON_czxk2JN3W3F5tt_aCtKHm_oM_pA9pG23gqiItvAAX7N_MBcZt2RndsgFmx4YEm0TbPffc35sI7KE_fbtKet5cie0Ptc8AP1ozgiwexzwDVdtKtgFRV78qLRDaA0mueaKrFMN26GgI6MWFUGOP8n0u6hv5N955zjD23m9BL8eMGrvD_SHUJCXjZPqGMlLTOcqYR-AIChUI39VFzb6CBvI_bGXadBe2y0ql_R5u1Km9UQTr7LiRq7Er5UfqXlcWYMgZtcq3ggg94G_yS6TDKCddk6sO0kAPHZp2YJJDwTLGRKDp8W-6lHvms4MKcVsc",
           widthPx: 4032,
           heightPx: 3024,
           authorAttributions: [
@@ -343,9 +270,77 @@ const Response = {
             },
           ],
           flagContentUri:
-            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sAF1QipNhyk_9YmPXEsC6N0EcN2LMPITbTkXIlT6tQ7bN&hl=en-US",
+            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIHM0ogKEICAgICbwp2GGA&hl=en-US",
           googleMapsUri:
-            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipNhyk_9YmPXEsC6N0EcN2LMPITbTkXIlT6tQ7bN!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
+            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICbwp2GGA!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
+        },
+        {
+          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AeeoHcKaW3G1_myBkHqsTdej6TRGDmgraYKzSDRmCeuL6cVRDHd_SUK92oQUfyRDtr0cRzZcza9rgCvhnZtUARFDvLqbvhVD6gWQolYRw3l_g0UVrxNZzkAcjoiRVe9j6Gh2FFHVk62zbXb7pnwJMXWAXHcGgbwJWdSa_LCni4YdyJoB3C3MSPVM2-ztaKI53JU9_PYNKkH88FHkULuPXaRElWSki-YOKaf_-XqovAhTR7D3IDwZ7h8g0yVmg11SL9kBFX5WEOoMzgzNqGrd_rPBhEh4-3FU0NbZKb7z1WGmyeDpdyrZewoki9GogB9m6YC0me-zC_wN-QPxqFQxetRmQ3SN2Z3ILeesULncioa0NqiixoxMNBRXxD4QdT0BNY8m2vGvDcLon8hjUwwHSBVt4nQg_Ipw6jo_Qvomc-20XA5vc6Ub",
+          widthPx: 4032,
+          heightPx: 3024,
+          authorAttributions: [
+            {
+              displayName: "Jin Lei",
+              uri: "https://maps.google.com/maps/contrib/104886491023883525161",
+              photoUri:
+                "https://lh3.googleusercontent.com/a/ACg8ocL4P_X6PIJDs7PIM9nfR2pU6epAukrnzsTEFcwsVBf09xD1GXA=s100-p-k-no-mo",
+            },
+          ],
+          flagContentUri:
+            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIHM0ogKEICAgIDXu-W_2wE&hl=en-US",
+          googleMapsUri:
+            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIDXu-W_2wE!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
+        },
+        {
+          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AeeoHcLj5og5pghBSt9bfRcTYgTGSyn4kLtQZJ8S6-QoWSOKLCskfiKX6nGsav1Fps9E-m4Cf5VfSFZZTLpqhKA9p4CSMxLGzhc4O8--CL-K9uQ2dtdyZk-gS0lWOWrRZ7t11YXn7EWVQWMlY4xMvysDnbZIm79NUP5-PsNOMKL_Sysb4bT0YXIXfPCPoDcIpXZSNJZAu6jbUnoI-oGCfiGxTho38LjlXtVIQFzyin7jGyeMwJBic5nrYbs0kTmatPGPzW5oysTtfGEMhDZ521zFBMdrynVFBU9tb9LDMdGWMB-KgusMMeDqpNzsC5qeWDbb9qyCy5iedl_Bd8yfQeUDbsSQdNi9lENOua08aXucCrMi3GBy3IxiQrZ9j6MEVTwYPCAk0j_ag1svDpLJGyytlHfrKOFMyJbVsA2UyA2xcZT1G3lQ",
+          widthPx: 4000,
+          heightPx: 3000,
+          authorAttributions: [
+            {
+              displayName: "Michael Chambers",
+              uri: "https://maps.google.com/maps/contrib/110762898482522772825",
+              photoUri:
+                "https://lh3.googleusercontent.com/a/ACg8ocIFGc5XGgfLPuzc4btt1aMPCE93WGVXhOCBTu9E56Bd8KaAvA=s100-p-k-no-mo",
+            },
+          ],
+          flagContentUri:
+            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIHM0ogKEICAgICvrYLQ0gE&hl=en-US",
+          googleMapsUri:
+            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICvrYLQ0gE!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
+        },
+        {
+          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AeeoHcJRulzBSfyZFEoDeNIDG80Fct6jpIv7PxX_0JkiC-yVCA7TaFN0VZomkib0Xm0tQNLA-G0NwbSwE2ODcWSJpsktU_92QXwgQXwCWx1gPxNcouP1T4brPaDHecjlOeXAELEZg2WmhB-EOK_G90rgKkLNXi8_Xdawp7ydKC_O9Lk8FndebEVCoAGNe4RQ68OVjOpB7CFSpf5ANp71atcYqLn3rynLvICJEzNI6ifUdEPWLQhCa4_u8SV7QO4iQh0oDCDkBJpTwUyPW6xfm6Ybok0oHUumH9p7LE3CWXkIZ1tScYGL47pLPadWEbfm72LeMPKLqLJkFhsZQNmODuYki7oWv1un6TcKou_tFq_b3G4kc3w3B68M1dkysDejh7qvjioyGMQJZTLiTFVGn8Sb6xZLELEhVw2TwJJDB5m3Cfo_tw",
+          widthPx: 4032,
+          heightPx: 3024,
+          authorAttributions: [
+            {
+              displayName: "John Wong",
+              uri: "https://maps.google.com/maps/contrib/104588630328198853546",
+              photoUri:
+                "https://lh3.googleusercontent.com/a-/ALV-UjWFTHHkeH0_DyZ9j3Q28GN2PM-4pVhMHTPf-Xx0s4JaZGQfqZ5D=s100-p-k-no-mo",
+            },
+          ],
+          flagContentUri:
+            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIHM0ogKEICAgID7wYmVOQ&hl=en-US",
+          googleMapsUri:
+            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgID7wYmVOQ!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
+        },
+        {
+          name: "places/ChIJYWfnkHhewokRJg65MA20rGA/photos/AeeoHcIOIbsF6Ls_UitzRijKEJs3px8zpn18ekwzjWtbK_fzoNbEislwNWB2EgR5JKTP8EsHxaXQxNOsjW_B-YKHos-cvSx0j9uLT4bJ-6k-55VwXCkeGe2RG-6VKpmAYjDa-cPF7FX26HMIfL0ryW6vSYdlQ7_DjzCppqYr5DGhb9KIe1bXg-SVqdbMWYQSvo_bbHzN-MmsSYQ6sv0dWFGKcoWX2uJpqIB7JWb3guuPc-LkGiB2IYbrxuXoIAPNxRfc0dh1bWvftZUTIw2aKggXkSQDJBFIvUqkCEe_Yy_puu1nT_o-VxwI-YV1WVHy0mDFWrGUXkECUg5OVZnDRxhpHzRXyMeowMGN-7_iiKCCr2VRMPAJhP2fjxSJfYpekHzrosWMUlWXkFvOJdpI9Drrechagh-tTPIwzsqp02vfgjLbmQ",
+          widthPx: 3607,
+          heightPx: 1776,
+          authorAttributions: [
+            {
+              displayName: "Edyta Drozdzal",
+              uri: "https://maps.google.com/maps/contrib/102753144496059087347",
+              photoUri:
+                "https://lh3.googleusercontent.com/a/ACg8ocJV7tfG14dNGeqNgds2YQlM3LGGOJ_PstyqBgssNO-XOGa65g=s100-p-k-no-mo",
+            },
+          ],
+          flagContentUri:
+            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIHM0ogKEICAgIDfp8mYVw&hl=en-US",
+          googleMapsUri:
+            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIDfp8mYVw!2e10!4m2!3m1!1s0x89c25e7890e76761:0x60acb40d30b90e26",
         },
       ],
       allowsDogs: false,
@@ -368,23 +363,23 @@ const Response = {
           reviews: [
             {
               name: "places/ChIJYWfnkHhewokRJg65MA20rGA/reviews/ChZDSUhNMG9nS0VJQ0FnSUNKNGZta0pnEAE",
-              relativePublishTimeDescription: "a year ago",
+              relativePublishTimeDescription: "in the last week",
               rating: 5,
               text: {
-                text: "I recently dined at Zum Stammtisch for fathers day and I was thoroughly impressed by both the exquisite cuisine and the impeccable service even on a busy day. The menu showcased a variety of innovative Germany dishes, blending bold flavors and beautiful presentation. The attentive and knowledgeable staff ensured that our meal was a memorable one, providing excellent recommendations and ensuring Me and my father's satisfaction. I can’t recommend  Zum Stammtisch enough for a fantastic dining experience.",
+                text: "Old-world charm, serious comfort food, and flavors that hit you right in the soul—Zum Stammtisch is a true NYC gem.\n\nTucked away in Glendale, this classic German spot is everything you want in a cozy, kitschy, and utterly authentic dining experience. We came hungry and left in a full-on food coma (no regrets).\n\nThe Jaegerschnitzel—a tender breaded veal cutlet bathed in earthy mushroom and veal stock sauce—was absolute perfection.\nThe Goulash Soup? Rich, hearty, and soul-warming—truly the best in the world.\nWe shared the Bayerische Bauern Platte, a carnivore’s dream loaded with bratwurst, krainerwurst, knockwurst, tangy sauerkraut, and creamy potato salad—every bite packed with flavor.\n\nFor dessert, the Apple Strudel with ice cream was the warm-and-cold combo of dreams, and the Black Forest Cake brought all the rich, chocolatey cherry vibes. Washed it all down with strong, fragrant German coffee—a perfect end to an unforgettable meal.\n\nIf you're craving a hearty, comforting feast in a place that feels like a Bavarian postcard, Zum Stammtisch is where you need to be.\n\n#ZumStammtisch #GermanFoodNYC #QueensEats #JaegerschnitzelHeaven #GoulashSoupGoals #NYCFoodie #OldSchoolEats #FoodieInTheBigApple2025 #BlackForestCakeLove #GlendaleQueens",
                 languageCode: "en",
               },
               originalText: {
-                text: "I recently dined at Zum Stammtisch for fathers day and I was thoroughly impressed by both the exquisite cuisine and the impeccable service even on a busy day. The menu showcased a variety of innovative Germany dishes, blending bold flavors and beautiful presentation. The attentive and knowledgeable staff ensured that our meal was a memorable one, providing excellent recommendations and ensuring Me and my father's satisfaction. I can’t recommend  Zum Stammtisch enough for a fantastic dining experience.",
+                text: "Old-world charm, serious comfort food, and flavors that hit you right in the soul—Zum Stammtisch is a true NYC gem.\n\nTucked away in Glendale, this classic German spot is everything you want in a cozy, kitschy, and utterly authentic dining experience. We came hungry and left in a full-on food coma (no regrets).\n\nThe Jaegerschnitzel—a tender breaded veal cutlet bathed in earthy mushroom and veal stock sauce—was absolute perfection.\nThe Goulash Soup? Rich, hearty, and soul-warming—truly the best in the world.\nWe shared the Bayerische Bauern Platte, a carnivore’s dream loaded with bratwurst, krainerwurst, knockwurst, tangy sauerkraut, and creamy potato salad—every bite packed with flavor.\n\nFor dessert, the Apple Strudel with ice cream was the warm-and-cold combo of dreams, and the Black Forest Cake brought all the rich, chocolatey cherry vibes. Washed it all down with strong, fragrant German coffee—a perfect end to an unforgettable meal.\n\nIf you're craving a hearty, comforting feast in a place that feels like a Bavarian postcard, Zum Stammtisch is where you need to be.\n\n#ZumStammtisch #GermanFoodNYC #QueensEats #JaegerschnitzelHeaven #GoulashSoupGoals #NYCFoodie #OldSchoolEats #FoodieInTheBigApple2025 #BlackForestCakeLove #GlendaleQueens",
                 languageCode: "en",
               },
               authorAttribution: {
                 displayName: "Eric Helferich",
                 uri: "https://www.google.com/maps/contrib/103044406618663302299/reviews",
                 photoUri:
-                  "https://lh3.googleusercontent.com/a/ACg8ocIzHISkYkHWptQoQ_ffRzvWyfhvQIdc4J5qLPV1e4htDAa91Q=s128-c0x00000000-cc-rp-mo",
+                  "https://lh3.googleusercontent.com/a/ACg8ocIzHISkYkHWptQoQ_ffRzvWyfhvQIdc4J5qLPV1e4htDAa91Q=s128-c0x00000000-cc-rp-mo-ba4",
               },
-              publishTime: "2023-06-29T01:09:44.160970Z",
+              publishTime: "2025-04-06T14:48:23.687345Z",
               flagContentUri:
                 "https://www.google.com/local/review/rap/report?postId=ChZDSUhNMG9nS0VJQ0FnSUNKNGZta0pnEAE&d=17924085&t=1",
               googleMapsUri:
@@ -493,18 +488,28 @@ const Response = {
         descriptionFlagContentUri:
           "https://www.google.com/local/review/rap/report?postId=CiUweDg5YzI1ZTc4OTBlNzY3NjE6MHg2MGFjYjQwZDMwYjkwZTI2MAM&d=17924085&t=12",
       },
+      priceRange: {
+        startPrice: {
+          currencyCode: "USD",
+          units: "30",
+        },
+        endPrice: {
+          currencyCode: "USD",
+          units: "50",
+        },
+      },
     },
     {
       id: "ChIJo7ffj3hewokRPyIioOkR188",
       types: [
         "fast_food_restaurant",
         "hamburger_restaurant",
-        "coffee_shop",
-        "sandwich_shop",
-        "cafe",
         "breakfast_restaurant",
-        "food_store",
+        "coffee_shop",
+        "cafe",
+        "sandwich_shop",
         "american_restaurant",
+        "food_store",
         "restaurant",
         "food",
         "point_of_interest",
@@ -519,6 +524,7 @@ const Response = {
         "https://www.mcdonalds.com/us/en-us/location/NY/GLENDALE/70-02-COOPER-AVE/3344.html?cid=RF:YXT:GMB::Clicks",
       businessStatus: "OPERATIONAL",
       priceLevel: "PRICE_LEVEL_INEXPENSIVE",
+      userRatingCount: 1544,
       displayName: {
         text: "McDonald's",
         languageCode: "en",
@@ -536,25 +542,25 @@ const Response = {
         periods: [
           {
             open: {
-              day: 2,
+              day: 0,
               hour: 0,
               minute: 0,
               truncated: true,
               date: {
                 year: 2025,
-                month: 2,
-                day: 4,
+                month: 4,
+                day: 6,
               },
             },
             close: {
-              day: 1,
+              day: 6,
               hour: 23,
               minute: 59,
               truncated: true,
               date: {
                 year: 2025,
-                month: 2,
-                day: 10,
+                month: 4,
+                day: 12,
               },
             },
           },
@@ -572,7 +578,7 @@ const Response = {
       primaryType: "fast_food_restaurant",
       photos: [
         {
-          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AVzFdbnKyn7nek5AMWjK97UjvaBQSEPi48Y2D-aeDvZA600F7LBIolk39MY_kh9dcDwb7_t7-9jTt2i496Mx1bcVZv0P5CpSoCKtV5IHeelNQQ0830qVJ-ncjMkxlgc3G11AdKqohkMp0D2hk2YGNsmk0bmCx-CLU76ckvNo",
+          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AeeoHcL1SBWEWPq9tXZUBxLT67yJsvJnILMwYRxYavZgnMH6ysWQ6k5gS3XZZSLgdOm5rsim6-AwwWWujpONU6XbeDpu3Eb_P0OWVg9VHdXEzqdlSsjr-keg8obT3Xuz3BamNu9GaEQ1EcNkdH4rdTGWLKf_gDUqeqyid5lEbBi0lwnsW5nYrLutKbF0PT50ABcfHXiunzure_RlfycC8kQGk5XthOdS-E1zWsERApoWEfwEkUFyVntwo3Z_tbFfePhxziJFnu-_nx1a3fbC3ta8l7PawFCwNSxpz3YYGEoX8J12T5YklvYw18fDNew6P2XSzeebDFyJ5hpsc5vPyJ-0Vf-moDduAsQ6BqwKr9X_9jj2ZTvzfYvgxxVr7A3HPlrxE7kBRnvZ7HXfHWrh7j5hmBqvV7xwLHchKkmNYT_OmmApLw",
           widthPx: 4032,
           heightPx: 3024,
           authorAttributions: [
@@ -584,12 +590,12 @@ const Response = {
             },
           ],
           flagContentUri:
-            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sAF1QipMwoQM246kvNzznLMz6tedgifiFQmOvTjQGBEE2&hl=en-US",
+            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIHM0ogKEICAgICM3LK7TA&hl=en-US",
           googleMapsUri:
-            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipMwoQM246kvNzznLMz6tedgifiFQmOvTjQGBEE2!2e10!4m2!3m1!1s0x89c25e788fdfb7a3:0xcfd711e9a022223f",
+            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgICM3LK7TA!2e10!4m2!3m1!1s0x89c25e788fdfb7a3:0xcfd711e9a022223f",
         },
         {
-          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AVzFdbkues7SFpg-O9zTXo6kliE2N78dWhZ1RnXlwCFnIAcmN7K_NBClQD7zTq3Hq-0LhorFPVf9j9bhsIKkoPRs9t-gNOakGJY--d_06n-sVjJzkpH7qW6DlYJLSXnbKCdhXczxYaDBv6sEep4vyG9fECL5i8a3kjd6YeDg",
+          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AeeoHcLf336cSHrwsIZa5WNy3CmV-RveqDX7INOu1sXnRPsYlzx0jM5xC_DRfr0C2i4S7mmwvOuq28bo3mVynSOLKc12DbTiNufxctG1bjYFm5M5E0iAG4aaeUyN6wDt3GPysiCI5qEDeMSsk3tiAM9XyydABCNqVhgHL2_ABTKf-1Ru8mcFg-AYdWjBl3PFjqkeaJtMM8CtZltSrWMMFOaFuBxOtoLFoALZK6RkYwDOMEw1pPJIQhBo3xH9ea8bsqK-e_p_a04ZubBG1ODxyVCxHebHEye2CqrPe1LXNj0ivuz2mA",
           widthPx: 772,
           heightPx: 440,
           authorAttributions: [
@@ -606,7 +612,7 @@ const Response = {
             "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipNWl8fFeIzTh6owGmwWYtMHhYVmhJQk_51NBTEu!2e10!4m2!3m1!1s0x89c25e788fdfb7a3:0xcfd711e9a022223f",
         },
         {
-          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AVzFdbmWiUeRbFNOc6Ey6MxxXobcJu4U_oJbHd_cbMGgpscAODc7-2co2z2fXcqfKLGxCt3bxvPfVDXO0JwKe5mBQvfR0a40MTiOiModfCSERO3ZKfjhgoUVBMR2QS67XV5GzpXd5-plErpMa5o2gQWoVr7mjQAAexJxBhQ7",
+          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AeeoHcIH5vB6en-IScx1EAHQPX8uNAjJlHQposCg1sfjtzQimmf-Ke4Fow8beJmUoeCHBfhjLoyGlM5OzaCLVobHlb8gK2ZoddrMB2z7tgLxsBjuGwu53QAB9CY7fjrTG3emgrXrOBLaoEcHpUTd-j1jBNRhFMPiuO5gDmSBjeGwq_H4AjXRyLtw71E9z1_65GqqwOGG5YHl5bY2KuPK6pDtZ1Ue7eyNCnNKKrKee5SppLRV_V470YONwyHJXM_Uh20J86CxhK71wNDLenP-nl6IX9-mQCJsQs7L08SWLEbR4I8YqA",
           widthPx: 1080,
           heightPx: 640,
           authorAttributions: [
@@ -623,7 +629,7 @@ const Response = {
             "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipMRBfw7gFSKXGc4TSM_dnVv3JziS3w74c4z4pCo!2e10!4m2!3m1!1s0x89c25e788fdfb7a3:0xcfd711e9a022223f",
         },
         {
-          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AVzFdbmDTIkTBEpU_YPCVX8ouxsvHK3iCNuETJDrrugIwFJK7UrdwJCd7EWvXnTslVxOiy8JWX0JAfXQN0TkoHiSozz3ymUq19scdi-oXGlA21-JEr3eewsm4KR3JEqicpdE7CzvDtNi0VhIFHwCFAkf79zIGgknQUbHa-5F",
+          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AeeoHcJBuy4KF2-QV0JZihjdK5xop3tmZ-_OMsmCiGLQjOoBfaJTHs9juXSsFkILBmc96vAATXxw-tY4ZoRj3UUqYgiQ4AvL9CH8nNmHEZUVJ56r0cE9f09gk2sSpEGp-2d80cArkZ6b1TKy5dqPuHAngxHPrxTtZ56znwDBJWgwDDsOe3mJ5GeGOxSm68qojafIDnT8tLmWynpVAuKO1aON42kR_pHofFeiuaEHGslCJnD1xjlbXgILE8g94h_lj01xm94Z_W8sEOU5-oMq98yVn7-5s9nwsBh_Q6smbR7oya01bw",
           widthPx: 1025,
           heightPx: 768,
           authorAttributions: [
@@ -640,7 +646,7 @@ const Response = {
             "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipONv9O6rKClf9XiuyZ7Gd-NstwDkj67lVJEMlDJ!2e10!4m2!3m1!1s0x89c25e788fdfb7a3:0xcfd711e9a022223f",
         },
         {
-          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AVzFdbkjyU5lZnhURkg2n_EYQRkD8LTccyg7bcY36A6qNmTH1_OaOsZLP90vr1ABL112kOuFdg0lC6tNpG5MJbn13v60suB_QS_Z3DAZs26AIAd0UeVUowNn4-oe80zjgkizHtfAVteFAhK2iR_jTNuDqvFLFaWEwGtz_27X",
+          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AeeoHcJ1wUQZh7qEeSb9Wj4y0Ea36_82n6ktGK3Bli4aoThQeao2VegWLbeuJ-FBbI-rBl-PaZmpob1xPZMExTCKkbOdptZSu93oLXls4G5-08brb34iag1C3YKQcKEcdUhKY8gaZoT1ALZ_pjU81zMUkpcfw8-uN9Bi7GEbcXOD0KXdKRn0HBe0AAppdvuY4_tNGW8sNQBdfTzfuDzxnv5Z1YfvqupDInGSlVxIdExPwc08Ta_dd3AHih6FRFdUv4BznR5lyn0raXyrMMBsg2STxeUeUXjrkQ-uiXIlbTbpMa4UyQ",
           widthPx: 832,
           heightPx: 472,
           authorAttributions: [
@@ -657,7 +663,7 @@ const Response = {
             "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipPGRQr2Ilnlx_aZ_5mAjRlLNw0JlSQjmWoDBNrg!2e10!4m2!3m1!1s0x89c25e788fdfb7a3:0xcfd711e9a022223f",
         },
         {
-          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AVzFdbkHsWeRYCk629lrkF9Jf6RY6BEl14y5pv7tcqub1aHynSgPh-mI4UAW9KSlg8ptUaNB1ATKsA2tjQOUqsHMi1uAScXQCpNXT-AXwo3cwvrNKs2OFUjgDxFlqRAsvqLGY-nJHH8pwKxwewbw5syckbOcM0UqpYlFhtsf",
+          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AeeoHcKmAPbmeEUgNALICI2X4U5fLv-5moGI_UdHXOt0sZBF6ef4SR5lIKysyr9feVn327vlHrWxZudOZLkpSRm-69xb5X_OtDDwULFxximQylhGvQEBKuvotsKrS5PIQGTtVUgUhqpinkDj7dG4VK2dUXb0hgW9ujukDUi2cgzY6IvI1AqpSo6eGBrO-C_oLI6LL2EjvmRYEXOgKURiNPI4Km6J_ivTcCL2CBHiSXEQvJf-Et_Nyfyt78bjVCbw-1bPh7Kvqep1Am-z73NmtdWaU0PdU1Ou0pytpCXkFMUT6iy48A",
           widthPx: 1025,
           heightPx: 768,
           authorAttributions: [
@@ -674,7 +680,7 @@ const Response = {
             "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipNKvbUxydY-0UUa3sWuh53ON4fZOdEcinXCR8mh!2e10!4m2!3m1!1s0x89c25e788fdfb7a3:0xcfd711e9a022223f",
         },
         {
-          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AVzFdbksXj4V7XYkknZFqtmBH45KxLYAdbWRpgcJb5gaEx2h8etsqUdfa3isuquz1MRZ9diG-14fdjObvoU1h8H-NeawEZWiJcle4WAWFyYVdtGe2tOC9BODLkm69l02QSHCpSyHnW6ATHg71Ee31WTfS4v0hKD5xV9EGBuE",
+          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AeeoHcLHlvJW7NPJL6XcIDylhmYtNosKOJpDKLxtRgP-v7SFp1PXszE5DXcSHdrqnkWafUWQ-WxLudJW-CJfNZ6cVLPSY4_brsGebV_HDPWX6XOevs3qOBjVm-A_m503oIWNzsGjUiThJDSRyRbaaVKdF4gTIALILEV1c8v7gMFHduQWnqE4esgQzySX64zTj2wO6c9rUyrRw8WSJ1JQSvnkMavYb4tkeleK_93QCHZ3zTUqy3K99B_8Z6UgricD5sbuqLePm6iG4v-sN62yqLNP9ohZD-1OAqkrveDTHRnoNc0nJCEqcsWWjMpb3fayvt0TVwimCm7TOGEf1pPIn_9T_JA-gXp8HmgA0rCSAlpKxMyigr4XfgM2wq6CIuf8kOyLVNGbRQ00ufFJ0EOXgUIJ5gNhvt5OGlQLcEQD9MX4zcla6Xh3",
           widthPx: 2992,
           heightPx: 2992,
           authorAttributions: [
@@ -686,12 +692,12 @@ const Response = {
             },
           ],
           flagContentUri:
-            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sAF1QipOVURi3XwKWUDWP0o8YdVD-lx7J-VuUyVqn6LlX&hl=en-US",
+            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIHM0ogKEICAgIC-_J7NsQE&hl=en-US",
           googleMapsUri:
-            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipOVURi3XwKWUDWP0o8YdVD-lx7J-VuUyVqn6LlX!2e10!4m2!3m1!1s0x89c25e788fdfb7a3:0xcfd711e9a022223f",
+            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIC-_J7NsQE!2e10!4m2!3m1!1s0x89c25e788fdfb7a3:0xcfd711e9a022223f",
         },
         {
-          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AVzFdblhcbEk6IwRx5jV9s4mBu95OUMe6uP9ryc821b50pUfQnY90L-MHX9zxoNabEo6_wtMVRBQrL-uAGb0X-siF4V31aN5FuArvxnaAXrmUeRbKO3wueFlOCzgYRE9Vq5tiP6dqQXBaS_XT2gFtQeJdDxBnNVrirQougZJ",
+          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AeeoHcKzZBqfKfN1GICElcda46wlZ3MyDxr2Nv3VBz_PPABwGqKef1-RsAS8hYC2MzTzg4lCFMfmlb0703oRP_BiHzVcHhK8-w_Pon1CVtO0noen7PnOeDRWQ0SFTzzQOhYXduw3P4kdMkv79gHnbFxH_CkGyykFCUIOGO45oMBeMCQrt0mU8TPN_hF0kAYnGDXL55OquX4ySy6EuKkcqzY-mqYOa0imERxN3PGb83Vr35IYiYYYdkcI7E-MwD2M1_EuBrGfUytnfcrrPyQJgKUsfUIBYJmPM8Li7K0UHZHnzbEc-iuo3Cx6pPRv0SkNKTW1a91G6SDBrSvyx0BvFXY93zWS4gpFfPJykuoDmjLeg5FSMKrc3hHVX_6037laBaz1gPntizxAQcD6OZC_YAIiXNGyHhjrD6aFI9Hw5XfMlXQ",
           widthPx: 4032,
           heightPx: 1960,
           authorAttributions: [
@@ -703,12 +709,12 @@ const Response = {
             },
           ],
           flagContentUri:
-            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sAF1QipNQanDxtHaB8QYhzr6xMUnNekBIAcYfRBpLiKpk&hl=en-US",
+            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIHM0ogKEICAgID6t9XqPg&hl=en-US",
           googleMapsUri:
-            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipNQanDxtHaB8QYhzr6xMUnNekBIAcYfRBpLiKpk!2e10!4m2!3m1!1s0x89c25e788fdfb7a3:0xcfd711e9a022223f",
+            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgID6t9XqPg!2e10!4m2!3m1!1s0x89c25e788fdfb7a3:0xcfd711e9a022223f",
         },
         {
-          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AVzFdbmKU5ksEgY32v5b8mqdM7vFKYSdY-K53gfgxBbvg8ByRpra9dtnvb78xKEFHwSr9c9WyJ6hXH1W8TQ6VorbJ3Zvlrs5LNcaQU80o2z75wPs04pceFbpiyw2VOW-P0JXJalP770L1NUr0gObPzv0YEZ8dx25icTYhmdX",
+          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AeeoHcIK6AVVLq_rVu2QnJf47Uiou4w0e945ZKlAafMHT0pc91E8OHvSRpr64AW4eu5c257bW0v7O6LJcwKuEw40wKbiW6djQQT6voKu1o7iw8SVexGH2-jV2UiVbEG_t77tiHWERfwbvHNZaaEmP0z4RK0V2-scDpPL7KstjqVhjscbr7BfHZb35ZREFDKRFSL-XeCxxTzkN5xHAGrqt5gwNbTEx2rV9hey1UdtkdKA4A5R3GhpC-fd6dNSFbglYCLM_jTUs9m6kOBPIkMrfIn3QOrhJsZbNnAFQXPqcckgjKTm-doK0fT9x1yZtiaqAzrWMvq0OWjo7lS7U4Cg7o-pVSHvI8NkMtU0-ONS8ZahIUz736WeUMBGGofVnZeoMMhT08Lr49zD_EGdl64opBuXYcWBSsgOeMFS3cnwtgK65xEDXQ",
           widthPx: 4048,
           heightPx: 3036,
           authorAttributions: [
@@ -720,12 +726,12 @@ const Response = {
             },
           ],
           flagContentUri:
-            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sAF1QipP-wzgkNtqqba3NA_9SY2Fyz297gWwY6OjkZJm2&hl=en-US",
+            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIHM0ogKEICAgIDEh4alJA&hl=en-US",
           googleMapsUri:
-            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipP-wzgkNtqqba3NA_9SY2Fyz297gWwY6OjkZJm2!2e10!4m2!3m1!1s0x89c25e788fdfb7a3:0xcfd711e9a022223f",
+            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIDEh4alJA!2e10!4m2!3m1!1s0x89c25e788fdfb7a3:0xcfd711e9a022223f",
         },
         {
-          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AVzFdbm8onmRtzpwzl7ZiEzwoxRc5KeleA-p5IH93EEv8bB3jiGBBunsieLEjmia-rJj7j8nuA0Ik-KyMisvsp6h2ftfANjz3il5yr1zt7zM8zBYEcAkVpG-HEthhtn-Vhaj8hYul8pRqHa38Q9xobVEGCvWbSVoy6QwY2lW",
+          name: "places/ChIJo7ffj3hewokRPyIioOkR188/photos/AeeoHcI6-Zl-9O8ZekPkZJ7bbZD8cPwlNyK93tLUay03821rgBnH4E7Z4mCSuFrqqK9MV1jzt9p2utEZsDWTNK39Z2gSLmtp7cUeJ1nMdHaS6aeUM6VoBOhQbi7p0syoBMXoCKbmXaktI7laT2dwV5JY-TWSqZqty71-_fXgjQODdZJYT8a4gF9W8hOtPekDC6Z3SrRsTa1UCFmWb5Cv8oPCJPCmbOR27sE9d2hzd1TXRBYAMXoKuV5F-03Nynufrd4iFhkWutgJxLiZ14xGgv_P4a_ZevXFQ14kRRLvYQRSAxREq_MnrYZR2V5l3WtLJ-qrzZpyaFwh67e71vgCIompDjm6fB2hWSvc8oKF-uAuvpNiHPO5FD2YuVtDq1wT7lqsBpor58OdLyq74rbMArE6yOcoYC1cUn7IM-vdGcKIcrvrZGpX",
           widthPx: 3060,
           heightPx: 4080,
           authorAttributions: [
@@ -737,9 +743,9 @@ const Response = {
             },
           ],
           flagContentUri:
-            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sAF1QipNY1J2sZdW8uEZXmCKZOH0Oyp5W45kMyXA49-TN&hl=en-US",
+            "https://www.google.com/local/imagery/report/?cb_client=maps_api_places.places_api&image_key=!1e10!2sCIHM0ogKEICAgIDBodmp6gE&hl=en-US",
           googleMapsUri:
-            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sAF1QipNY1J2sZdW8uEZXmCKZOH0Oyp5W45kMyXA49-TN!2e10!4m2!3m1!1s0x89c25e788fdfb7a3:0xcfd711e9a022223f",
+            "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIDBodmp6gE!2e10!4m2!3m1!1s0x89c25e788fdfb7a3:0xcfd711e9a022223f",
         },
       ],
       allowsDogs: false,
@@ -788,6 +794,16 @@ const Response = {
           "https://www.google.com/local/review/rap/report?postId=CiUweDg5YzI1ZTc4OGZkZmI3YTM6MHhjZmQ3MTFlOWEwMjIyMjNmMAI&d=17924085&t=12",
         descriptionFlagContentUri:
           "https://www.google.com/local/review/rap/report?postId=CiUweDg5YzI1ZTc4OGZkZmI3YTM6MHhjZmQ3MTFlOWEwMjIyMjNmMAM&d=17924085&t=12",
+      },
+      priceRange: {
+        startPrice: {
+          currencyCode: "USD",
+          units: "10",
+        },
+        endPrice: {
+          currencyCode: "USD",
+          units: "20",
+        },
       },
     },
   ],
