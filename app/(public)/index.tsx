@@ -7,8 +7,8 @@ import { useTheme, Text } from "react-native-paper";
 
 // import { AuthButton } from "../components/CustomButton";
 import { PrimaryButton } from "@/components/CustomButton";
-import { handleNavigation } from "../utils/naviagtionUtils";
-import { Colors } from "../constants/Colors";
+import { handleNavigation } from "@/utils/naviagtionUtils";
+import { Colors } from "@/constants/Colors";
 
 const { width, height } = Dimensions.get("window");
 const LandingScreen = () => {
@@ -57,7 +57,7 @@ const LandingScreen = () => {
           ></AuthButton> */}
         </View>
 
-        <TouchableOpacity onPress={() => handleNavigation(router, "/home/session")}>
+        <TouchableOpacity onPress={() => handleNavigation(router, "/home")}>
           <Text style={styles.skipText}>Skip for now</Text>
         </TouchableOpacity>
       </View>

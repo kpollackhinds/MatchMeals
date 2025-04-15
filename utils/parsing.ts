@@ -1,3 +1,5 @@
+import { OpeningHours } from "@/interfaces/Place";
+
 const getDomain = (url: string) => {
   try {
     const { hostname } = new URL(url);
@@ -15,7 +17,7 @@ const parseRestaurantType = (type: string) => {
     .join(" ");
 };
 
-const formatOpenHours = (openHours: any) => {
+const formatOpenHours = (openHours: OpeningHours) => {
   // Review later, just  a placeholder for now
   if (!openHours) return "No hours available";
 

@@ -3,8 +3,9 @@ import { db } from "@/firebase/firebaseConfig";
 import { collection, getDocs, query, where, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import User from "@/models/User";
 import { FirestoreClient } from "@/firebase/FirestoreClient";
+import { DeepPartial } from "@/utils/types";
 
-export class UserService {
+class UserService {
   private firestore = new FirestoreClient<User>("users");
 
   private getCurrentUserId(): string | null {
@@ -23,11 +24,11 @@ export class UserService {
   async getUserById(id: string): Promise<User | null> {
     return this.firestore.get(id);
   }
-  async createUser(user_id: string, user_data: Partial<User>): Promise<void> {
+  async createUser(user_id: string, user_data: DeepPartial<User>): Promise<void> {
     await this.firestore.set(user_id, user_data);
   }
 
-  async updateUser(data: Partial<User>, userId?: string): Promise<void> {
+  async updateUser(data: DeepPartial<User>, userId?: string): Promise<void> {
     console.log("Updating user data:", data);
     const id = userId ?? this.getCurrentUserId();
     if (!id) {
@@ -48,6 +49,9 @@ export class UserService {
     // implement later
   }
 }
+
+const userService = new UserService();
+export default userService;
 
 // async function saveOnBoardingData(onboardingData: any) {
 //   console.log(onboardingData);

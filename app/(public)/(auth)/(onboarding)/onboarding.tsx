@@ -1,20 +1,19 @@
 import React, { useRef, useState } from "react";
 import { View, FlatList, Dimensions, StyleSheet, NativeScrollEvent, NativeSyntheticEvent } from "react-native";
 import { useRouter } from "expo-router";
-import { DotIndicator } from "../../../components/DotIndicator";
-import EnterNameScreen from "../../../components/screens/EnterNameScreen";
-import EnterPhoneScreen from "../../../components/screens/EnterPhoneScreen";
-import SetupPreferencesScreen from "../../../components/screens/SetupPreferencesScreen";
-import SearchPreferencesScreen from "../../../components/screens/SearchPreferencesScreen";
-import FindFriendsScreen from "../../../components/screens/FindFriendsScreen";
-import { handleNavigation } from "../../../utils/naviagtionUtils";
-import { UserService } from "@/services/UserService";
+import { DotIndicator } from "../../../../components/DotIndicator";
+import EnterNameScreen from "../../../../components/screens/EnterNameScreen";
+import EnterPhoneScreen from "../../../../components/screens/EnterPhoneScreen";
+import SetupPreferencesScreen from "../../../../components/screens/SetupPreferencesScreen";
+import SearchPreferencesScreen from "../../../../components/screens/SearchPreferencesScreen";
+import FindFriendsScreen from "../../../../components/screens/FindFriendsScreen";
+import { handleNavigation } from "../../../../utils/naviagtionUtils";
+import userService from "@/services/UserService";
 import User from "@/models/User";
 // import { saveOnBoardingData } from "../../../services/dbService";
 
 const { width } = Dimensions.get("window");
 type OnboardingData = Omit<User, "id" | "createdAt" | "updatedAt" | "email">;
-const userService = new UserService();
 
 export default function OnboardingScreen() {
   const [currentIndex, setCurrentIndex] = useState(0);

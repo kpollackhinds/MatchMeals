@@ -1,4 +1,39 @@
-const CurrencySymbols = {
+type CurrencyCode =
+  | "USD"
+  | "EUR"
+  | "GBP"
+  | "JPY"
+  | "AUD"
+  | "CAD"
+  | "CHF"
+  | "CNY"
+  | "SEK"
+  | "NZD"
+  | "MXN"
+  | "SGD"
+  | "HKD"
+  | "NOK"
+  | "KRW"
+  | "TRY"
+  | "INR"
+  | "RUB"
+  | "BRL"
+  | "ZAR"
+  | "DKK"
+  | "PLN"
+  | "THB"
+  | "IDR"
+  | "HUF"
+  | "CZK"
+  | "ILS"
+  | "PHP"
+  | "AED"
+  | "COP"
+  | "SAR"
+  | "MYR"
+  | "RON";
+
+const CurrencySymbols: Record<CurrencyCode, string> = {
   USD: "$", // US Dollar
   EUR: "€", // Euro
   GBP: "£", // British Pound
@@ -34,4 +69,4 @@ const CurrencySymbols = {
   RON: "lei", // Romanian Leu
 };
 
-export default CurrencySymbols;
+export { CurrencySymbols, CurrencyCode };

@@ -18,10 +18,10 @@ import { useRouter } from "expo-router";
 import { handleLike } from "@/utils/cardOperations";
 import { handleNavigation } from "@/utils/naviagtionUtils";
 
-import { TinderCardComponent } from "../../../components/TinderCard";
-import ExpandedCard from "../../../components/ExpandedCard";
+import { TinderCardComponent } from "../../../../components/TinderCard";
+import ExpandedCard from "../../../../components/ExpandedCard";
 import { formatOpenHours } from "@/utils/parsing";
-import { Response, PlacePhotoResponse } from "../../../constants/TestResponse";
+import { Response, PlacePhotoResponse } from "../../../../constants/TestResponse";
 import { SCREEN_HEIGHT as sh, SCREEN_WIDTH as sw } from "@/utils/dimensions";
 import { Colors } from "@/constants/Colors";
 
@@ -204,7 +204,8 @@ export default function SessionScreen() {
                   distance={"3 miles"}
                   website={currentProfile.websiteUri}
                   address={currentProfile.formattedAddress}
-                  openHours={formatOpenHours(currentProfile.currentOpeningHours)}
+                  // openHours={formatOpenHours(currentProfile.currentOpeningHours)}
+                  openHours={currentProfile.currentOpeningHours}
                   extendedDescription={currentProfile.generativeSummary.description.text}
                   phoneNumber={currentProfile.nationalPhoneNumber}
                   // priceRange={currentProfile.priceRange}

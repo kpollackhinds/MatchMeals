@@ -11,8 +11,8 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "app/(tabs)/settings.tsx",
-    "app/(tabs)/home/session.tsx"
+    "app/(private)/(tabs)/settings.tsx",
+    "app/(private)/(tabs)/home/session.tsx"
   ],
   "allowJs": true,
   "skipLibCheck": true,

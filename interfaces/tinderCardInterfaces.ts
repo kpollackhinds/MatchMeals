@@ -1,4 +1,5 @@
 import OverlayLabel from "rn-tinder-card/src/components/OverlayLabel";
+import { OpeningHours } from "./Place";
 
 interface RestaurantCardProps {
   cardWidth?: number;
@@ -29,7 +30,7 @@ interface ExtendedCardProps extends RestaurantCardProps {
   website: string;
   address: string;
   phoneNumber: string;
-  openHours: string;
+  openHours: OpeningHours;
   onClose: () => void;
   onLike: () => void;
   onSkip: () => void;

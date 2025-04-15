@@ -1,3 +1,4 @@
+import { DeepPartial } from "@/utils/types";
 import { db } from "./firebaseConfig";
 import { collection, doc, getDoc, setDoc, updateDoc, deleteDoc, DocumentData } from "firebase/firestore";
 
@@ -18,7 +19,7 @@ export class FirestoreClient<T> {
     await setDoc(doc(db, this.collectionName, id), data, { merge: true });
   }
 
-  async update(id: string, data: Partial<T>): Promise<void> {
+  async update(id: string, data: DeepPartial<T>): Promise<void> {
     await updateDoc(doc(db, this.collectionName, id), data);
   }
 

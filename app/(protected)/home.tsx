@@ -4,10 +4,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
-import { Colors } from "../constants/Colors";
-import { handleNavigation } from "../utils/naviagtionUtils";
-import { SCREEN_HEIGHT as sh, SCREEN_WIDTH as sw } from "../utils/dimensions";
-import { PrimaryButton, BrowseButton, GroupSessionButton } from "../components/CustomButton";
+import { Colors } from "../../constants/Colors";
+import { handleNavigation } from "@/utils/naviagtionUtils";
+import { SCREEN_HEIGHT as sh, SCREEN_WIDTH as sw } from "../../utils/dimensions";
+import { PrimaryButton, BrowseButton, GroupSessionButton } from "../../components/CustomButton";
+import userService from "@/services/UserService";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -24,14 +25,10 @@ export default function HomeScreen() {
       <View style={{ flexDirection: "row", justifyContent: "space-between", marginHorizontal: 20, marginTop: 20 }}>
         <PrimaryButton
           title="Add Data"
-          onPress={() => handleNavigation(router, "home/testdata")}
+          onPress={() => userService.updateUser({ info: { name: "John Doe" } })}
           style={{ width: 100 }}
         />
-        <PrimaryButton
-          title="Fetch Data"
-          onPress={() => handleNavigation(router, "home/testdata")}
-          style={{ width: 100 }}
-        />
+        <PrimaryButton title="Fetch Data" onPress={() => userService.getCurrentUser()} style={{ width: 100 }} />
       </View>
 
       {/* Title + Arrow */}
@@ -43,7 +40,7 @@ export default function HomeScreen() {
 
       {/* Navigation Buttons */}
       <View style={styles.buttonsContainer}>
-        <BrowseButton onPress={() => handleNavigation(router, "home/session")} />
+        <BrowseButton onPress={() => handleNavigation(router, "/home/session")} />
         <GroupSessionButton onPress={() => handleNavigation(router, "/home")} />
       </View>
     </SafeAreaView>

@@ -8,7 +8,7 @@ import { parseRestaurantType, getDomain } from "../utils/parsing";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 import { ExtendedCardProps } from "@/interfaces/tinderCardInterfaces";
-import CurrencySymbols from "../constants/CurrencyEnum";
+import { CurrencySymbols } from "../constants/CurrencyEnum";
 import OpenHoursComponent from "../components/OpenHoursComponent";
 import ExpandableText from "../components/ExpandableText";
 import { LikeButton, DislikeButton } from "./CustomButton";

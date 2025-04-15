@@ -1,8 +1,8 @@
 import { useFonts } from "expo-font";
-import { Stack, useRouter } from "expo-router";
+import { Slot, Stack, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState, createContext, useContext } from "react";
 import { ActivityIndicator, View } from "react-native";
 import "react-native-reanimated";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -11,63 +11,37 @@ import { User } from "firebase/auth";
 import { handleNavigation } from "../utils/naviagtionUtils";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { LightTheme, DarkTheme } from "@/constants/theme";
+import userService from "@/services/UserService";
+import NotFoundScreen from "./+not-found";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
+export const AuthContext = createContext<User | null>(null);
+export const useAuth = () => useContext(AuthContext);
+
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-  });
+  const [userChecked, setUserChecked] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       setUser(user);
-      if (user) {
-        setLoading(false);
-        handleNavigation(router, "/home");
-      } else {
-        setLoading(false);
-        handleNavigation(router, "/index");
+      setUserChecked(true);
+
+      if (userChecked) {
+        await SplashScreen.hideAsync();
       }
-      setLoading(false);
     });
+
     return unsubscribe;
-  }, []);
+  }, [user, userChecked]);
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-  // SplashScreen.preventAutoHideAsync();
-
-  if (loading) {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  } else {
-    return (
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="home" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <StatusBar style="auto" />
-      </GestureHandlerRootView>
-    );
-  }
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <AuthContext.Provider value={user}>
+        <Slot />
+      </AuthContext.Provider>
+    </GestureHandlerRootView>
+  );
 }

@@ -1,20 +1,20 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { OpeningHours } from "@/interfaces/Place";
 
-const OpenHoursComponent = ({ openHours }) => {
+const OpenHoursComponent = ({ openHours }: { openHours: OpeningHours }) => {
   return (
     <View style={styles.container}>
       <Icon name="clock-o" size={22} color={"rgb(185, 24, 56)"} />
-      <Text
-        style={{ fontSize: 16, color: isOpen(openHours) ? "green" : "red" }}
-      >
+      <Text style={{ fontSize: 16, color: isOpen(openHours) ? "green" : "red" }}>
         {isOpen(openHours) ? "Open" : "Closed"}
       </Text>
       <Text style={{ fontSize: 25 }}>·</Text>
-      <Text style={styles.text}>
-        {openHours.weekdayDescriptions[0].split(":")[1]}
-      </Text>
+      {openHours.weekdayDescriptions && (
+        <Text style={styles.text}>{openHours.weekdayDescriptions[0].split(":")[1]}</Text>
+      )}
+      {/* <Text style={styles.text}>{openHours.weekdayDescriptions[0].split(":")[1]}</Text> */}
     </View>
   );
 };
@@ -44,9 +44,9 @@ const days = {
   6: "Saturday",
 };
 
-const isOpen = (openHours) => {
+const isOpen = (openHour: OpeningHours) => {
   //   console.log(openHours);
-  return openHours.openNow;
+  return openHour.openNow;
 };
 // Fix this later
 // const isOpen = (openHours) => {

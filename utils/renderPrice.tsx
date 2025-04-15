@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
-import CurrencySymbols from "@/constants/CurrencyEnum";
+import { CurrencySymbols } from "@/constants/CurrencyEnum";
+import { PriceRange } from "@/interfaces/Place";
 
 const priceLevelMapping = {
   PRICE_LEVEL_UNSPECIFIED: "N/A",
@@ -19,19 +20,17 @@ const PriceLevelComponent = ({ priceLevel }: { priceLevel: keyof typeof priceLev
   );
 };
 
-/////FIX LATER///
-// const PriceRangeComponent = ({ priceRange }: { startPrice: any; endPrice: any }) => {
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.text}>
-//         {CurrencySymbols[priceRange.startPrice.currencyCode]}
-//         {priceRange.startPrice.units} -{" "}
-//         {CurrencySymbols[priceRange.endPrice.currencyCode]}
-//         {priceRange.endPrice.units}
-//       </Text>
-//     </View>
-//   );
-// };
+const PriceRangeComponent = ({ priceRange }: { priceRange: PriceRange }) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>
+        {CurrencySymbols[priceRange.startPrice.currencyCode]}
+        {priceRange.startPrice.units} - {CurrencySymbols[priceRange.endPrice.currencyCode]}
+        {priceRange.endPrice.units}
+      </Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -44,4 +43,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { PriceLevelComponent /* PriceRangeComponent */ };
+export { PriceLevelComponent, PriceRangeComponent };

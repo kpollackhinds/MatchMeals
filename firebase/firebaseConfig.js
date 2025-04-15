@@ -20,10 +20,10 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Initialize Auth with Persistent Storage
-const auth = getAuth();
-// const auth = initializeAuth(app, {
-//   persistence: getReactNativePersistence(ReactNativeAsyncStorage),
-// });
+// const auth = getAuth();
+const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(ReactNativeAsyncStorage),
+});
 if (__DEV__) {
   connectFirestoreEmulator(db, "192.168.1.187", 8080);
   connectAuthEmulator(auth, "http://192.168.1.187:9099");

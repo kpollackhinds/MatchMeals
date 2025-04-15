@@ -6,19 +6,19 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput, useTheme, Text } from "react-native-paper";
 
 // import { Colors } from "../../constants/colors";
-import FormField from "../../components/FormField";
-import { PrimaryButton } from "../../components/CustomButton";
-import { handleNavigation } from "../../utils/naviagtionUtils";
-import { signUpUser } from "../../services/authService";
-import { UserService } from "@/services/UserService";
+import FormField from "../../../components/FormField";
+import { PrimaryButton } from "../../../components/CustomButton";
+import { handleNavigation } from "../../../utils/naviagtionUtils";
+import { signInUser } from "../../../services/authService";
 
 // Open items:
-// 5. Error handling for insufficient credentials ✓
-// 3. Input validation ✓
+// 5. Error handling for insufficient credentials
+// 3. Input validation
 // 1. Add a logo to the login page
 // 2. Add a forgot password link
 // 4. Add a loading indicator
-const SignUp = () => {
+
+const SignIn = () => {
   const theme = useTheme();
   const [form, setForm] = useState({
     email: "",
@@ -28,62 +28,44 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
 
-  const userService = new UserService();
   const router = useRouter();
 
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const handleSignUp = () => {
-    if (!validateEmail(form.email)) {
-      setEmailError("Invalid email address");
-      return;
-    }
-    if (form.password.length < 6) {
-      setPasswordError("Password must be at least 6 characters long");
-      return;
-    }
+  const handleSignIn = () => {
+    // Add your sign-in logic here
     setIsLoading(true);
-    signUpUser(form.email, form.password)
-      .then((user) => {
-        userService.createUser(user.user.uid, { email: form.email });
-        // handleNavigation(router, "/onboarding");
-      })
+    signInUser(form.email, form.password)
       .then(() => {
         setIsLoading(false);
-        handleNavigation(router, "/onboarding");
+        handleNavigation(router, "/home");
       })
       .catch((error) => {
         setIsLoading(false);
-        if (error.code === "auth/email-already-in-use") {
-          setEmailError("Email already in use");
-          alert("Email already in use");
-        }
-        console.log(error);
+        setEmailError(error.message);
       });
+    setIsLoading(false);
+  };
+
+  const handleForgotPassword = () => {
+    // Add your forgot password logic here
+    console.log("Forgot Password");
+    // handleNavigation(router, "/forgot-password");
   };
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <ScrollView>
+      <ScrollView style={{ flex: 1 }}>
         <View style={styles.formContainer}>
           {/* <Text style={styles.logoText}>Logo will be here</Text> */}
           <Text variant={"displayMedium"} style={styles.headerText}>
-            Sign Up for Match Meals!
+            Log in to Match Meals!
           </Text>
-
-          <TouchableOpacity onPress={() => handleNavigation(router, "/onboarding")}>
-            <Text>skip to onboarding</Text>
-          </TouchableOpacity>
 
           <FormField
             title="Email"
             value={form.email}
-            changeHandler={(e: string) => setForm({ ...form, email: e })}
+            changeHandler={(e) => setForm({ ...form, email: e })}
             keyboardType="email-address"
             left={
               <TextInput.Icon
@@ -94,15 +76,13 @@ const SignUp = () => {
               />
             }
           />
-          {emailError !== "" && <Text style={styles.errorText}>{emailError}</Text>}
 
           <View style={{ marginBottom: 30 }}>
             <FormField
               title="Password"
               value={form.password}
-              changeHandler={(p: string) => setForm({ ...form, password: p })}
+              changeHandler={(p) => setForm({ ...form, password: p })}
               secureTextEntry={showPassword}
-              keyboardType={"default"}
               left={
                 <TextInput.Icon
                   icon="lock"
@@ -121,24 +101,27 @@ const SignUp = () => {
                 />
               }
             />
-            {passwordError && <Text style={styles.errorText}>{passwordError}</Text>}
+            {emailError && <Text style={styles.errorText}>{"Incorrect email or password"}</Text>}
+
+            <TouchableOpacity onPress={handleForgotPassword}>
+              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+            </TouchableOpacity>
           </View>
 
           <View style={{ alignItems: "center" }}>
-            {/* NEED TO ADD LOADING */}
-            <PrimaryButton title="Sign Up" onPress={handleSignUp}></PrimaryButton>
+            <PrimaryButton title="Sign In" onPress={handleSignIn}></PrimaryButton>
             {/* <SignInButton
-              text="Sign Up"
-              onPress={handleSignUp}
+              text="Sign In"
+              onPress={handleSignIn}
               isLoading={isLoading}
               contentStyle={{ height: 60, width: 350 }}
             /> */}
           </View>
 
-          <View style={styles.signUpContainer}>
-            <Text>Already have an account? </Text>
-            <Link href="/sign-in" style={[styles.signUpLink, { color: theme.colors.primary }]}>
-              Sign in here!
+          <View style={styles.signInContainer}>
+            <Text>Don't have an account? </Text>
+            <Link href="/sign-up" style={[styles.signInLink, { color: theme.colors.primary }]}>
+              Sign up here!
             </Link>
           </View>
         </View>
@@ -150,7 +133,7 @@ const SignUp = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    // alignItems: "center",
     // backgroundColor: Colors.light.background,
   },
   formContainer: {
@@ -159,6 +142,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     flex: 1,
     marginVertical: 200,
+    // alignItems: "center",
   },
   logoText: {
     textAlign: "center",
@@ -180,15 +164,15 @@ const styles = StyleSheet.create({
     textAlign: "right",
     marginVertical: 8,
   },
-  signUpContainer: {
+  signInContainer: {
     marginTop: 20,
     flexDirection: "row",
     justifyContent: "center",
   },
-  signUpLink: {
+  signInLink: {
     // color: Colors.light.primary,
     textDecorationLine: "underline",
   },
 });
 
-export default SignUp;
+export default SignIn;
