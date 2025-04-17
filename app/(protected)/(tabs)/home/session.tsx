@@ -12,8 +12,11 @@ import {
   Text,
   Button,
 } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "expo-router";
+import * as Location from "expo-location";
+import * as dotenv from "dotenv";
+import axios from "axios";
 
 import { handleLike } from "@/utils/cardOperations";
 import { handleNavigation } from "@/utils/naviagtionUtils";
@@ -24,66 +27,114 @@ import { formatOpenHours } from "@/utils/parsing";
 import { Response, PlacePhotoResponse } from "../../../../constants/TestResponse";
 import { SCREEN_HEIGHT as sh, SCREEN_WIDTH as sw } from "@/utils/dimensions";
 import { Colors } from "@/constants/Colors";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+import { Place } from "@/interfaces/Place";
+import { Photo } from "@/interfaces/Photo";
 
-const data = [
-  "https://images.unsplash.com/photo-1681896616404-6568bf13b022?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1335&q=80",
-  "https://images.unsplash.com/photo-1681871197336-0250ed2fe23d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-  "https://images.unsplash.com/photo-1681238091934-10fbb34b497a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1282&q=80",
-];
-
-const profiles = [
-  {
-    id: 1,
-    name: "Restaurant A",
-    description: "Best food in town at Restautant A",
-    images: [
-      "https://images.unsplash.com/photo-1681896616404-6568bf13b022?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1335&q=80",
-      "https://images.unsplash.com/photo-1681871197336-0250ed2fe23d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-      "https://images.unsplash.com/photo-1681238091934-10fbb34b497a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1282&q=80",
-    ],
-    details: {
-      distance: "3 miles",
-    },
-  },
-  {
-    id: 2,
-    name: "Restaurant B",
-    description: "Best food in town at Restautant B",
-    images: [
-      "https://png.pngtree.com/png-vector/20231016/ourmid/pngtree-burger-food-png-free-download-png-image_10199386.png",
-    ],
-    details: {
-      distance: "5 miles",
-    },
-  },
-];
-
-// TEMPORARY FOR DEVELOPMENT PURPOSES
+dotenv.config();
 
 export default function SessionScreen() {
   const router = useRouter();
   const reversedProfiles = [...Response.places].reverse(); // Create a reversed copy
-  const [profiles, setProfiles] = useState(Response.places);
+  const [places, setPlaces] = useState<Place[] | null>(Response.places as Place[]);
+  const [photos, setPhotos] = useState<Photo[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
   const [currentProfile, setCurrentProfile] = useState(Response.places[Response.places.length - 1]);
-
+  const [location, setLocation] = useState<Location.LocationObject | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // useEffect(() => {
-  //   const fetchProfiles = async () => {
-  //     setLoading(true);
-  //     try {
-  //       const response = await fetch("google api url");
-  //       const data = await response.json();
-  //       setProfiles(data.Places);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //     setLoading(false);
-  //   };
-  // });
+  // Get current location
+  useEffect(() => {
+    const getCurrentLocation = async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        // show pop up to allow for location access
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    };
+    getCurrentLocation();
+  }, []);
+
+  // Get places and photos from Google API
+  useEffect(() => {
+    if (!location) return;
+    const abortController = new AbortController();
+    const fetchPlaces = async () => {
+      try {
+        setLoading(true);
+        // const response = await axios.get("google api url", { signal: abortController.signal });
+        let request_data = JSON.stringify({
+          includedTypes: ["restaurant", "cafe", "bar"],
+          maxResultCount: 3,
+          locationRestriction: {
+            circle: {
+              center: {
+                latitude: 40.657036995431,
+                longitude: -73.73086572511552,
+              },
+              radius: 1000,
+            },
+          },
+        });
+
+        let config = {
+          method: "post",
+          maxBodyLength: Infinity,
+          url: "https://places.googleapis.com/v1/places:searchNearby",
+          headers: {
+            "X-Goog-Api-Key": process.env.GOOGLE_API_KEY,
+            "X-Goog-FieldMask": `places.displayName,places.id,places.types,places.primaryType,places.primaryTypeDisplayName,
+              places.nationalPhoneNumber,places.rating,places.googleMapsUri,places.websiteUri,places.currentOpeningHours,
+              places.photos,places.formattedAddress,places.businessStatus,places.priceLevel,places.takeout,places.delivery,
+              places.servesVegetarianFood,places.allowsDogs,places.accessibilityOptions,places.generativeSummary,
+              places.dineIn,places.curbsidePickup,places.userRatingCount,places.priceRange`,
+            "Content-Type": "application/json",
+          },
+          data: request_data,
+          signal: abortController.signal,
+        };
+        const response = await axios.request(config);
+
+        const data = await response.data();
+        const newPlaces: Place[] = data.Places;
+        if (newPlaces.length === 0) {
+          return;
+        }
+        setPlaces((prev) => [...(prev ?? []), ...newPlaces]);
+
+        const photoResponses = await Promise.all(
+          newPlaces.map(async (place) => {
+            if (!place.photos) return [];
+
+            const responses = await Promise.all(
+              place.photos.map(async (photo) => {
+                await axios.get(
+                  `https://places.googleapis.com/v1/${photo.name}/media?key=${process.env.GOOGLE_API_KEY}&maxHeightPx=1600&skipHttpRedirect=true`
+                );
+              })
+            );
+            return responses;
+          })
+        );
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPlaces();
+
+    return () => {
+      abortController.abort();
+    };
+  }, [location]);
 
   const handleTapLeft = () => {
     setCurrentImageIndex(currentImageIndex == 0 ? 0 : currentImageIndex - 1);

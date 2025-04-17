@@ -63,8 +63,13 @@ interface Period {
   close?: Point;
 }
 
+interface GoogleDate {
+  year?: number;
+  month?: number;
+  day?: number;
+}
 interface Point {
-  date?: Date;
+  date?: GoogleDate;
   truncated?: boolean;
   day?: number;
   hour?: number;
@@ -83,7 +88,7 @@ interface OpeningTime {
 }
 
 interface SpecialDay {
-  date: Date;
+  date: GoogleDate;
 }
 
 enum SecondaryHoursType {
@@ -126,11 +131,12 @@ interface AccessibilityOptions {
 }
 
 interface GenerativeSummary {
-  overview: LocalizedText;
-  overviewFlagContentUri: string;
-  description: LocalizedText;
-  descriptionFlagContentUri: string;
-  reference: Reference;
+  overview?: LocalizedText;
+  overviewFlagContentUri?: string;
+  description?: LocalizedText;
+  descriptionFlagContentUri?: string;
+  reference?: Reference;
+  disclosureText?: LocalizedText;
 }
 
 interface Reference {
