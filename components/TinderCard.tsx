@@ -66,7 +66,7 @@ const TinderCardComponent: React.FC<RestaurantCardProps> = ({
 
           {/* Category and distance row */}
           <View style={styles.categoryRow}>
-            <Text style={styles.category}>{parseRestaurantType(category)}</Text>
+            {category && <Text style={styles.category}>{parseRestaurantType(category)}</Text>}
 
             <Text style={styles.distance}>{distance}</Text>
           </View>
@@ -74,7 +74,7 @@ const TinderCardComponent: React.FC<RestaurantCardProps> = ({
           {/* Rating, and price row */}
           <View style={styles.ratingRow}>
             {/* Insert star based reting */}
-            {renderStars(rating)}
+            {rating && renderStars(rating)}
             {/* Insert dollar sign based price enum */}
             {/* <PriceLevelComponent priceLevel={priceLevel} /> */}
           </View>

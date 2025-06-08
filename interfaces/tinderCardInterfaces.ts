@@ -9,12 +9,12 @@ interface RestaurantCardProps {
   OverlayLabelTop?: () => JSX.Element;
   imageUri?: string;
   RestaurantName: string;
-  description: string;
-  rating: number;
-  category: string;
-  priceLevel: string;
+  description?: string;
+  rating?: number;
+  category?: string;
+  priceLevel?: string;
   details?: string;
-  distance: string;
+  distance: number;
   onSwipedRight?: () => void;
   onSwipedLeft?: () => void;
   onSwipedTop?: () => void;
@@ -25,12 +25,12 @@ interface RestaurantCardProps {
 
 interface ExtendedCardProps extends RestaurantCardProps {
   title: string;
-  extendedDescription: string;
-  priceRange: { startPrice: any; endPrice: any };
-  website: string;
-  address: string;
-  phoneNumber: string;
-  openHours: OpeningHours;
+  extendedDescription?: string;
+  priceRange?: { startPrice: any; endPrice: any };
+  website?: string;
+  address?: string;
+  phoneNumber?: string;
+  openHours?: OpeningHours;
   onClose: () => void;
   onLike: () => void;
   onSkip: () => void;

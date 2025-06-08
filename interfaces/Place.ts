@@ -22,6 +22,10 @@ interface Place {
   takeout?: boolean;
   delivery?: boolean;
   dineIn?: boolean;
+  location?: {
+    latitude?: number;
+    longitude?: number;
+  };
   servesVegetarianFood?: boolean;
   currentOpeningHours?: OpeningHours;
   primaryType?: string;
