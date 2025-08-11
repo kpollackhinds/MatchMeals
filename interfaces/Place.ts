@@ -30,6 +30,7 @@ interface Place {
   currentOpeningHours?: OpeningHours;
   primaryType?: string;
   photos?: Photo[];
+  photoUris?: string[]; // Added to store the actual photo URIs
   allowsDogs?: boolean;
   accessibilityOptions?: AccessibilityOptions;
   generativeSummary?: GenerativeSummary;

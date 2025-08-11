@@ -3,19 +3,13 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     }
   },
   "include": [
     "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts",
-    "app/(private)/(tabs)/settings.tsx",
-    "app/(private)/(tabs)/home/session.tsx"
-  ],
-  "allowJs": true,
-  "skipLibCheck": true,
-  "resolveJsonModule": true,
-  "exclude": ["node_modules", "babel.config.js", "metro.config.js"]
+    "**/*.tsx"
+  ]
 }

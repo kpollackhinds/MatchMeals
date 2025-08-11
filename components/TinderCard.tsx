@@ -1,10 +1,16 @@
 import React from "react";
-import { Alert, Image, StyleSheet, View, TouchableWithoutFeedback, Text } from "react-native";
-import { TinderCard } from "rn-tinder-card";
-import renderStars from "../utils/renderStars";
-import { PriceLevelComponent } from "../utils/renderPrice";
-import { parseRestaurantType } from "../utils/parsing";
+import { Image, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
+import { PanGestureHandler } from "react-native-gesture-handler";
+import Animated, {
+  runOnJS,
+  useAnimatedGestureHandler,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from "react-native-reanimated";
 import { RestaurantCardProps } from "../interfaces/tinderCardInterfaces";
+import { parseRestaurantType } from "../utils/parsing";
+import renderStars from "../utils/renderStars";
 
 const TinderCardComponent: React.FC<RestaurantCardProps> = ({
   cardWidth,
@@ -26,65 +32,100 @@ const TinderCardComponent: React.FC<RestaurantCardProps> = ({
   onTapRight,
   onToggleExpand,
 }) => {
+  const translateX = useSharedValue(0);
+  const translateY = useSharedValue(0);
+  const rotate = useSharedValue(0);
+
+  const panGestureEvent = useAnimatedGestureHandler({
+    onStart: (_, context: any) => {
+      context.startX = translateX.value;
+      context.startY = translateY.value;
+    },
+    onActive: (event, context: any) => {
+      translateX.value = context.startX + event.translationX;
+      translateY.value = context.startY + event.translationY;
+      rotate.value = event.translationX * 0.1;
+    },
+    onEnd: (event) => {
+      const shouldSwipeLeft = event.translationX < -100;
+      const shouldSwipeRight = event.translationX > 100;
+      const shouldSwipeUp = event.translationY < -100;
+
+      if (shouldSwipeLeft) {
+        translateX.value = withSpring(-(cardWidth || 300) * 2);
+        if (onSwipedLeft) runOnJS(onSwipedLeft)();
+      } else if (shouldSwipeRight) {
+        translateX.value = withSpring((cardWidth || 300) * 2);
+        if (onSwipedRight) runOnJS(onSwipedRight)();
+      } else if (shouldSwipeUp) {
+        translateY.value = withSpring(-(cardHeight || 400) * 2);
+        if (onSwipedTop) runOnJS(onSwipedTop)();
+      } else {
+        translateX.value = withSpring(0);
+        translateY.value = withSpring(0);
+        rotate.value = withSpring(0);
+      }
+    },
+  });
+
+  const cardStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: translateX.value }, { translateY: translateY.value }, { rotate: `${rotate.value}deg` }],
+    };
+  });
+
   return (
-    <TinderCard
-      cardHeight={cardHeight}
-      cardWidth={cardWidth}
-      // OverlayLabelRight={OverlayLabelRight}
-      // OverlayLabelLeft={OverlayLabelLeft}
-      // OverlayLabelTop={OverlayLabelTop}
-      cardStyle={styles.card}
-      onSwipedRight={onSwipedRight}
-      onSwipedLeft={onSwipedLeft}
-      onSwipedTop={onSwipedTop}
-    >
-      <View style={styles.cardContent}>
-        {/* Image Section */}
-        <View style={styles.imageContainer}>
-          <Image source={{ uri: imageUri }} style={styles.image} />
-          <View style={styles.touchableContainerMain}>
-            <View style={styles.touchableContainerLR}>
-              <TouchableWithoutFeedback onPress={onTapLeft}>
-                <View style={styles.leftTouchable}></View>
-              </TouchableWithoutFeedback>
-              <TouchableWithoutFeedback onPress={onTapRight}>
-                <View style={styles.rightTouchable}></View>
-              </TouchableWithoutFeedback>
+    <PanGestureHandler onGestureEvent={panGestureEvent}>
+      <Animated.View style={[{ width: cardWidth, height: cardHeight }, cardStyle]}>
+        <View style={[styles.card, { width: cardWidth, height: cardHeight }]}>
+          <View style={styles.cardContent}>
+            {/* Image Section */}
+            <View style={styles.imageContainer}>
+              <Image source={{ uri: imageUri }} style={styles.image} />
+              <View style={styles.touchableContainerMain}>
+                <View style={styles.touchableContainerLR}>
+                  <TouchableWithoutFeedback onPress={onTapLeft}>
+                    <View style={styles.leftTouchable}></View>
+                  </TouchableWithoutFeedback>
+                  <TouchableWithoutFeedback onPress={onTapRight}>
+                    <View style={styles.rightTouchable}></View>
+                  </TouchableWithoutFeedback>
+                </View>
+                <TouchableWithoutFeedback onPress={onToggleExpand}>
+                  <View style={styles.bottomTouchable}></View>
+                </TouchableWithoutFeedback>
+              </View>
             </View>
-            <TouchableWithoutFeedback onPress={onToggleExpand}>
-              <View style={styles.bottomTouchable}></View>
-            </TouchableWithoutFeedback>
+
+            {/* Text Section */}
+            <View style={styles.textContainer}>
+              {/* Title Row */}
+              <View style={styles.titleRow}>
+                <Text style={styles.title}>{RestaurantName}</Text>
+              </View>
+
+              {/* Category and distance row */}
+              <View style={styles.categoryRow}>
+                {category && <Text style={styles.category}>{parseRestaurantType(category)}</Text>}
+                <Text style={styles.distance}>{distance}</Text>
+              </View>
+
+              {/* Rating, and price row */}
+              <View style={styles.ratingRow}>
+                {/* Insert star based reting */}
+                {rating && renderStars(rating)}
+                {/* Insert dollar sign based price enum */}
+                {/* <PriceLevelComponent priceLevel={priceLevel} /> */}
+              </View>
+
+              <Text style={styles.description} numberOfLines={3} ellipsizeMode="tail">
+                {description}
+              </Text>
+            </View>
           </View>
         </View>
-
-        {/* Text Section */}
-        <View style={styles.textContainer}>
-          {/* Title Row */}
-          <View style={styles.titleRow}>
-            <Text style={styles.title}>{RestaurantName}</Text>
-          </View>
-
-          {/* Category and distance row */}
-          <View style={styles.categoryRow}>
-            {category && <Text style={styles.category}>{parseRestaurantType(category)}</Text>}
-
-            <Text style={styles.distance}>{distance}</Text>
-          </View>
-
-          {/* Rating, and price row */}
-          <View style={styles.ratingRow}>
-            {/* Insert star based reting */}
-            {rating && renderStars(rating)}
-            {/* Insert dollar sign based price enum */}
-            {/* <PriceLevelComponent priceLevel={priceLevel} /> */}
-          </View>
-
-          <Text style={styles.description} numberOfLines={3} ellipsizeMode="tail">
-            {description}
-          </Text>
-        </View>
-      </View>
-    </TinderCard>
+      </Animated.View>
+    </PanGestureHandler>
   );
 };
 

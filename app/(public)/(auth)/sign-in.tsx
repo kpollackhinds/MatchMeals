@@ -1,15 +1,14 @@
-import { View, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
-import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
 import { Link, useRouter } from "expo-router";
+import React, { useState } from "react";
+import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Text, TextInput, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { TextInput, useTheme, Text } from "react-native-paper";
 
 // import { Colors } from "../../constants/colors";
-import FormField from "../../../components/FormField";
 import { PrimaryButton } from "../../../components/CustomButton";
-import { handleNavigation } from "../../../utils/naviagtionUtils";
+import FormField from "../../../components/FormField";
 import { signInUser } from "../../../services/authService";
+import { handleNavigation } from "../../../utils/naviagtionUtils";
 
 // Open items:
 // 5. Error handling for insufficient credentials

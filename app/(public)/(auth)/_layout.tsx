@@ -1,7 +1,5 @@
-import { View, Text } from "react-native";
 import React from "react";
-import { PaperProvider } from "react-native-paper";
-import { LightTheme } from "../../../constants/theme";
+// import { PaperProvider } from "react-native-paper";
 import { Stack } from "expo-router";
 
 const AuthLayout = () => {

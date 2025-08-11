@@ -1,79 +1,58 @@
-import {
-  Alert,
-  Image,
-  StyleSheet,
-  Platform,
-  View,
-  Modal,
-  Animated,
-  TouchableOpacity,
-  ScrollView,
-  SafeAreaView,
-  Text,
-  Button,
-} from "react-native";
-import { useState, useEffect, useCallback } from "react";
-import { useRouter } from "expo-router";
 import * as Location from "expo-location";
+import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { Modal, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 // import * as dotenv from "dotenv";
-import Constants from "expo-constants";
 import axios from "axios";
+import Constants from "expo-constants";
 
 import { handleLike, hasValidDisplayName } from "@/utils/cardOperations";
 import { handleNavigation } from "@/utils/naviagtionUtils";
 
-import { TinderCardComponent } from "../../../../components/TinderCard";
-import ExpandedCard from "../../../../components/ExpandedCard";
-import { formatOpenHours } from "@/utils/parsing";
-import getDistance from "@/utils/getDistance";
-import { Response, PlacePhotoResponse } from "../../../../constants/TestResponse";
-import { SCREEN_HEIGHT as sh, SCREEN_WIDTH as sw } from "@/utils/dimensions";
 import { Colors } from "@/constants/Colors";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
-import { Place } from "@/interfaces/Place";
 import { Photo } from "@/interfaces/Photo";
+import { Place } from "@/interfaces/Place";
+import { SCREEN_HEIGHT as sh, SCREEN_WIDTH as sw } from "@/utils/dimensions";
+import getDistance from "@/utils/getDistance";
+import ExpandedCard from "../../../../components/ExpandedCard";
+import { TinderCardComponent } from "../../../../components/TinderCard";
 
 // dotenv.config();
 
 export default function SessionScreen() {
   const router = useRouter();
-  const reversedProfiles = [...Response.places].reverse(); // Create a reversed copy
-  // const [places, setPlaces] = useState<Place[] | null>(Response.places as Place[]);
+  // Remove the reversedProfiles variable since we'll work with places directly
   const [places, setPlaces] = useState<Place[]>([]);
   const [photos, setPhotos] = useState<Photo[] | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
-  const [currentProfile, setCurrentProfile] = useState(Response.places[Response.places.length - 1] as Place);
+  const [currentProfile, setCurrentProfile] = useState<Place | null>(null);
   const [location, setLocation] = useState<Location.LocationObject | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Get current location
+  // Get current location and get places and photos from Google API
   useEffect(() => {
-    const getCurrentLocation = async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        // show pop up to allow for location access
-        return;
-      }
-      let location = await Location.getCurrentPositionAsync({});
-      console.log("Location: ", location.coords);
-      setLocation(location);
-    };
-    getCurrentLocation();
-  }, []);
-
-  // Get places and photos from Google API
-  useEffect(() => {
-    if (!location) return;
     const abortController = new AbortController();
-    const fetchPlaces = async () => {
+
+    const getLocationAndFetchPlaces = async () => {
       try {
         setLoading(true);
-        // const response = await axios.get("google api url", { signal: abortController.signal });
-        let request_data = JSON.stringify({
+        console.log("Getting current location");
+        let { status } = await Location.requestForegroundPermissionsAsync();
+
+        if (status !== "granted") {
+          setErrorMsg("Permission to access location was denied");
+          // show pop up to allow for location access
+          return;
+        }
+
+        let location = await Location.getCurrentPositionAsync({});
+        console.log("Location: ", location.coords);
+        setLocation(location);
+
+        let request_data = {
           includedTypes: ["restaurant", "cafe", "bar"],
           maxResultCount: 3,
           locationRestriction: {
@@ -85,19 +64,18 @@ export default function SessionScreen() {
               radius: 1000,
             },
           },
-        });
+        };
 
+        const apiKey = Constants.expoConfig?.extra?.GOOGLE_API_KEY;
+        console.log("API Key: ", apiKey);
         let config = {
           method: "post",
           maxBodyLength: Infinity,
           url: "https://places.googleapis.com/v1/places:searchNearby",
           headers: {
-            "X-Goog-Api-Key": Constants.expoConfig?.extra?.GOOGLE_API_KEY ?? "",
-            "X-Goog-FieldMask": `places.displayName,places.id,places.types,places.primaryType,places.primaryTypeDisplayName,
-              places.nationalPhoneNumber,places.rating,places.googleMapsUri,places.websiteUri,places.currentOpeningHours,
-              places.photos,places.formattedAddress,places.businessStatus,places.priceLevel,places.takeout,places.delivery,
-              places.servesVegetarianFood,places.allowsDogs,places.accessibilityOptions,places.generativeSummary,
-              places.dineIn,places.curbsidePickup,places.userRatingCount,places.priceRange,places.location`,
+            "X-Goog-Api-Key": apiKey ?? "",
+            "X-Goog-FieldMask":
+              "places.displayName,places.id,places.types,places.primaryType,places.primaryTypeDisplayName,places.nationalPhoneNumber,places.rating,places.googleMapsUri,places.websiteUri,places.currentOpeningHours,places.photos,places.formattedAddress,places.businessStatus,places.priceLevel,places.takeout,places.delivery,places.servesVegetarianFood,places.allowsDogs,places.accessibilityOptions,places.generativeSummary,places.dineIn,places.curbsidePickup,places.userRatingCount,places.priceRange,places.location",
             "Content-Type": "application/json",
           },
           data: request_data,
@@ -105,72 +83,97 @@ export default function SessionScreen() {
         };
         console.log("Making request to Google API");
         const response = await axios.request(config);
+        const data = response.data;
+        console.log("API Response:", data);
 
-        const data = await response.data();
+        if (!data.places || data.places.length === 0) {
+          console.log("No places found in API response");
+          setLoading(false);
+          return;
+        }
 
-        // const newPlaces: Place[] = data.Places.filter((place: Place) => place.displayName?.text != null);
-        const newPlaces: Place[] = data.Places.filter(hasValidDisplayName);
+        const newPlaces: Place[] = data.places.filter(hasValidDisplayName);
 
         if (newPlaces.length === 0) {
-          console.log("No places found");
+          console.log("No places with valid display names found");
+          setLoading(false);
           return;
         }
         console.log("Places found: ", newPlaces.length);
-        setPlaces((prev) => [...(prev ?? []), ...newPlaces]);
+        // Don't set places here, wait until after photo processing
 
         const placeWithPhotos = await Promise.all(
           newPlaces.map(async (place) => {
             if (!place.photos) return { ...place, photoUris: [] };
 
-            const responses = await Promise.all(
+            const photoResponses = await Promise.all(
               place.photos.map(async (photo) => {
-                axios
-                  .get(
-                    `https://places.googleapis.com/v1/${photo.name}/media?key=${process.env.GOOGLE_API_KEY}&maxHeightPx=1600&skipHttpRedirect=true`
-                  )
-                  .catch((error) => {
-                    console.error("Error fetching photo: ", error);
-                    return null;
-                  });
+                try {
+                  const response = await axios.get(
+                    `https://places.googleapis.com/v1/${photo.name}/media?key=${apiKey}&maxHeightPx=1600&skipHttpRedirect=true`
+                  );
+                  // The response might contain the photo URL directly or in photoUri field
+                  return response.data.photoUri || response.data || photo.googleMapsUri;
+                } catch (error) {
+                  console.error("Error fetching photo: ", error);
+                  // Fallback to the original Google Maps URI if API call fails
+                  return photo.googleMapsUri;
+                }
               })
             );
 
-            const validPhotoUris = responses.filter(Boolean);
+            const validPhotoUris = photoResponses.filter(Boolean);
             return { ...place, photoUris: validPhotoUris };
           })
         );
+
+        // Update places with photo URIs - this is the single place we set the places state
+        setPlaces(placeWithPhotos);
+
+        // Extract and set photos separately
+        const allPhotos = placeWithPhotos.flatMap((place) =>
+          (place.photos || []).map((photo, index) => ({
+            name: photo.name || "",
+            photoUri: place.photoUris?.[index] || photo.googleMapsUri || "",
+          }))
+        );
+        setPhotos(allPhotos);
       } catch (error) {
-        console.error(error);
+        console.error("Error in location/API flow:", error);
+        setErrorMsg("Error getting location");
       } finally {
+        console.log("location and places fetched");
         setLoading(false);
       }
     };
+    getLocationAndFetchPlaces();
+  }, []);
 
-    fetchPlaces();
+  // Set current profile when places are loaded or index changes
+  useEffect(() => {
+    if (places.length > 0 && currentProfileIndex < places.length) {
+      setCurrentProfile(places[currentProfileIndex]);
+    }
+  }, [places, currentProfileIndex]);
 
-    return () => {
-      abortController.abort();
-    };
-  }, [location]);
+  // Add debugging to see how many places we have
+  useEffect(() => {
+    console.log("Places array updated:", places.length, "places");
+    console.log("Current profile index:", currentProfileIndex);
+  }, [places, currentProfileIndex]);
 
   const handleTapLeft = () => {
     setCurrentImageIndex(currentImageIndex == 0 ? 0 : currentImageIndex - 1);
     console.log("Tapped left ", currentImageIndex);
   };
   const handleTapRight = () => {
-    // FIX AFTER CONVERSIONS TO TS
-    // setCurrentImageIndex(
-    //   (currentImageIndex + 1) %
-    //     reversedProfiles[currentProfileIndex].images.length
-    // );
-    // console.log(
-    //   "Tapped right ",
-    //   currentImageIndex,
-    //   reversedProfiles[currentProfileIndex].images.length
-    // );
+    const currentPlace = places[currentProfileIndex];
+    if (currentPlace && currentPlace.photoUris) {
+      setCurrentImageIndex((currentImageIndex + 1) % currentPlace.photoUris.length);
+      console.log("Tapped right ", currentImageIndex, currentPlace.photoUris.length);
+    }
   };
 
-  // FIX AFTER CONVERSION TO TS AND INCORPORATION OF ACTUAL API CALLS
   // PROFILE PROBABLY SHOULDNT BE ANY
   const handleTapBottom = (profile: Place) => {
     console.log("Enter detailed mode!");
@@ -179,11 +182,18 @@ export default function SessionScreen() {
   };
 
   const handleSwipeLeft = () => {
-    setCurrentProfileIndex(currentProfileIndex + 1);
+    if (currentProfileIndex < places.length - 1) {
+      setCurrentProfileIndex(currentProfileIndex + 1);
+      setCurrentImageIndex(0); // Reset image index for new place
+    }
     console.log("Swiped left ", currentProfileIndex);
   };
+
   const handleSwipeRight = () => {
-    setCurrentProfileIndex(currentProfileIndex + 1);
+    if (currentProfileIndex < places.length - 1) {
+      setCurrentProfileIndex(currentProfileIndex + 1);
+      setCurrentImageIndex(0); // Reset image index for new place
+    }
     handleLike();
     console.log("Swiped right ", currentProfileIndex);
   };
@@ -223,56 +233,85 @@ export default function SessionScreen() {
             <Text style={styles.exitSession}>End Session</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.cardStack}>
-          {[0, 1, 2].map((offset) => {
-            const index = currentProfileIndex + offset;
-            setCurrentProfile(places[index]);
-            return (
-              <View style={styles.cardContainer} pointerEvents="box-none" key={currentProfile.id}>
-                <TinderCardComponent
-                  onSwipedLeft={() => handleSwipeLeft()}
-                  onSwipedRight={() => handleSwipeRight()}
-                  onTapLeft={() => handleTapLeft()}
-                  onTapRight={() => handleTapRight()}
-                  onToggleExpand={() => handleTapBottom(currentProfile as Place)}
-                  cardWidth={sw * 0.88}
-                  cardHeight={sh * 0.75}
-                  // OverlayLabelRight={OverlayRight}
-                  imageUri={
-                    "https://lh3.googleusercontent.com/places/ANXAkqHkWUeM003sUtseVALF2CQyjp1aQ_gVclWrPC0fm9gpfvgcd29uf9UIMtuBWgdXW2paUlAbBta2XSyNu5wVcD5Lgke7fF1PiqA=s4800-w4800-h3196"
-                  }
-                  // imageUri={profile.photos[currentImageIndex].googleMapsUri}
-                  RestaurantName={currentProfile.displayName!.text!}
-                  description={currentProfile.generativeSummary?.overview?.text}
-                  rating={currentProfile.rating}
-                  priceLevel={currentProfile.priceLevel}
-                  category={currentProfile.types ? currentProfile.types[0] : ""}
-                  distance={getDistance(currentProfile.location?.latitude!, currentProfile.location?.longitude!)}
-                  // details={profile.details}
-                ></TinderCardComponent>
-              </View>
-            );
-          })}
-          {/* })} */}
-        </View>
+        {!loading && places.length > 0 ? (
+          <View style={styles.cardStack}>
+            {/* Render multiple cards in a stack */}
+            {places.map((place, index) => {
+              // Only render cards that should be visible in the stack
+              if (index < currentProfileIndex || index > currentProfileIndex + 2) {
+                return null;
+              }
+
+              const isCurrentCard = index === currentProfileIndex;
+
+              return (
+                <View
+                  style={[
+                    styles.cardContainer,
+                    { zIndex: places.length - index }, // Stack cards properly
+                  ]}
+                  pointerEvents={isCurrentCard ? "auto" : "none"}
+                  key={place.id || index}
+                >
+                  <TinderCardComponent
+                    onSwipedLeft={() => handleSwipeLeft()}
+                    onSwipedRight={() => handleSwipeRight()}
+                    onTapLeft={() => handleTapLeft()}
+                    onTapRight={() => handleTapRight()}
+                    onToggleExpand={() => handleTapBottom(place)}
+                    cardWidth={sw * 0.88}
+                    cardHeight={sh * 0.75}
+                    imageUri={
+                      place.photoUris && place.photoUris.length > 0
+                        ? place.photoUris[currentImageIndex] || place.photoUris[0]
+                        : place.photos && place.photos.length > 0
+                        ? place.photos[0].googleMapsUri
+                        : "https://lh3.googleusercontent.com/places/ANXAkqHkWUeM003sUtseVALF2CQyjp1aQ_gVclWrPC0fm9gpfvgcd29uf9UIMtuBWgdXW2paUlAbBta2XSyNu5wVcD5Lgke7fF1PiqA=s4800-w4800-h3196"
+                    }
+                    RestaurantName={place.displayName?.text || "Unknown Restaurant"}
+                    description={place.generativeSummary?.overview?.text || "No description available"}
+                    rating={place.rating || 0}
+                    priceLevel={place.priceLevel}
+                    category={place.types ? place.types[0] : "restaurant"}
+                    distance={
+                      place.location?.latitude && place.location?.longitude
+                        ? getDistance(place.location.latitude, place.location.longitude)
+                        : 0
+                    }
+                  />
+                </View>
+              );
+            })}
+          </View>
+        ) : (
+          <Text style={{ textAlign: "center", marginTop: 20 }}>{loading ? "Loading..." : "No places found"}</Text>
+        )}
         <Modal visible={isExpanded} animationType="slide" onRequestClose={handleClose}>
           <SafeAreaView style={{ flex: 1 }}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-              {isExpanded && (
+              {isExpanded && currentProfile && (
                 <ExpandedCard
                   title="Sample Title"
                   onClose={handleClose}
                   onLike={handleLike}
                   onSkip={handleSwipeLeft}
-                  RestaurantName={currentProfile.displayName!.text!}
+                  RestaurantName={currentProfile.displayName?.text || "Unknown Restaurant"}
                   imageUri={
-                    "https://lh3.googleusercontent.com/places/ANXAkqHkWUeM003sUtseVALF2CQyjp1aQ_gVclWrPC0fm9gpfvgcd29uf9UIMtuBWgdXW2paUlAbBta2XSyNu5wVcD5Lgke7fF1PiqA=s4800-w4800-h3196"
+                    currentProfile.photoUris && currentProfile.photoUris.length > 0
+                      ? currentProfile.photoUris[currentImageIndex] || currentProfile.photoUris[0]
+                      : currentProfile.photos && currentProfile.photos.length > 0
+                      ? currentProfile.photos[0].googleMapsUri
+                      : "https://lh3.googleusercontent.com/places/ANXAkqHkWUeM003sUtseVALF2CQyjp1aQ_gVclWrPC0fm9gpfvgcd29uf9UIMtuBWgdXW2paUlAbBta2XSyNu5wVcD5Lgke7fF1PiqA=s4800-w4800-h3196"
                   }
                   description={currentProfile.generativeSummary?.overview?.text}
                   rating={currentProfile.rating}
                   priceLevel={currentProfile.priceLevel}
                   category={currentProfile.types ? currentProfile.types[0] : ""}
-                  distance={getDistance(currentProfile.location?.latitude!, currentProfile.location?.longitude!)}
+                  distance={
+                    currentProfile.location?.latitude && currentProfile.location?.longitude
+                      ? getDistance(currentProfile.location.latitude, currentProfile.location.longitude)
+                      : 0
+                  }
                   website={currentProfile.websiteUri}
                   address={currentProfile.formattedAddress}
                   // openHours={formatOpenHours(currentProfile.currentOpeningHours)}
@@ -332,7 +371,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   cardContainer: {
-    position: "absolute",
+    ...StyleSheet.absoluteFillObject,
     justifyContent: "center",
     alignItems: "center",
   },
