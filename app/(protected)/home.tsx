@@ -1,84 +1,124 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Colors } from "../../constants/Colors";
 import { handleNavigation } from "@/utils/naviagtionUtils";
-import { SCREEN_HEIGHT as sh, SCREEN_WIDTH as sw } from "../../utils/dimensions";
-import { PrimaryButton, BrowseButton, GroupSessionButton } from "../../components/CustomButton";
-import userService from "@/services/UserService";
+import { BrowseButton, GroupSessionButton } from "../../components/CustomButton";
+import { Colors } from "../../constants/Colors";
+import { SCREEN_HEIGHT as sh } from "../../utils/dimensions";
 
 export default function HomeScreen() {
   const router = useRouter();
 
   return (
-    <SafeAreaView style={styles.Container}>
-      {/* Header (Profile + Menu Icons) */}
+    <SafeAreaView style={styles.container}>
+      {/* Modern Header */}
       <View style={styles.header}>
-        <Ionicons name="person-sharp" size={32} color="gray" />
-        <Ionicons name="menu" size={32} color="gray" />
+        <TouchableOpacity style={styles.headerButton} activeOpacity={0.7}>
+          <Ionicons name="person-outline" size={24} color={Colors.light.onSurface} />
+        </TouchableOpacity>
+        <Text style={styles.appName}>MatchMeals</Text>
+        <TouchableOpacity style={styles.headerButton} activeOpacity={0.7}>
+          <Ionicons name="menu-outline" size={24} color={Colors.light.onSurface} />
+        </TouchableOpacity>
       </View>
 
-      {/* Data test buttons */}
-      <View style={{ flexDirection: "row", justifyContent: "space-between", marginHorizontal: 20, marginTop: 20 }}>
-        <PrimaryButton
-          title="Add Data"
-          onPress={() => userService.updateUser({ info: { name: "John Doe" } })}
-          style={{ width: 100 }}
-        />
-        <PrimaryButton title="Fetch Data" onPress={() => userService.getCurrentUser()} style={{ width: 100 }} />
-      </View>
+      {/* Main Content */}
+      <View style={styles.content}>
+        {/* Welcome Section */}
+        <View style={styles.welcomeSection}>
+          <Text style={styles.welcomeText}>Ready to discover</Text>
+          <Text style={styles.titleText}>restaurants near you?</Text>
+          <Text style={styles.subtitleText}>Choose how you'd like to start matching</Text>
+        </View>
 
-      {/* Title + Arrow */}
-      <View style={styles.titleRow}>
-        <Text style={styles.title}>Start Matching!</Text>
-        {/* <FontAwesome6 name="down-long" size={50} color="black" /> */}
-        <MaterialCommunityIcons name="arrow-down-thick" size={72} color="#400396" />
-      </View>
+        {/* Action Buttons */}
+        <View style={styles.actionsContainer}>
+          <View style={styles.buttonWrapper}>
+            <BrowseButton onPress={() => handleNavigation(router, "/home/session")} />
+            <Text style={styles.buttonDescription}>Swipe through restaurants and find your perfect match</Text>
+          </View>
 
-      {/* Navigation Buttons */}
-      <View style={styles.buttonsContainer}>
-        <BrowseButton onPress={() => handleNavigation(router, "/home/session")} />
-        <GroupSessionButton onPress={() => handleNavigation(router, "/home")} />
+          <View style={styles.buttonWrapper}>
+            <GroupSessionButton onPress={() => handleNavigation(router, "/home/groupSession")} />
+            <Text style={styles.buttonDescription}>Match with friends and decide together</Text>
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  Container: {
+  container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: Colors.light.background,
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginHorizontal: 20,
-    marginTop: 20,
-  },
-
-  titleRow: {
-    flexDirection: "column",
-    justifyContent: "center",
     alignItems: "center",
-    gap: sh * 0.05,
-
-    marginTop: sh * 0.1,
-    marginBottom: sh * 0.03,
+    paddingHorizontal: 20,
+    paddingTop: 16,
+    paddingBottom: 8,
   },
-
-  buttonsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  headerButton: {
+    padding: 8,
+    borderRadius: 20,
+    backgroundColor: Colors.light.surfaceVariant,
+  },
+  appName: {
+    fontSize: 20,
+    fontWeight: "700",
+    color: Colors.light.primary,
+    letterSpacing: -0.5,
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: 20,
+  },
+  welcomeSection: {
+    marginTop: sh * 0.08,
+    marginBottom: sh * 0.06,
     alignItems: "center",
-    marginHorizontal: 20,
-    marginTop: 20,
   },
-  title: {
-    fontSize: 44,
+  welcomeText: {
+    fontSize: 24,
+    fontWeight: "400",
+    color: Colors.light.onSurfaceVariant,
+    textAlign: "center",
+    marginBottom: 8,
+  },
+  titleText: {
+    fontSize: 36,
     fontWeight: "800",
-    color: "black",
+    color: Colors.light.onBackground,
+    textAlign: "center",
+    marginBottom: 16,
+    lineHeight: 42,
+  },
+  subtitleText: {
+    fontSize: 16,
+    color: Colors.light.onSurfaceVariant,
+    textAlign: "center",
+    lineHeight: 22,
+    paddingHorizontal: 20,
+  },
+  actionsContainer: {
+    flex: 1,
+    gap: 24,
+  },
+  buttonWrapper: {
+    alignItems: "center",
+    gap: 12,
+  },
+  buttonDescription: {
+    fontSize: 14,
+    color: Colors.light.onSurfaceVariant,
+    textAlign: "center",
+    lineHeight: 20,
+    paddingHorizontal: 20,
   },
 });

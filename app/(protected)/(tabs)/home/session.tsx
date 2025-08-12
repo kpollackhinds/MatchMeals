@@ -1,8 +1,18 @@
 import * as Location from "expo-location";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Modal, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Modal,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 // import * as dotenv from "dotenv";
+import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import Constants from "expo-constants";
 
@@ -225,67 +235,89 @@ export default function SessionScreen() {
   };
 
   return (
-    // <View style={{ flex: 1 }} justifyContent="center" alignItems="center">
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+    <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <View style={styles.exitSessionContainer}>
-          <TouchableOpacity onPress={() => handleEndSession()}>
-            <Text style={styles.exitSession}>End Session</Text>
+        {/* Modern Header */}
+        <View style={styles.header}>
+          <TouchableOpacity style={styles.exitButton} onPress={handleEndSession} activeOpacity={0.7}>
+            <Ionicons name="close" size={24} color={Colors.light.onSurfaceVariant} />
+            <Text style={styles.exitButtonText}>End Session</Text>
           </TouchableOpacity>
         </View>
-        {!loading && places.length > 0 ? (
-          <View style={styles.cardStack}>
-            {/* Render multiple cards in a stack */}
-            {places.map((place, index) => {
-              // Only render cards that should be visible in the stack
-              if (index < currentProfileIndex || index > currentProfileIndex + 2) {
-                return null;
-              }
 
-              const isCurrentCard = index === currentProfileIndex;
+        {/* Content Area */}
+        <View style={styles.content}>
+          {loading ? (
+            <View style={styles.loadingContainer}>
+              <ActivityIndicator size="large" color={Colors.light.primary} />
+              <Text style={styles.loadingText}>Finding restaurants near you...</Text>
+              <Text style={styles.loadingSubtext}>This may take a moment</Text>
+            </View>
+          ) : places.length > 0 ? (
+            <View style={styles.cardStack}>
+              {/* Render multiple cards in a stack */}
+              {places.map((place, index) => {
+                // Only render cards that should be visible in the stack
+                if (index < currentProfileIndex || index > currentProfileIndex + 2) {
+                  return null;
+                }
 
-              return (
-                <View
-                  style={[
-                    styles.cardContainer,
-                    { zIndex: places.length - index }, // Stack cards properly
-                  ]}
-                  pointerEvents={isCurrentCard ? "auto" : "none"}
-                  key={place.id || index}
-                >
-                  <TinderCardComponent
-                    onSwipedLeft={() => handleSwipeLeft()}
-                    onSwipedRight={() => handleSwipeRight()}
-                    onTapLeft={() => handleTapLeft()}
-                    onTapRight={() => handleTapRight()}
-                    onToggleExpand={() => handleTapBottom(place)}
-                    cardWidth={sw * 0.88}
-                    cardHeight={sh * 0.75}
-                    imageUri={
-                      place.photoUris && place.photoUris.length > 0
-                        ? place.photoUris[currentImageIndex] || place.photoUris[0]
-                        : place.photos && place.photos.length > 0
-                        ? place.photos[0].googleMapsUri
-                        : "https://lh3.googleusercontent.com/places/ANXAkqHkWUeM003sUtseVALF2CQyjp1aQ_gVclWrPC0fm9gpfvgcd29uf9UIMtuBWgdXW2paUlAbBta2XSyNu5wVcD5Lgke7fF1PiqA=s4800-w4800-h3196"
-                    }
-                    RestaurantName={place.displayName?.text || "Unknown Restaurant"}
-                    description={place.generativeSummary?.overview?.text || "No description available"}
-                    rating={place.rating || 0}
-                    priceLevel={place.priceLevel}
-                    category={place.types ? place.types[0] : "restaurant"}
-                    distance={
-                      place.location?.latitude && place.location?.longitude
-                        ? getDistance(place.location.latitude, place.location.longitude)
-                        : 0
-                    }
-                  />
-                </View>
-              );
-            })}
-          </View>
-        ) : (
-          <Text style={{ textAlign: "center", marginTop: 20 }}>{loading ? "Loading..." : "No places found"}</Text>
-        )}
+                const isCurrentCard = index === currentProfileIndex;
+
+                return (
+                  <View
+                    style={[
+                      styles.cardContainer,
+                      { zIndex: places.length - index }, // Stack cards properly
+                    ]}
+                    pointerEvents={isCurrentCard ? "auto" : "none"}
+                    key={place.id || index}
+                  >
+                    <TinderCardComponent
+                      onSwipedLeft={() => handleSwipeLeft()}
+                      onSwipedRight={() => handleSwipeRight()}
+                      onTapLeft={() => handleTapLeft()}
+                      onTapRight={() => handleTapRight()}
+                      onToggleExpand={() => handleTapBottom(place)}
+                      cardWidth={sw * 0.88}
+                      cardHeight={sh * 0.75}
+                      imageUri={
+                        place.photoUris && place.photoUris.length > 0
+                          ? place.photoUris[currentImageIndex] || place.photoUris[0]
+                          : place.photos && place.photos.length > 0
+                          ? place.photos[0].googleMapsUri
+                          : "https://lh3.googleusercontent.com/places/ANXAkqHkWUeM003sUtseVALF2CQyjp1aQ_gVclWrPC0fm9gpfvgcd29uf9UIMtuBWgdXW2paUlAbBta2XSyNu5wVcD5Lgke7fF1PiqA=s4800-w4800-h3196"
+                      }
+                      RestaurantName={place.displayName?.text || "Unknown Restaurant"}
+                      description={place.generativeSummary?.overview?.text || "No description available"}
+                      rating={place.rating || 0}
+                      priceLevel={place.priceLevel}
+                      category={place.types ? place.types[0] : "restaurant"}
+                      distance={
+                        place.location?.latitude && place.location?.longitude
+                          ? getDistance(place.location.latitude, place.location.longitude)
+                          : 0
+                      }
+                    />
+                  </View>
+                );
+              })}
+            </View>
+          ) : (
+            <View style={styles.emptyStateContainer}>
+              <Ionicons name="restaurant-outline" size={64} color={Colors.light.onSurfaceVariant} />
+              <Text style={styles.emptyStateTitle}>No restaurants found</Text>
+              <Text style={styles.emptyStateSubtext}>
+                Try adjusting your location or check your internet connection
+              </Text>
+              <TouchableOpacity style={styles.retryButton} onPress={() => router.replace("/home/session")}>
+                <Text style={styles.retryButtonText}>Retry</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
+
+        {/* Modal for expanded card view */}
         <Modal visible={isExpanded} animationType="slide" onRequestClose={handleClose}>
           <SafeAreaView style={{ flex: 1 }}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -339,17 +371,105 @@ export default function SessionScreen() {
         </Modal>
       </View>
     </SafeAreaView>
-    // </View>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: Colors.light.background,
+  },
   container: {
-    flex: 1, // Take up the entire screen
-    // justifyContent: "center", // Center content vertically
-    // alignItems: "center", // Center content horizontally
+    flex: 1,
     flexDirection: "column",
   },
+  header: {
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    backgroundColor: Colors.light.surface,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.light.outlineVariant,
+  },
+  exitButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-end",
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+    backgroundColor: Colors.light.surfaceVariant,
+  },
+  exitButtonText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: Colors.light.onSurfaceVariant,
+    marginLeft: 8,
+  },
+  content: {
+    flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 40,
+  },
+  loadingText: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: Colors.light.onBackground,
+    marginTop: 24,
+    textAlign: "center",
+  },
+  loadingSubtext: {
+    fontSize: 14,
+    color: Colors.light.onSurfaceVariant,
+    marginTop: 8,
+    textAlign: "center",
+  },
+  emptyStateContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 40,
+  },
+  emptyStateTitle: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: Colors.light.onBackground,
+    marginTop: 24,
+    textAlign: "center",
+  },
+  emptyStateSubtext: {
+    fontSize: 14,
+    color: Colors.light.onSurfaceVariant,
+    marginTop: 12,
+    textAlign: "center",
+    lineHeight: 20,
+  },
+  retryButton: {
+    marginTop: 24,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    backgroundColor: Colors.light.primary,
+    borderRadius: 24,
+  },
+  retryButtonText: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: Colors.light.onPrimary,
+  },
+  cardStack: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cardContainer: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  // Legacy styles - keeping for compatibility
   exitSessionContainer: {
     padding: 20,
     flexDirection: "row",
@@ -360,38 +480,26 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: Colors.light.primary,
   },
-  cardStack: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   titleContainer: {
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
   },
-  cardContainer: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   card: {
     borderRadius: 48,
   },
-
   imageContainer: {
     width: 300,
     height: 300,
   },
   image: {
-    width: "100%", // Make the image take up the entire width of the container
-    height: "100%", // Make the image take up the entire height of the container
-    resizeMode: "cover", // Adjust image scaling (use 'contain', 'cover', etc. as needed)
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
   },
   likeButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
-    // width: "100%",
     alignItems: "center",
     paddingHorizontal: 20,
     paddingBottom: 20,
