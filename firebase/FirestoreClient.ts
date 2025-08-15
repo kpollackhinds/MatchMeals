@@ -1,6 +1,6 @@
 import { DeepPartial } from "@/utils/types";
+import { deleteDoc, doc, DocumentData, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "./firebaseConfig";
-import { collection, doc, getDoc, setDoc, updateDoc, deleteDoc, DocumentData } from "firebase/firestore";
 
 export class FirestoreClient<T> {
   private collectionName: string;
@@ -12,7 +12,7 @@ export class FirestoreClient<T> {
   async get(id: string): Promise<T | null> {
     const docRef = doc(db, this.collectionName, id);
     const docSnap = await getDoc(docRef);
-    return docSnap.exists() ? (docSnap.data() as T) : null;
+    return docSnap.exists() ? ({ id: docSnap.id, ...docSnap.data() } as T) : null;
   }
 
   async set(id: string, data: DocumentData): Promise<void> {

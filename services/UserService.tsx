@@ -1,24 +1,42 @@
-import { getAuth } from "firebase/auth";
-import { db } from "@/firebase/firebaseConfig";
-import { collection, getDocs, query, where, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
-import User from "@/models/User";
+import { auth } from "@/firebase/firebaseConfig";
 import { FirestoreClient } from "@/firebase/FirestoreClient";
+import User from "@/models/User";
 import { DeepPartial } from "@/utils/types";
 
 class UserService {
   private firestore = new FirestoreClient<User>("users");
 
   private getCurrentUserId(): string | null {
-    return getAuth().currentUser?.uid ?? null;
+    return auth.currentUser?.uid ?? null;
+    // return getAuth().currentUser?.uid ?? null;
   }
 
   async getCurrentUser(): Promise<User | null> {
-    const user = getAuth().currentUser;
+    const user = auth.currentUser;
+    // const user = getAuth().currentUser;
     if (!user) {
       console.log("User not authenticated");
       return null;
     }
-    return this.getUserById(user.uid);
+
+    const userDoc = await this.getUserById(user.uid);
+    // return this.getUserById(user.uid);
+    console.log("UserDoc from Firestore:", userDoc); // Debug line to see what's returned
+
+    if (!userDoc) {
+      // User authenticated but no Firestore document exists
+      console.log("No Firestore document found for user");
+      return {
+        id: user.uid,
+        email: user.email || "",
+      } as User;
+    }
+
+    // Ensure the returned user has an id property
+    return {
+      ...userDoc,
+      id: user.uid, // Always set id to the Firebase Auth UID
+    };
   }
 
   async getUserById(id: string): Promise<User | null> {

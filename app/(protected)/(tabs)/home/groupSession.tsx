@@ -19,7 +19,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { PrimaryButton } from "@/components/CustomButton";
 import { Colors } from "@/constants/Colors";
-import { Session } from "@/interfaces/session";
+import { Session } from "@/interfaces/Session";
 import { createSession, findSessionByShareCode, getSession, joinSession } from "@/services/sessionService";
 import userService from "@/services/UserService";
 
@@ -72,6 +72,8 @@ export default function GroupSessionScreen() {
     setIsGenerating(true);
     try {
       const currentUser = await userService.getCurrentUser();
+      console.log("Current user from service:", currentUser); // Add this debug line
+
       if (!currentUser?.id) {
         Alert.alert("Error", "User not authenticated");
         return;

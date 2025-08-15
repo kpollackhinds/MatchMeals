@@ -1,6 +1,6 @@
 // services/sessionService.ts
 import { db } from "@/firebase/firebaseConfig";
-import { Session } from "@/interfaces/session";
+import { Session } from "@/interfaces/Session";
 import {
   addDoc,
   arrayUnion,
